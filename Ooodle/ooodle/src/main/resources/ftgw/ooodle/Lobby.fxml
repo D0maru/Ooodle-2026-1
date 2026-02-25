@@ -5,10 +5,9 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane fx:id="PanelInterfaz" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.InterLobby">
    <children>
-      <BarChart fx:id="HistoEstad" barGap="3.0" categoryGap="5.0" layoutY="242.0" prefHeight="137.0" prefWidth="179.0" title="Estadisticas" titleSide="BOTTOM">
+      <BarChart fx:id="HistoEstad" barGap="3.0" categoryGap="5.0" layoutX="159.0" layoutY="153.0" prefHeight="137.0" prefWidth="179.0" title="Estadisticas" titleSide="BOTTOM">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
