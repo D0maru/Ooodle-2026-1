@@ -28,7 +28,7 @@
       <Label layoutX="23.0" layoutY="285.0" prefHeight="17.0" prefWidth="190.0" text="Tienes un máximo de seis intentos." />
       <Label layoutX="25.0" layoutY="113.0" prefHeight="17.0" prefWidth="184.0" text="el menor rango de teimpo posible." />
       <Label layoutX="22.0" layoutY="302.0" text="Al terminar el juego puedes verificar el resultado de los intentos realizados  " />
-      <Button layoutX="38.0" layoutY="339.0" mnemonicParsing="false" text="Volver">
+      <Button fx:id="botonVolver" layoutX="38.0" layoutY="339.0" mnemonicParsing="false" onAction="#volverLobby" text="Volver">
          <font>
             <Font name="System Italic" size="15.0" />
          </font>
