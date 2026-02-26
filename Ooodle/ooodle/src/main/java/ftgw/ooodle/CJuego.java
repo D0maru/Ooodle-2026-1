@@ -44,7 +44,9 @@ public class CJuego {
 
     @FXML
     void Click(ActionEvent event) {
-
+         // Esto sirve para saber qué botón tocaste en la consola
+        Button botonPresionado = (Button) event.getSource();
+        System.out.println("Presionaste el botón: " + botonPresionado.getText());
     }
 
 }
