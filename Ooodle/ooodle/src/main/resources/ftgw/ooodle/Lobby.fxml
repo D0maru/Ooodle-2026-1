@@ -16,6 +16,6 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <Button layoutX="406.0" layoutY="229.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="107.0" text="REGLAS" />
+      <Button fx:id="botonReglas" layoutX="406.0" layoutY="229.0" mnemonicParsing="false" onAction="#traerReglas" prefHeight="39.0" prefWidth="107.0" text="REGLAS" />
    </children>
 </AnchorPane>
