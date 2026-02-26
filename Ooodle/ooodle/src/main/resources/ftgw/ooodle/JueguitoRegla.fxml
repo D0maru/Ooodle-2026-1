@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="PanelBase" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="537.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.CReglas">
+   <children>
+      <Label fx:id="labeltitulo" layoutX="170.0" layoutY="26.0" prefHeight="23.0" prefWidth="221.0" text="¿Como Jugar Ooodle?" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="72.0" prefHeight="17.0" prefWidth="289.0" text="Al iniciar a Ooodle, selecciona tu rango de números: " />
+      <Label layoutX="299.0" layoutY="72.0" prefHeight="17.0" prefWidth="116.0" text="&quot;(1 a 9) o (1 a12)&quot;.">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="96.0" prefHeight="17.0" prefWidth="474.0" text="El objetivo del juego es completar los espacios en blanco con números y operaciones en" />
+      <Label layoutX="18.0" layoutY="141.0" prefHeight="17.0" prefWidth="481.0" text="Haga Clic en el cuadro de respuesta e introduzca una combinación aleatoria de números" />
+      <Label layoutX="25.0" layoutY="158.0" prefHeight="17.0" prefWidth="162.0" text="que den el resultado solicitado." />
+      <Label layoutX="22.0" layoutY="192.0" text="Después de enviar tu ecuación, el juego te muestra colores como pistas:" />
+      <Label layoutX="47.0" layoutY="216.0" text="Verde: número en la posición correcta." />
+      <Label layoutX="47.0" layoutY="233.0" text="Amarillo: número presente pero en otra posición." />
+      <Label layoutX="45.0" layoutY="250.0" prefHeight="17.0" prefWidth="282.0" text="Gris: número que no aparece en la ecuación objetivo" />
+      <Label layoutX="23.0" layoutY="285.0" prefHeight="17.0" prefWidth="190.0" text="Tienes un máximo de seis intentos." />
+      <Label layoutX="25.0" layoutY="113.0" prefHeight="17.0" prefWidth="184.0" text="el menor rango de teimpo posible." />
+      <Label layoutX="22.0" layoutY="302.0" text="Al terminar el juego puedes verificar el resultado de los intentos realizados  " />
+      <Button layoutX="38.0" layoutY="339.0" mnemonicParsing="false" text="Volver">
+         <font>
+            <Font name="System Italic" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
