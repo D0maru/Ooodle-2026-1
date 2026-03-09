@@ -4,7 +4,6 @@ public class GenerarEcuacion {
     private static int evaluate(int a, int b, int c, int d) {
         return (a * b) + c - d;
     }
-
     public static int[] generateEquation(int target, boolean modoDificil) { //retorna un arreglo [a,b,c,d]
         int min = 1;
         int max;
