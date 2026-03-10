@@ -1,6 +1,5 @@
 package ftgw.ooodle;
 
-import java.util.Arrays;
 
 public class GenerarEcuacion {
 
@@ -43,6 +42,28 @@ public class GenerarEcuacion {
             target = (int)(Math.random() * 83) - 4;
         }
         int[] eq = generateEquation(target, modoDificil);
-        System.out.println(Arrays.toString(eq));
+        System.out.print("Respuesta ingresada:" + target + " || Dificultad: ");
+        if (modoDificil) {
+            System.out.println("1 - 12");
+        }else{
+            System.out.println("1 - 9");
+        }
+
+
+        for (int i = 0; i < eq.length; i++) {
+            switch (i) {
+                case 1:
+                    System.out.print(" x ");
+                    break;
+                case 2:
+                    System.out.print(" + ");
+                    break;
+                case 3:
+                    System.out.print(" - ");
+                    break;
+            }
+            System.out.print(eq[i]);
+        }
+        System.out.print(" = "+target);
     }
 }
