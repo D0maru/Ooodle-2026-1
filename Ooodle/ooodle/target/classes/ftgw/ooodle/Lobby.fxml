@@ -20,7 +20,7 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </BarChart>
-      <Button layoutX="345.0" layoutY="315.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="107.0" text="REGLAS" />
+      <Button fx:id="botonReglas" layoutX="345.0" layoutY="315.0" mnemonicParsing="false" onAction="#traerReglas" prefHeight="39.0" prefWidth="107.0" text="REGLAS" />
       <Label layoutX="259.0" layoutY="35.0" prefHeight="39.0" prefWidth="94.0" text="Oddle" textAlignment="CENTER">
          <font>
             <Font size="28.0" />

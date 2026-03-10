@@ -29,7 +29,7 @@ public class CLobby {
     @FXML
     void traerReglas(ActionEvent event) {
          try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("JueguitoRegla.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Reglas.fxml"));
         Parent root = loader.load();
 
         PanelInterfaz.getChildren().clear();

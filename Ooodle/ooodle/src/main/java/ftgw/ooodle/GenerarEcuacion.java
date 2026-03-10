@@ -1,4 +1,7 @@
 package ftgw.ooodle;
+
+import java.util.Arrays;
+
 public class GenerarEcuacion {
 
     private static int evaluate(int a, int b, int c, int d) {
@@ -32,13 +35,14 @@ public class GenerarEcuacion {
         return null;
     }
     public static void main(String[] args) {
-        int target = 0;
+        int target = 11;
         boolean modoDificil = false; // false = 1-9, true = 1-12
         if(modoDificil){
             target = (int)(Math.random() * 149) - 7;
         }else{
             target = (int)(Math.random() * 83) - 4;
         }
-        //int[] eq = generateEquation(target, modoDificil);
+        int[] eq = generateEquation(target, modoDificil);
+        System.out.println(Arrays.toString(eq));
     }
 }
