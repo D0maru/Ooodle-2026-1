@@ -56,22 +56,18 @@ public class CJuegoPracticaFacil {
     }
     @FXML
 private Button BtnRPP; // Este debe coincidir con el fx:id de tu FXML
-
     @FXML
     void volverAlLobby(ActionEvent event) {
         try {
             // 1. Cargar el archivo FXML del lobby
             FXMLLoader loader = new FXMLLoader(getClass().getResource("lobby.fxml"));
             Parent root = loader.load();
-
             // 2. Obtener el Stage (la ventana) actual a partir del botón que se presionó
             Stage stage = (Stage) BtnRPP.getScene().getWindow();
-
             // 3. Cambiar la escena
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-            
         } catch (IOException e) {
             System.err.println("Error al cargar el lobby: " + e.getMessage());
             e.printStackTrace();
