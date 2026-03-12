@@ -251,7 +251,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <Button fx:id="BtnRPP" layoutX="45.0" layoutY="39.0" mnemonicParsing="false">
+      <Button fx:id="BtnRPP" layoutX="45.0" layoutY="39.0" mnemonicParsing="false" onAction="#volverAlLobby">
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -263,7 +263,7 @@
             <Font name="System Italic" size="25.0" />
          </font>
       </Label>
-      <Button fx:id="BtnRPP" layoutX="42.0" layoutY="61.0" mnemonicParsing="false">
+      <Button fx:id="BtnRPP" layoutX="42.0" layoutY="61.0" mnemonicParsing="false" onAction="#volverAlLobby">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
