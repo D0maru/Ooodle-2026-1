@@ -24,22 +24,21 @@ public class CReglas {
 
     @FXML
     void volverLobby(ActionEvent event) {
+
         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Lobby.fxml"));
-        Parent root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Lobby.fxml"));
+            Parent root = loader.load();
 
-        PanelBase.getChildren().clear();
-        PanelBase.getChildren().add(root);
+            PanelBase.getChildren().clear();
+            PanelBase.getChildren().add(root);
 
-        AnchorPane.setTopAnchor(root, 0.0);
-        AnchorPane.setBottomAnchor(root, 0.0);
-        AnchorPane.setLeftAnchor(root, 0.0);
-        AnchorPane.setRightAnchor(root, 0.0);
+            AnchorPane.setTopAnchor(root, 0.0);
+            AnchorPane.setBottomAnchor(root, 0.0);
+            AnchorPane.setLeftAnchor(root, 0.0);
+            AnchorPane.setRightAnchor(root, 0.0);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }

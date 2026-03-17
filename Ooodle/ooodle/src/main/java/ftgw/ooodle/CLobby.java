@@ -29,7 +29,7 @@ public class CLobby {
     @FXML
     void traerReglas(ActionEvent event) {
          try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("JueguitoRegla.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Reglas.fxml"));
         Parent root = loader.load();
 
         PanelInterfaz.getChildren().clear();
@@ -70,6 +70,43 @@ public class CLobby {
         }
         
         animation.play(); // Ejecuta el movimiento
+    }
+
+    @FXML
+    void abrirJPrac(ActionEvent event) {
+     try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("JuegoPracticaFacil.fxml"));
+        Parent root = loader.load();
+
+        PanelInterfaz.getChildren().clear();
+        PanelInterfaz.getChildren().add(root);
+
+        AnchorPane.setTopAnchor(root, 0.0);
+        AnchorPane.setBottomAnchor(root, 0.0);
+        AnchorPane.setLeftAnchor(root, 0.0);
+        AnchorPane.setRightAnchor(root, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    void abrirJdiario(ActionEvent event) { 
+         try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("JuegoDiarioFacil.fxml"));
+        Parent root = loader.load();
+
+        PanelInterfaz.getChildren().clear();
+        PanelInterfaz.getChildren().add(root);
+
+        AnchorPane.setTopAnchor(root, 0.0);
+        AnchorPane.setBottomAnchor(root, 0.0);
+        AnchorPane.setLeftAnchor(root, 0.0);
+        AnchorPane.setRightAnchor(root, 0.0);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

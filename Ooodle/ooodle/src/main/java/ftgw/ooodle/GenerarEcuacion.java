@@ -1,4 +1,6 @@
 package ftgw.ooodle;
+
+
 public class GenerarEcuacion {
 
     private static int evaluate(int a, int b, int c, int d) {
@@ -32,13 +34,36 @@ public class GenerarEcuacion {
         return null;
     }
     public static void main(String[] args) {
-        int target = 0;
+        int target = 11;
         boolean modoDificil = false; // false = 1-9, true = 1-12
         if(modoDificil){
             target = (int)(Math.random() * 149) - 7;
         }else{
             target = (int)(Math.random() * 83) - 4;
         }
-        //int[] eq = generateEquation(target, modoDificil);
+        int[] eq = generateEquation(target, modoDificil);
+        System.out.print("Respuesta ingresada:" + target + " || Dificultad: ");
+        if (modoDificil) {
+            System.out.println("1 - 12");
+        }else{
+            System.out.println("1 - 9");
+        }
+
+
+        for (int i = 0; i < eq.length; i++) {
+            switch (i) {
+                case 1:
+                    System.out.print(" x ");
+                    break;
+                case 2:
+                    System.out.print(" + ");
+                    break;
+                case 3:
+                    System.out.print(" - ");
+                    break;
+            }
+            System.out.print(eq[i]);
+        }
+        System.out.print(" = "+target);
     }
 }

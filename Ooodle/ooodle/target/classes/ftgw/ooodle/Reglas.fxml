@@ -12,23 +12,56 @@
             <Font name="System Bold Italic" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="22.0" layoutY="72.0" prefHeight="17.0" prefWidth="289.0" text="Al iniciar a Ooodle, selecciona tu rango de números: " />
-      <Label layoutX="299.0" layoutY="72.0" prefHeight="17.0" prefWidth="116.0" text="&quot;(1 a 9) o (1 a12)&quot;.">
+      <Label layoutX="25.0" layoutY="60.0" prefHeight="17.0" prefWidth="289.0" text="Al iniciar a Ooodle, selecciona tu rango de números: ">
          <font>
-            <Font name="System Bold" size="12.0" />
+            <Font size="16.0" />
+         </font></Label>
+      <Label layoutX="320.0" layoutY="60.0" prefHeight="25.0" prefWidth="143.0" text="&quot;(1 a 9) o (1 a12)&quot;.">
+         <font>
+            <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Label layoutX="22.0" layoutY="96.0" prefHeight="17.0" prefWidth="474.0" text="El objetivo del juego es completar los espacios en blanco con números y operaciones en" />
-      <Label layoutX="18.0" layoutY="141.0" prefHeight="17.0" prefWidth="481.0" text="Haga Clic en el cuadro de respuesta e introduzca una combinación aleatoria de números" />
-      <Label layoutX="25.0" layoutY="158.0" prefHeight="17.0" prefWidth="162.0" text="que den el resultado solicitado." />
-      <Label layoutX="22.0" layoutY="192.0" text="Después de enviar tu ecuación, el juego te muestra colores como pistas:" />
-      <Label layoutX="47.0" layoutY="216.0" text="Verde: número en la posición correcta." />
-      <Label layoutX="47.0" layoutY="233.0" text="Amarillo: número presente pero en otra posición." />
-      <Label layoutX="45.0" layoutY="250.0" prefHeight="17.0" prefWidth="282.0" text="Gris: número que no aparece en la ecuación objetivo" />
-      <Label layoutX="23.0" layoutY="285.0" prefHeight="17.0" prefWidth="190.0" text="Tienes un máximo de seis intentos." />
-      <Label layoutX="25.0" layoutY="113.0" prefHeight="17.0" prefWidth="184.0" text="el menor rango de teimpo posible." />
-      <Label layoutX="22.0" layoutY="302.0" text="Al terminar el juego puedes verificar el resultado de los intentos realizados  " />
-      <Button fx:id="botonVolver" layoutX="38.0" layoutY="339.0" mnemonicParsing="false" onAction="#volverLobby" text="Volver">
+      <Label layoutX="23.0" layoutY="85.0" prefHeight="25.0" prefWidth="515.0" text="El objetivo del juego es completar los espacios en blanco con números y operaciones en">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label layoutX="18.0" layoutY="141.0" prefHeight="19.0" prefWidth="515.0" text="Haga Clic en el cuadro de respuesta e introduzca una combinación aleatoria de números">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label layoutX="18.0" layoutY="160.0" prefHeight="19.0" prefWidth="183.0" text="que den el resultado solicitado.">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label layoutX="18.0" layoutY="191.0" prefHeight="19.0" prefWidth="442.0" text="Después de enviar tu ecuación, el juego te muestra colores como pistas:">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label layoutX="38.0" layoutY="210.0" text="Verde: número en la posición correcta.">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label layoutX="38.0" layoutY="229.0" text="Amarillo: número presente pero en otra posición.">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label layoutX="38.0" layoutY="254.0" prefHeight="19.0" prefWidth="316.0" text="Gris: número que no aparece en la ecuación objetivo">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label layoutX="23.0" layoutY="285.0" prefHeight="19.0" prefWidth="214.0" text="Tienes un máximo de seis intentos.">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label layoutX="25.0" layoutY="110.0" prefHeight="19.0" prefWidth="214.0" text="el menor rango de tiempo posible.">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Label layoutX="22.0" layoutY="302.0" prefHeight="19.0" prefWidth="449.0" text="Al terminar el juego puedes verificar el resultado de los intentos realizados  ">
+         <font>
+            <Font size="13.0" />
+         </font></Label>
+      <Button fx:id="botonVolver" layoutX="245.0" layoutY="341.0" mnemonicParsing="false" onAction="#volverLobby" text="Volver">
          <font>
             <Font name="System Italic" size="15.0" />
          </font>
