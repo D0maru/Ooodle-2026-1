@@ -1,7 +1,7 @@
 package ftgw.ooodle;
 
 
-public class GenerarEcuacion {
+public class Ecuacion {
 
     private static int evaluate(int a, int b, int c, int d) {
         return (a * b) + c - d;
