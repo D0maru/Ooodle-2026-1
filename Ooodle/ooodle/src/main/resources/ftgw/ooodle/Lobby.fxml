@@ -10,40 +10,53 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="PanelInterfaz" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.CLobby">
+<AnchorPane fx:id="PanelInterfaz" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.CLobby">
+
    <children>
-      <BarChart fx:id="HistoEstad" barGap="3.0" categoryGap="5.0" layoutX="399.0" layoutY="75.0" prefHeight="137.0" prefWidth="179.0" title="Estadisticas" titleSide="BOTTOM">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" />
-        </yAxis>
-      </BarChart>
-      <Button fx:id="botonReglas" layoutX="237.0" layoutY="322.0" mnemonicParsing="false" onAction="#traerReglas" prefHeight="39.0" prefWidth="107.0" style="-fx-background-color: green;" text="Reglas" textFill="#efecec">
-         <font>
-            <Font size="14.0" />
-         </font></Button>
-      <Label layoutX="259.0" layoutY="35.0" prefHeight="39.0" prefWidth="94.0" text="Oddle" textAlignment="CENTER">
+
+      <Label alignment="CENTER" layoutX="146.0" layoutY="111.0" prefHeight="40.0" prefWidth="295.0" text="Oddle" AnchorPane.leftAnchor="146.0" AnchorPane.rightAnchor="159.0" AnchorPane.topAnchor="111.0">
          <font>
             <Font size="28.0" />
          </font>
       </Label>
-      <Label fx:id="lblRango" layoutX="21.0" layoutY="78.0" text="Numbers 1 to 9" />
-      <Pane layoutX="113.0" layoutY="75.0" onMouseClicked="#cambiarDificultad" prefHeight="23.0" prefWidth="42.0" style="-fx-background-color: gray;">
+
+      <Label fx:id="lblRango" layoutX="187.0" layoutY="167.0" text="Numbers 1 to 9" AnchorPane.leftAnchor="187.0" AnchorPane.topAnchor="167.0" />
+
+      <Pane layoutX="330.0" layoutY="164.0" onMouseClicked="#cambiarDificultad" prefHeight="23.0" prefWidth="42.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="330.0" AnchorPane.topAnchor="164.0">
          <children>
             <Circle fx:id="circuloDificultad" layoutX="9.0" layoutY="12.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
       </Pane>
-      <Button fx:id="btnPractica" layoutX="104.0" layoutY="245.0" mnemonicParsing="false" onAction="#abrirJPrac" prefHeight="40.0" prefWidth="128.0" style="-fx-background-color: green;" text="Modo Practica" textFill="#ece9e9">
+
+      <BarChart fx:id="HistoEstad" barGap="3.0" categoryGap="5.0" layoutX="381.0" layoutY="14.0" prefHeight="96.0" prefWidth="213.0" title="Estadisticas" titleSide="BOTTOM" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="14.0">
+
+         <xAxis>
+            <CategoryAxis side="BOTTOM" />
+         </xAxis>
+
+         <yAxis>
+            <NumberAxis side="LEFT" />
+         </yAxis>
+
+      </BarChart>
+
+      <Button fx:id="btnPractica" onAction="#abrirJPrac" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: green;" text="Modo Practica" textFill="#ece9e9" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="120.0">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
-      <Button fx:id="btnDiario" layoutX="344.0" layoutY="245.0" mnemonicParsing="false" onAction="#abrirJdiario" prefHeight="40.0" prefWidth="146.0" style="-fx-background-color: green;" text="Juego Diario" textFill="#fcfafa">
+
+      <Button fx:id="btnDiario" onAction="#abrirJdiario" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: green;" text="Juego Diario" textFill="#fcfafa" AnchorPane.bottomAnchor="80.0" AnchorPane.rightAnchor="120.0">
          <font>
             <Font size="14.0" />
          </font>
       </Button>
+
+      <Button fx:id="botonReglas" layoutX="162.0" layoutY="336.0" onAction="#traerReglas" prefHeight="40.0" prefWidth="262.0" style="-fx-background-color: green;" text="Reglas" textFill="#efecec" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="162.0" AnchorPane.rightAnchor="176.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+
    </children>
 </AnchorPane>
