@@ -14,7 +14,7 @@
             <Image url="@../../../../../../../../../../../../SceneBuilder/GAMEOVER.jpg" />
          </image>
       </ImageView>
-      <Button layoutX="225.0" layoutY="292.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="149.0" style="-fx-background-color: white;" text="Inicio">
+      <Button fx:id="BotonRegresolobby" layoutX="225.0" layoutY="292.0" mnemonicParsing="false" onAction="#Volver" prefHeight="41.0" prefWidth="149.0" style="-fx-background-color: white;" text="Inicio">
          <graphic>
             <ImageView fitHeight="38.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                <image>
