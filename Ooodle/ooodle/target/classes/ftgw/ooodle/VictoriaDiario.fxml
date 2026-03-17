@@ -15,7 +15,7 @@
          <graphic>
             <ImageView fitHeight="59.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../../../../SceneBuilder/ICONO.png" />
+                  <Image url="@../../imagenes/Boton.jpg" />
                </image>
             </ImageView>
          </graphic>
@@ -27,14 +27,14 @@
          <graphic>
             <ImageView fitHeight="64.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../../../../../SceneBuilder/Boton.jpg" />
+                  <Image url="@../../imagenes/ICONO.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
       <ImageView fitHeight="235.0" fitWidth="355.0" layoutX="115.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../../../../../SceneBuilder/VICTORY.jpg" />
+            <Image url="@../../imagenes/VICTORY.jpg" />
          </image>
       </ImageView>
    </children>
