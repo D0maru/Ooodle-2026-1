@@ -17,7 +17,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("Lobby"));
+        scene = new Scene(loadFXML("Vista/DerrotaPractica")); //no olvidar el Vista\(nombre del fxml)
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
