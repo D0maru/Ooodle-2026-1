@@ -14,7 +14,7 @@
             <Image url="@../../../imagenes/GAMEOVER.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="botonRegresoLobby" layoutX="98.0" layoutY="281.0" mnemonicParsing="false" onAction="#Volver" prefHeight="37.0" prefWidth="113.0" style="-fx-background-color: white;" text="Inicio">
+      <Button fx:id="botonRegresoLobby" layoutX="98.0" layoutY="281.0" mnemonicParsing="false" onAction="#Volver_Inicio" prefHeight="37.0" prefWidth="113.0" style="-fx-background-color: white;" text="Inicio">
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -31,7 +31,7 @@
             <Font name="Bell MT" size="15.0" />
          </font>
       </Label>
-      <Button fx:id="botonjugardenuevo" layoutX="380.0" layoutY="281.0" mnemonicParsing="false" onAction="#jugar" prefHeight="37.0" prefWidth="113.0" style="-fx-background-color: white;" text="Restart">
+      <Button fx:id="botonjugardenuevo" layoutX="380.0" layoutY="281.0" mnemonicParsing="false" onAction="#Volver_a_Jugar" prefHeight="37.0" prefWidth="113.0" style="-fx-background-color: white;" text="Restart">
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>

@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.Controladores.CVictoriaPractica">
    <children>
-      <Button fx:id="botonRegresoLobby" layoutX="65.0" layoutY="310.0" mnemonicParsing="false" onAction="#Regresar" prefHeight="39.0" prefWidth="113.0" style="-fx-background-color: white;" text="Inicio">
+      <Button fx:id="botonRegresoLobby" layoutX="65.0" layoutY="310.0" mnemonicParsing="false" onAction="#Volver_Inicio" prefHeight="39.0" prefWidth="113.0" style="-fx-background-color: white;" text="Inicio">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
@@ -20,7 +20,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="botonjugardenuevo" layoutX="428.0" layoutY="310.0" mnemonicParsing="false" onAction="#jugar" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: white;" text="Restart">
+      <Button fx:id="botonjugardenuevo" layoutX="428.0" layoutY="310.0" mnemonicParsing="false" onAction="#Volver_a_Jugar" prefHeight="39.0" prefWidth="129.0" style="-fx-background-color: white;" text="Restart">
          <font>
             <Font name="System Bold Italic" size="15.0" />
          </font>
