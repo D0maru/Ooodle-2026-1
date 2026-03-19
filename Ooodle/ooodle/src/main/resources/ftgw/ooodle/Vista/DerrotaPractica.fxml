@@ -11,14 +11,14 @@
    <children>
       <ImageView fitHeight="253.0" fitWidth="391.0" layoutX="184.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../imagenes/GAMEOVER.jpg" />
+            <Image url="@../../../imagenes/GAMEOVER.jpg" />
          </image>
       </ImageView>
       <Button fx:id="botonRegresoLobby" layoutX="98.0" layoutY="281.0" mnemonicParsing="false" onAction="#Volver" prefHeight="37.0" prefWidth="113.0" style="-fx-background-color: white;" text="Inicio">
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../imagenes/Boton.jpg" />
+                  <Image url="@../../../imagenes/ICONO.png" />
                </image>
             </ImageView>
          </graphic>
@@ -35,7 +35,7 @@
          <graphic>
             <ImageView fitHeight="29.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../imagenes/ICONO.png" />
+                  <Image url="@../../../imagenes/Boton.jpg" />
                </image>
             </ImageView>
          </graphic>

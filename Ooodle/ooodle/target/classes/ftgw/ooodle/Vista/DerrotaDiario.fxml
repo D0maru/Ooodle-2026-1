@@ -11,14 +11,14 @@
    <children>
       <ImageView fitHeight="253.0" fitWidth="391.0" layoutX="184.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../imagenes/GAMEOVER.jpg" />
+            <Image url="@../../../imagenes/GAMEOVER.jpg" />
          </image>
       </ImageView>
       <Button fx:id="BotonRegresolobby" layoutX="225.0" layoutY="292.0" mnemonicParsing="false" onAction="#Volver" prefHeight="41.0" prefWidth="149.0" style="-fx-background-color: white;" text="Inicio">
          <graphic>
             <ImageView fitHeight="38.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../imagenes/ICONO.png" />
+                  <Image url="@../../../imagenes/ICONO.png" />
                </image>
             </ImageView>
          </graphic>
