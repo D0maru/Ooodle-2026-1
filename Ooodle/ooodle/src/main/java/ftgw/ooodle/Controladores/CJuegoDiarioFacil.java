@@ -1,4 +1,4 @@
-package ftgw.ooodle;
+package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
 import java.net.URL;

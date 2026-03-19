@@ -1,4 +1,4 @@
-package ftgw.ooodle;
+package ftgw.ooodle.Controladores;
 
 
 public class CJuegoDiarioDificil {

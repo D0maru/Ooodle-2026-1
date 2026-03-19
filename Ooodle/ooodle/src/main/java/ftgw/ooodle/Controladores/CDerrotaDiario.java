@@ -1,4 +1,4 @@
-package ftgw.ooodle;
+package ftgw.ooodle.Controladores;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
