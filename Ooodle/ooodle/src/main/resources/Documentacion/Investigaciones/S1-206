@@ -1,0 +1,5 @@
+MVC, modelo - vista - controlador
+la idea de este modelo es separar en 3 folder diferentes facilmente distinguibles:
+Modelo: Todo diagrama y archivo de modelado que describa la estructura grafica del proyecto
+Vista: Todos los archivos que tengan los componentes de las interfaces del proyecto, en este caso los fxml
+Controlador: Aqui se almacena toda la logica del proyecto, en este caso, en archivos .java
