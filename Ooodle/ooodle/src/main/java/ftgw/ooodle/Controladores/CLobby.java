@@ -29,7 +29,7 @@ public class CLobby {
     @FXML
     void traerReglas(ActionEvent event) {
          try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Reglas.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Reglas.fxml"));
         Parent root = loader.load();
 
         PanelInterfaz.getChildren().clear();
@@ -75,7 +75,7 @@ public class CLobby {
     @FXML
     void abrirJPrac(ActionEvent event) {
      try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/JuegoPracticaFacil.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml"));
         Parent root = loader.load();
 
         PanelInterfaz.getChildren().clear();
@@ -93,7 +93,7 @@ public class CLobby {
     @FXML
     void abrirJdiario(ActionEvent event) { 
          try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("@resources/ftgw/ooodle/Vista/JuegoDiarioFacil.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/JuegoDiarioFacil.fxml"));
         Parent root = loader.load();
 
         PanelInterfaz.getChildren().clear();

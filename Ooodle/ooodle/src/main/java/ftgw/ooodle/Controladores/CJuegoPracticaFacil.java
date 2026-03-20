@@ -55,7 +55,7 @@ public class CJuegoPracticaFacil {
     void volverAlLobby(ActionEvent event) {
         try {
             // 1. Cargar el archivo FXML del lobby
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("lobby.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
             Parent root = loader.load();
             // 2. Obtener el Stage (la ventana) actual a partir del botón que se presionó
             Stage stage = (Stage) BtnRPP.getScene().getWindow();

@@ -26,7 +26,7 @@ public class CReglas {
     void volverLobby(ActionEvent event) {
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Lobby.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
             Parent root = loader.load();
 
             PanelBase.getChildren().clear();

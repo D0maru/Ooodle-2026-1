@@ -27,9 +27,9 @@ public class CJuegoDiarioFacil {
     @FXML
     void volverAlLobby(ActionEvent event) {
         try {
-            URL fxmlLocation = getClass().getResource("lobby.fxml");
+            URL fxmlLocation = getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml");
             if (fxmlLocation == null) {
-                fxmlLocation = getClass().getResource("lobby.fxml");
+                fxmlLocation = getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml");
             }
             if (fxmlLocation == null) {
                 throw new IOException("No se pudo encontrar lobby.fxml. Revisa la ubicación del archivo.");
