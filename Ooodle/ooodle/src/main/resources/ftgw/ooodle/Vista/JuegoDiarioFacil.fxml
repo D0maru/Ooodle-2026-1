@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="PanelBase" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.Controladores.CJuegoDiarioFacil">
    <children>
-      <Pane layoutX="385.0" layoutY="118.0" prefHeight="262.0" prefWidth="221.0">
+      <Pane layoutX="373.0" layoutY="103.0" prefHeight="262.0" prefWidth="221.0">
          <children>
             <Button fx:id="BtCheck" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="92.0" style="-fx-background-color: red;" text="Check" textFill="#f7f4f4">
                <font>
@@ -70,12 +70,12 @@
             </Button>
          </children>
       </Pane>
-      <Button fx:id="BtnRestart" layoutX="510.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" style="-fx-background-color: gray;" text="Restart" textFill="#efefef">
+      <Button fx:id="BtnRestart" layoutX="510.0" layoutY="63.0" mnemonicParsing="false" onAction="#Click" prefHeight="25.0" prefWidth="92.0" style="-fx-background-color: gray;" text="Restart" textFill="#efefef">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <AnchorPane layoutX="26.0" layoutY="118.0" prefHeight="292.0" prefWidth="359.0">
+      <AnchorPane layoutX="14.0" layoutY="103.0" prefHeight="292.0" prefWidth="359.0">
          <children>
             <TextField fx:id="num1" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
             <TextField fx:id="num2" layoutX="83.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
@@ -96,7 +96,7 @@
             <TextField fx:id="num3f4" layoutX="151.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
             <TextField fx:id="num3f5" layoutX="151.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
             <TextField fx:id="num3f6" layoutX="151.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num4f2" layoutX="220.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="num4f2" layoutX="211.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
             <TextField fx:id="num4f3" layoutX="220.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
             <TextField fx:id="num4f4" layoutX="220.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
             <TextField fx:id="num4f5" layoutX="220.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
@@ -271,5 +271,10 @@
                </image></ImageView>
          </graphic>
       </Button>
+      <Label fx:id="cronometro" layoutX="430.0" layoutY="356.0" prefHeight="38.0" prefWidth="142.0" textAlignment="CENTER">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

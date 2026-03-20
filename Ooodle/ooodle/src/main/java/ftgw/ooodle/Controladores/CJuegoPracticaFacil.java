@@ -92,9 +92,10 @@ public class CJuegoPracticaFacil {
         cronometro.setText(tiempo);
     }
     private void reiniciarCronometro(){
+        timeline.stop();
         segundosTranscurridos = 0;
         actualizarLabel();
-        timeline.playFromStart();
+        timeline.play();
     }
 
 }
