@@ -70,7 +70,7 @@
             </Button>
          </children>
       </Pane>
-      <Button fx:id="BtnRestart" layoutX="510.0" layoutY="63.0" mnemonicParsing="false" onAction="#Click" prefHeight="25.0" prefWidth="92.0" style="-fx-background-color: gray;" text="Restart" textFill="#efefef">
+      <Button fx:id="BtnRestart" layoutX="501.0" layoutY="63.0" mnemonicParsing="false" onAction="#Click" prefHeight="25.0" prefWidth="92.0" style="-fx-background-color: gray;" text="Restart" textFill="#efefef">
          <font>
             <Font size="16.0" />
          </font>
