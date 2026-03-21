@@ -11,59 +11,59 @@
 
 <AnchorPane fx:id="PanelBase" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.Controladores.CJuegoDiarioFacil">
    <children>
-      <Pane layoutX="373.0" layoutY="103.0" prefHeight="262.0" prefWidth="221.0">
+      <Pane layoutX="380.0" layoutY="116.0" prefHeight="249.0" prefWidth="215.0">
          <children>
-            <Button fx:id="BtCheck" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="92.0" style="-fx-background-color: red;" text="Check" textFill="#f7f4f4">
+            <Button fx:id="BtCheck" layoutX="18.0" layoutY="30.0" mnemonicParsing="false" onAction="#Click" prefHeight="43.0" prefWidth="92.0" style="-fx-background-color: red;" text="Check" textFill="#f7f4f4">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="BtDel" layoutX="139.0" layoutY="30.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="77.0" style="-fx-background-color: black;" text="Del" textFill="#f4f1f1">
+            <Button fx:id="BtDel" layoutX="124.0" layoutY="30.0" mnemonicParsing="false" onAction="#Click" prefHeight="43.0" prefWidth="77.0" style="-fx-background-color: black;" text="Del" textFill="#f4f1f1">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btn1" layoutX="32.0" layoutY="199.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="1">
+            <Button fx:id="btn1" layoutX="18.0" layoutY="199.0" mnemonicParsing="false" onAction="#Click" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="1">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btn2" layoutX="93.0" layoutY="199.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="2">
+            <Button fx:id="btn2" layoutX="79.0" layoutY="199.0" mnemonicParsing="false" onAction="#Click" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="2">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btn3" layoutX="159.0" layoutY="199.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="3">
+            <Button fx:id="btn3" layoutX="139.0" layoutY="199.0" mnemonicParsing="false" onAction="#Click" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="3">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btn4" layoutX="31.0" layoutY="145.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="4">
+            <Button fx:id="btn4" layoutX="18.0" layoutY="145.0" mnemonicParsing="false" onAction="#Click" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="4">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btn5" layoutX="93.0" layoutY="145.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="5">
+            <Button fx:id="btn5" layoutX="79.0" layoutY="145.0" mnemonicParsing="false" onAction="#Click" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="5">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btn6" layoutX="159.0" layoutY="145.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="6">
+            <Button fx:id="btn6" layoutX="139.0" layoutY="145.0" mnemonicParsing="false" onAction="#Click" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="6">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btn7" layoutX="32.0" layoutY="89.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="7">
+            <Button fx:id="btn7" layoutX="18.0" layoutY="88.0" mnemonicParsing="false" onAction="#Click" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="7">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btn8" layoutX="93.0" layoutY="89.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="8">
+            <Button fx:id="btn8" layoutX="79.0" layoutY="88.0" mnemonicParsing="false" onAction="#Click" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="8">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="btn9" layoutX="159.0" layoutY="89.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="9">
+            <Button fx:id="btn9" layoutX="139.0" layoutY="88.0" mnemonicParsing="false" onAction="#Click" prefHeight="43.0" prefWidth="57.0" style="-fx-background-color: #D4D4D4;" text="9">
                <font>
                   <Font size="16.0" />
                </font>
@@ -263,14 +263,14 @@
             <Font name="System Italic" size="25.0" />
          </font>
       </Label>
-      <Button fx:id="BtnRPP" layoutX="42.0" layoutY="61.0" mnemonicParsing="false" onAction="#volverAlLobby">
+      <Button fx:id="BtnRPP" layoutX="45.0" layoutY="43.0" mnemonicParsing="false" onAction="#volverAlLobby" prefHeight="43.0" prefWidth="42.0">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../imagenes/25694.png" />
-               </image></ImageView>
-         </graphic>
-      </Button>
+               </image>
+            </ImageView>
+         </graphic></Button>
       <Label fx:id="cronometro" layoutX="430.0" layoutY="356.0" prefHeight="38.0" prefWidth="142.0" textAlignment="CENTER">
          <font>
             <Font size="26.0" />

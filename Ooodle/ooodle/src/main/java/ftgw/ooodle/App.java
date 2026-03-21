@@ -8,16 +8,14 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * JavaFX App
- */
+
 public class App extends Application {
 
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("Vista/VictoriaPractica")); //no olvidar el Vista\(nombre del fxml)
+        scene = new Scene(loadFXML("Vista/VictoriaPractica")); 
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
