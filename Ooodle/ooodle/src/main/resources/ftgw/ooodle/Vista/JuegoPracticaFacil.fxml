@@ -65,30 +65,30 @@
          </font></Button>
       <AnchorPane layoutX="22.0" layoutY="94.0" prefHeight="292.0" prefWidth="359.0">
          <children>
-            <TextField fx:id="num1" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num2" layoutX="83.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num3" layoutX="151.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num4" layoutX="220.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num1f2" layoutX="14.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num1f3" layoutX="14.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num1f4" layoutX="14.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num1f5" layoutX="14.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num1f6" layoutX="14.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num2f2" layoutX="83.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num2f3" layoutX="83.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num2f4" layoutX="83.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num2f5" layoutX="83.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num2f6" layoutX="83.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num3f2" layoutX="151.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num3f3" layoutX="151.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num3f4" layoutX="151.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num3f5" layoutX="151.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num3f6" layoutX="151.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num4f2" layoutX="220.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num4f3" layoutX="220.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num4f4" layoutX="220.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num4f5" layoutX="220.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="num4f6" layoutX="220.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="a1" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="b1" layoutX="83.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="c1" layoutX="151.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d1" layoutX="220.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="a2" layoutX="14.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="a3" layoutX="14.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="a4" layoutX="14.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="a5" layoutX="14.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="a6" layoutX="14.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="b2" layoutX="83.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="b3" layoutX="83.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="b4" layoutX="83.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="b5" layoutX="83.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="b6" layoutX="83.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="c2" layoutX="151.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="c3" layoutX="151.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="c4" layoutX="151.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="c5" layoutX="151.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="c6" layoutX="151.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d2" layoutX="220.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d3" layoutX="220.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d4" layoutX="220.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d5" layoutX="220.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d6" layoutX="220.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
             <Label layoutX="65.0" layoutY="19.0" text="+">
                <font>
                   <Font size="20.0" />
@@ -109,32 +109,32 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label layoutX="308.0" layoutY="16.0" text="20">
+            <Label fx:id="res_1" layoutX="308.0" layoutY="16.0" text="20">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label layoutX="308.0" layoutY="62.0" text="20">
+            <Label fx:id="res_2" layoutX="308.0" layoutY="62.0" text="20">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label layoutX="308.0" layoutY="104.0" text="20">
+            <Label fx:id="res_3" layoutX="308.0" layoutY="104.0" text="20">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label layoutX="308.0" layoutY="154.0" text="20">
+            <Label fx:id="res_4" layoutX="308.0" layoutY="154.0" text="20">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label layoutX="308.0" layoutY="190.0" text="20">
+            <Label fx:id="res_5" layoutX="308.0" layoutY="190.0" text="20">
                <font>
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label layoutX="308.0" layoutY="234.0" text="20">
+            <Label fx:id="res_6" layoutX="308.0" layoutY="234.0" text="20">
                <font>
                   <Font size="25.0" />
                </font>
@@ -255,7 +255,7 @@
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../imagenes/25694.png" />
+                  <Image url="@../../../imagenes/ICONO.png" />
                </image>
             </ImageView>
          </graphic>
