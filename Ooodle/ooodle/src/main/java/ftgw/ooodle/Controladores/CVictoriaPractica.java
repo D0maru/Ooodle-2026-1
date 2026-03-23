@@ -22,7 +22,7 @@ public class CVictoriaPractica {
     @FXML
     void Volver_Inicio(ActionEvent event) {
         try {
-        Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Vista/Lobby.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
