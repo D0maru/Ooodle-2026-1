@@ -11,12 +11,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class CJuegoPracticaFacil {
 
-    @FXML private Button BCheck, BDel, BT1, BT2, BT3, BT4, BT5, BT6, BT7, BT8, BT9, BTRestart, BtnRPP;
+    @FXML private Button BCheck, BDel, BT1, BT2, BT3, BT4, BT5, BT6, BT7, BT8, BT9, BTRestart, BotonLobby;
 
     @FXML private TextField a1,a2,a3,a4,a5,a6;
     @FXML private TextField b1,b2,b3,b4,b5,b6;
@@ -148,57 +149,93 @@ public class CJuegoPracticaFacil {
         tablero[intentoActual-1][columnaActual].clear();
     }
 
-    // ===== VALIDAR =====
-    private void validarFila(){
-
-        try{
-            int a = Integer.parseInt(tablero[intentoActual-1][0].getText());
-            int b = Integer.parseInt(tablero[intentoActual-1][1].getText());
-            int c = Integer.parseInt(tablero[intentoActual-1][2].getText());
-            int d = Integer.parseInt(tablero[intentoActual-1][3].getText());
-
-            int resultado = a * b + c - d;
-
-            // 🎉 GANAR → ir a Victoria
-            if(solucion != null &&
-               a == solucion[0] &&
-               b == solucion[1] &&
-               c == solucion[2] &&
-               d == solucion[3]){
-
-                cambiarEscena("VictoriaPractica.fxml");
-                return;
-            }
-
-            // (opcional debug)
-            if(resultado == target){
-                System.out.println("Correcto pero no es la solución propuesta");
-            }
-
-            // 🔒 bloquear fila actual
-            deshabilitarFila(intentoActual-1);
-
-            intentoActual++;
-            columnaActual = 0;
-
-            // 💀 PERDER → ir a Derrota
-            if(intentoActual > 6){
-                cambiarEscena("DerrotaPractica.fxml");
-                return;
-            }
-
-            // habilitar siguiente fila
-            habilitarFila(intentoActual-1);
-
-        }catch(Exception e){
-            System.out.println("Fila incompleta" + e.getMessage());
-        }
+    private void mostrarError(String mensaje){
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    alert.setTitle("Error");
+    alert.setHeaderText(null);
+    alert.setContentText(mensaje);
+    alert.showAndWait();
     }
+
+private void validarFila(){
+
+    try{
+
+        String[] valores = new String[4];
+
+        // ===== VALIDAR VACÍOS + FORMATO (1 a 9) =====
+        for(int i = 0; i < 4; i++){
+            valores[i] = tablero[intentoActual-1][i].getText();
+
+            if(valores[i] == null || valores[i].trim().isEmpty()){
+                mostrarError("Debes completar todos los espacios.");
+                return;
+            }
+
+            // Solo números del 1 al 9
+            if(!valores[i].matches("[1-9]")){
+                mostrarError("Solo se permiten números del 1 al 9.");
+                return;
+            }
+        }
+
+        // ===== PARSEAR =====
+        int a = Integer.parseInt(valores[0]);
+        int b = Integer.parseInt(valores[1]);
+        int c = Integer.parseInt(valores[2]);
+        int d = Integer.parseInt(valores[3]);
+
+        // ===== VALIDAR NÚMEROS REPETIDOS =====
+        if(a == b || a == c || a == d ||
+           b == c || b == d ||
+           c == d){
+            mostrarError("No puedes usar números repetidos.");
+            return;
+        }
+
+        int resultado = a * b + c - d;
+
+        // 🎉 GANAR
+        if(solucion != null &&
+           a == solucion[0] &&
+           b == solucion[1] &&
+           c == solucion[2] &&
+           d == solucion[3]){
+
+            cambiarEscena("VictoriaPractica.fxml");
+            return;
+        }
+
+        if(resultado == target){
+            System.out.println("Correcto pero no es la solución propuesta");
+        }
+
+        deshabilitarFila(intentoActual-1);
+
+        intentoActual++;
+        columnaActual = 0;
+
+        if(intentoActual > 6){
+            cambiarEscena("DerrotaPractica.fxml");
+            return;
+        }
+
+        habilitarFila(intentoActual-1);
+
+    }catch(Exception e){
+        e.printStackTrace();
+        mostrarError("Ocurrió un error inesperado.");
+    }
+}
+
+
+    
 
     // ===== CAMBIO DE ESCENA =====
     private void cambiarEscena(String fxml){
 
     try{
+        if(timeline != null){timeline.stop();}
         var resource = getClass().getResource("/ftgw/ooodle/Vista/" + fxml);
 
         if(resource == null){
@@ -275,9 +312,9 @@ public class CJuegoPracticaFacil {
     @FXML
     void volverAlLobby(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("lobby.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
             Parent root = loader.load();
-            Stage stage = (Stage) BtnRPP.getScene().getWindow();
+            Stage stage = (Stage) BotonLobby.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

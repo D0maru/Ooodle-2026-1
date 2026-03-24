@@ -57,7 +57,7 @@ public class CDerrotaPractica {
     void Volver_a_Jugar(ActionEvent event) {
         //Es necesario buscar una manera de aclarar a cual pantalla de practica volver, la de dificultad facil o dificultad dificil
         try {
-        Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/JuegoPracticaDificil.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
