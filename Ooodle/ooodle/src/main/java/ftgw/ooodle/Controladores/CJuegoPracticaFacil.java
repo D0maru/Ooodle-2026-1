@@ -66,10 +66,7 @@ public class CJuegoPracticaFacil {
 
         generarNuevoJuego();
 
-        // 🔒 BLOQUEAR TODAS LAS FILAS
         bloquearTodo();
-
-        // ✅ SOLO activar la primera fila
         habilitarFila(0);
     }
 
@@ -125,7 +122,6 @@ public class CJuegoPracticaFacil {
 
         TextField campo = tablero[intentoActual-1][columnaActual];
 
-        // 🔒 SOLO si está habilitado
         if(!campo.isEditable()) return;
 
         if(campo.getText().isEmpty()){
@@ -143,7 +139,6 @@ public class CJuegoPracticaFacil {
 
         if(intentoActual > 6) return;
 
-        // 🔒 SOLO si la fila está activa
         if(!tablero[intentoActual-1][0].isEditable()) return;
 
         if(columnaActual > 0){
@@ -156,50 +151,72 @@ public class CJuegoPracticaFacil {
     // ===== VALIDAR =====
     private void validarFila(){
 
-    try{
-        int a = Integer.parseInt(tablero[intentoActual-1][0].getText());
-        int b = Integer.parseInt(tablero[intentoActual-1][1].getText());
-        int c = Integer.parseInt(tablero[intentoActual-1][2].getText());
-        int d = Integer.parseInt(tablero[intentoActual-1][3].getText());
+        try{
+            int a = Integer.parseInt(tablero[intentoActual-1][0].getText());
+            int b = Integer.parseInt(tablero[intentoActual-1][1].getText());
+            int c = Integer.parseInt(tablero[intentoActual-1][2].getText());
+            int d = Integer.parseInt(tablero[intentoActual-1][3].getText());
 
-        int resultado = a * b + c - d;
+            int resultado = a * b + c - d;
 
-        if(solucion != null &&
-           a == solucion[0] &&
-           b == solucion[1] &&
-           c == solucion[2] &&
-           d == solucion[3]){
+            // 🎉 GANAR → ir a Victoria
+            if(solucion != null &&
+               a == solucion[0] &&
+               b == solucion[1] &&
+               c == solucion[2] &&
+               d == solucion[3]){
 
-            System.out.println("GANASTE");
-            bloquearTodo();
-            return;
-        }
+                cambiarEscena("VictoriaPractica.fxml");
+                return;
+            }
 
-        // ❌ si solo da el resultado pero no es la solución
-        if(resultado == target){
-            System.out.println("Correcto pero no es la solución propuesta");
-        }
+            // (opcional debug)
+            if(resultado == target){
+                System.out.println("Correcto pero no es la solución propuesta");
+            }
 
-        // 🔒 bloquear fila actual
-        deshabilitarFila(intentoActual-1);
+            // 🔒 bloquear fila actual
+            deshabilitarFila(intentoActual-1);
 
-        intentoActual++;
-        columnaActual = 0;
+            intentoActual++;
+            columnaActual = 0;
 
-        if(intentoActual > 6){
-            System.out.println("PERDISTE");
-            bloquearTodo();
-            return;
-        }
+            // 💀 PERDER → ir a Derrota
+            if(intentoActual > 6){
+                cambiarEscena("DerrotaPractica.fxml");
+                return;
+            }
 
-        // ✅ habilitar siguiente fila
-        habilitarFila(intentoActual-1);
+            // habilitar siguiente fila
+            habilitarFila(intentoActual-1);
 
         }catch(Exception e){
             System.out.println("Fila incompleta");
         }
     }
-    
+
+    // ===== CAMBIO DE ESCENA =====
+    private void cambiarEscena(String fxml){
+
+    try{
+        var resource = getClass().getResource("/ftgw/ooodle/Vista/" + fxml);
+
+        if(resource == null){
+            System.err.println("No se encontró el FXML: " + fxml);
+            return;
+        }
+
+        FXMLLoader loader = new FXMLLoader(resource);
+        Parent root = loader.load();
+
+        Stage stage = (Stage) BCheck.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }catch(Exception e){
+        e.printStackTrace();
+    }
+}
 
     // ===== BLOQUEAR TODO =====
     private void bloquearTodo(){
@@ -208,7 +225,6 @@ public class CJuegoPracticaFacil {
         }
     }
 
-    // ===== HABILITAR FILA =====
     private void habilitarFila(int fila){
         for(int j = 0; j < 4; j++){
             tablero[fila][j].setEditable(true);
@@ -216,7 +232,6 @@ public class CJuegoPracticaFacil {
         }
     }
 
-    // ===== DESHABILITAR FILA =====
     private void deshabilitarFila(int fila){
         for(int j = 0; j < 4; j++){
             tablero[fila][j].setEditable(false);
