@@ -1,7 +1,6 @@
 package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
-
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,96 +16,70 @@ import javafx.util.Duration;
 
 public class CLobby {
 
-    @FXML
-    private BarChart<?, ?> HistoEstad;
+    @FXML private BarChart<?, ?> HistoEstad;
+    @FXML private AnchorPane PanelInterfaz;
+    @FXML private Button botonReglas;
+    @FXML private Circle circuloDificultad;
+    @FXML private Label lblRango;
 
-    @FXML
-    private AnchorPane PanelInterfaz;
-
-    @FXML
-    private Button botonReglas;
+    private boolean modo12 = false;
 
     @FXML
     void traerReglas(ActionEvent event) {
-         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("Reglas.fxml"));
-        Parent root = loader.load();
-
-        PanelInterfaz.getChildren().clear();
-        PanelInterfaz.getChildren().add(root);
-
-        AnchorPane.setTopAnchor(root, 0.0);
-        AnchorPane.setBottomAnchor(root, 0.0);
-        AnchorPane.setLeftAnchor(root, 0.0);
-        AnchorPane.setRightAnchor(root, 0.0);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        cambiarEscena("/ftgw/ooodle/Vista/Reglas.fxml");
     }
-    @FXML
-    private Circle circuloDificultad;
 
-    @FXML
-    private Label lblRango;
-
-    private boolean modo12 = false;
     @FXML
     void cambiarDificultad(MouseEvent event) {
-        // Creamos la animación (200 milisegundos de duración)
         TranslateTransition animation = new TranslateTransition(Duration.millis(200), circuloDificultad);
-        //if para mover el circulo a la derecha o a la izquierda dependiendo del modo que escoja el usuario
+        
         if (!modo12) {
-            // Mover a la derecha para modo 1-12
             animation.setToX(22); 
             lblRango.setText("Numbers 1 to 12");
             modo12 = true;
         } else {
-            // Volver a la izquierda para modo 1-9
             animation.setToX(0);
             lblRango.setText("Numbers 1 to 9");
             modo12 = false;
         }
-        
-        animation.play(); // Ejecuta el movimiento
+        animation.play(); 
     }
 
     @FXML
     void abrirJPrac(ActionEvent event) {
-     try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml"));
-        Parent root = loader.load();
-
-        PanelInterfaz.getChildren().clear();
-        PanelInterfaz.getChildren().add(root);
-
-        AnchorPane.setTopAnchor(root, 0.0);
-        AnchorPane.setBottomAnchor(root, 0.0);
-        AnchorPane.setLeftAnchor(root, 0.0);
-        AnchorPane.setRightAnchor(root, 0.0);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // Selecciona la ruta dependiendo de modo12
+        String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoPracticaDificil.fxml" 
+                             : "/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml";
+        cambiarEscena(ruta);
     }
+
     @FXML
-    void abrirJdiario(ActionEvent event) { 
-         try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/JuegoDiarioFacil.fxml"));
-        Parent root = loader.load();
+    void abrirJdiario(ActionEvent event) {
+        // Selecciona la ruta dependiendo de modo12
+        String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoDiarioDificil.fxml" 
+                             : "/ftgw/ooodle/Vista/JuegoDiarioFacil.fxml";
+        cambiarEscena(ruta);
+    }
 
-        PanelInterfaz.getChildren().clear();
-        PanelInterfaz.getChildren().add(root);
+    // Método de apoyo para no repetir el código de carga de FXML
+    private void cambiarEscena(String ruta) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(ruta));
+            Parent root = loader.load();
+            
+            // Limpia el panel y añade la nueva vista
+            PanelInterfaz.getChildren().setAll(root);
 
-        AnchorPane.setTopAnchor(root, 0.0);
-        AnchorPane.setBottomAnchor(root, 0.0);
-        AnchorPane.setLeftAnchor(root, 0.0);
-        AnchorPane.setRightAnchor(root, 0.0);
+            // Ajusta la vista a los bordes del AnchorPane
+            AnchorPane.setTopAnchor(root, 0.0);
+            AnchorPane.setBottomAnchor(root, 0.0);
+            AnchorPane.setLeftAnchor(root, 0.0);
+            AnchorPane.setRightAnchor(root, 0.0);
 
         } catch (IOException e) {
+            System.err.println("No se pudo cargar la vista: " + ruta);
             e.printStackTrace();
         }
     }
-
 }
+
