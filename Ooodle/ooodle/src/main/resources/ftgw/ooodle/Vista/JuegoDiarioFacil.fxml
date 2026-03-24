@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="PanelBase" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.Controladores.CJuegoDiarioFacil">
    <children>
-      <Pane layoutX="385.0" layoutY="118.0" prefHeight="262.0" prefWidth="221.0">
+      <Pane layoutX="380.0" layoutY="131.0" prefHeight="249.0" prefWidth="222.0">
          <children>
             <Button fx:id="BtCheck" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="92.0" style="-fx-background-color: red;" text="Check" textFill="#f7f4f4">
                <font>
@@ -263,12 +263,13 @@
             <Font name="System Italic" size="25.0" />
          </font>
       </Label>
-      <Button fx:id="BtnRPP" layoutX="42.0" layoutY="61.0" mnemonicParsing="false" onAction="#volverAlLobby">
+      <Button fx:id="BtnRPP" layoutX="48.0" layoutY="57.0" mnemonicParsing="false" onAction="#volverAlLobby">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../imagenes/25694.png" />
-               </image></ImageView>
+                  <Image url="@../../../imagenes/25694.png" />
+               </image>
+            </ImageView>
          </graphic>
       </Button>
    </children>

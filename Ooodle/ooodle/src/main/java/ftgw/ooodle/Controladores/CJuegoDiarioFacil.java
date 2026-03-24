@@ -27,20 +27,14 @@ public class CJuegoDiarioFacil {
     @FXML
     void volverAlLobby(ActionEvent event) {
         try {
-            URL fxmlLocation = getClass().getResource("lobby.fxml");
-            if (fxmlLocation == null) {
-                fxmlLocation = getClass().getResource("lobby.fxml");
-            }
-            if (fxmlLocation == null) {
-                throw new IOException("No se pudo encontrar lobby.fxml. Revisa la ubicación del archivo.");
-            }
-            Parent root = FXMLLoader.load(fxmlLocation);
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnRPP.getScene().getWindow();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
-            System.err.println("Error al cambiar de pantalla: " + e.getMessage());
+            System.err.println("Error al cargar el lobby: " + e.getMessage());
             e.printStackTrace();
         }
     }
