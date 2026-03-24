@@ -191,7 +191,7 @@ public class CJuegoPracticaFacil {
             habilitarFila(intentoActual-1);
 
         }catch(Exception e){
-            System.out.println("Fila incompleta");
+            System.out.println("Fila incompleta" + e.getMessage());
         }
     }
 
