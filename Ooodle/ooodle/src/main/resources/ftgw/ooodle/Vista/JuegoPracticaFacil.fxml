@@ -89,12 +89,12 @@
             <TextField fx:id="d4" layoutX="220.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
             <TextField fx:id="d5" layoutX="220.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
             <TextField fx:id="d6" layoutX="220.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
-            <Label layoutX="65.0" layoutY="19.0" text="+">
+            <Label layoutX="131.0" layoutY="19.0" text="+">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="132.0" layoutY="19.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="62.0" layoutY="16.0" prefHeight="30.0" prefWidth="14.0" text="x">
                <font>
                   <Font size="20.0" />
                </font>
@@ -189,52 +189,52 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <Label layoutX="132.0" layoutY="65.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="62.0" layoutY="62.0" prefHeight="30.0" prefWidth="14.0" text="x">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="132.0" layoutY="107.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="62.0" layoutY="104.0" prefHeight="30.0" prefWidth="14.0" text="x">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="132.0" layoutY="149.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="62.0" layoutY="146.0" prefHeight="30.0" prefWidth="14.0" text="x">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="132.0" layoutY="193.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="62.0" layoutY="190.0" prefHeight="30.0" prefWidth="14.0" text="x">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="132.0" layoutY="237.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="62.0" layoutY="234.0" prefHeight="30.0" prefWidth="14.0" text="x">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="65.0" layoutY="65.0" text="+">
+            <Label layoutX="131.0" layoutY="65.0" text="+">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="65.0" layoutY="107.0" text="+">
+            <Label layoutX="131.0" layoutY="107.0" text="+">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="65.0" layoutY="149.0" text="+">
+            <Label layoutX="131.0" layoutY="149.0" text="+">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="65.0" layoutY="193.0" text="+">
+            <Label layoutX="131.0" layoutY="193.0" text="+">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="65.0" layoutY="237.0" text="+">
+            <Label layoutX="131.0" layoutY="237.0" text="+">
                <font>
                   <Font size="20.0" />
                </font>

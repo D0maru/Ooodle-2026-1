@@ -14,159 +14,255 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-
 public class CJuegoPracticaFacil {
 
-      @FXML
-    private Button BCheck;
+    @FXML private Button BCheck, BDel, BT1, BT2, BT3, BT4, BT5, BT6, BT7, BT8, BT9, BTRestart, BtnRPP;
+
+    @FXML private TextField a1,a2,a3,a4,a5,a6;
+    @FXML private TextField b1,b2,b3,b4,b5,b6;
+    @FXML private TextField c1,c2,c3,c4,c5,c6;
+    @FXML private TextField d1,d2,d3,d4,d5,d6;
+
+    @FXML private Label res_1,res_2,res_3,res_4,res_5,res_6;
+    @FXML private Label cronometro;
+
+    // ===== VARIABLES DEL JUEGO =====
+    private int target;
+    private int intentoActual = 1;
+    private int columnaActual = 0;
+    private int[] solucion;
+
+    private TextField[][] tablero;
+    private Label[] resultados;
+
+    // ===== CRONÓMETRO =====
+    private int segundosTranscurridos = 0;
+    private Timeline timeline;
 
     @FXML
-    private Button BDel;
+    public void initialize(){
 
-    @FXML
-    private Button BT1;
+        // ===== CRONÓMETRO =====
+        cronometro.setText("00:00");
 
-    @FXML
-    private Button BT2;
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1),event ->{ 
+            segundosTranscurridos++;
+            actualizarLabel();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
-    @FXML
-    private Button BT3;
+        // ===== TABLERO =====
+        tablero = new TextField[][]{
+            {a1,b1,c1,d1},
+            {a2,b2,c2,d2},
+            {a3,b3,c3,d3},
+            {a4,b4,c4,d4},
+            {a5,b5,c5,d5},
+            {a6,b6,c6,d6}
+        };
 
-    @FXML
-    private Button BT4;
+        resultados = new Label[]{res_1,res_2,res_3,res_4,res_5,res_6};
 
-    @FXML
-    private Button BT5;
+        generarNuevoJuego();
 
-    @FXML
-    private Button BT6;
+        // 🔒 BLOQUEAR TODAS LAS FILAS
+        bloquearTodo();
 
-    @FXML
-    private Button BT7;
+        // ✅ SOLO activar la primera fila
+        habilitarFila(0);
+    }
 
-    @FXML
-    private Button BT8;
+    // ===== GENERAR JUEGO =====
+    private void generarNuevoJuego(){
 
-    @FXML
-    private Button BT9;
+        target = (int)(Math.random() * 83) - 4;
+        solucion = ftgw.ooodle.Ecuacion.generateEquation(target, false);
 
-    @FXML
-    private Button BTRestart;
+        if(solucion != null){
+            System.out.printf(
+                "SOLUCIÓN: %d * %d + %d - %d = %d%n",
+                solucion[0], solucion[1], solucion[2], solucion[3], target
+            );
+        } else {
+            System.out.println("No se encontró solución para: " + target);
+        }
 
-    @FXML
-    private Button BtnRPP;
+        for(Label l : resultados){
+            l.setText(String.valueOf(target));
+        }
+    }
 
-    @FXML
-    private TextField a1;
-
-    @FXML
-    private TextField a2;
-
-    @FXML
-    private TextField a3;
-
-    @FXML
-    private TextField a4;
-
-    @FXML
-    private TextField a5;
-
-    @FXML
-    private TextField a6;
-
-    @FXML
-    private TextField b1;
-
-    @FXML
-    private TextField b2;
-
-    @FXML
-    private TextField b3;
-
-    @FXML
-    private TextField b4;
-
-    @FXML
-    private TextField b5;
-
-    @FXML
-    private TextField b6;
-
-    @FXML
-    private TextField c1;
-
-    @FXML
-    private TextField c2;
-
-    @FXML
-    private TextField c3;
-
-    @FXML
-    private TextField c4;
-
-    @FXML
-    private TextField c5;
-
-    @FXML
-    private TextField c6;
-
-    @FXML
-    private Label cronometro;
-
-    @FXML
-    private TextField d1;
-
-    @FXML
-    private TextField d2;
-
-    @FXML
-    private TextField d3;
-
-    @FXML
-    private TextField d4;
-
-    @FXML
-    private TextField d5;
-
-    @FXML
-    private TextField d6;
-
-    @FXML
-    private Label res_1;
-
-    @FXML
-    private Label res_2;
-
-    @FXML
-    private Label res_3;
-
-    @FXML
-    private Label res_4;
-
-    @FXML
-    private Label res_5;
-
-    @FXML
-    private Label res_6;
     @FXML
     void Click(ActionEvent event) {
-         // Esto sirve para saber qué botón tocaste en la consola
-        Button botonPresionado = (Button) event.getSource();
-        if(botonPresionado == BTRestart){
-            reiniciarCronometro();
+
+        Button boton = (Button) event.getSource();
+
+        if(boton == BTRestart){
+            reiniciarJuego();
+            return;
         }
-        System.out.println("Presionaste el botón: " + botonPresionado.getText());
+
+        if(boton == BDel){
+            borrarUltimo();
+            return;
+        }
+
+        if(boton == BCheck){
+            validarFila();
+            return;
+        }
+
+        if(boton.getText().matches("[1-9]")){
+            escribirNumero(boton.getText());
+        }
+    }
+
+    // ===== ESCRIBIR =====
+    private void escribirNumero(String num){
+
+        if(intentoActual > 6) return;
+
+        TextField campo = tablero[intentoActual-1][columnaActual];
+
+        // 🔒 SOLO si está habilitado
+        if(!campo.isEditable()) return;
+
+        if(campo.getText().isEmpty()){
+            campo.setText(num);
+            columnaActual++;
+
+            if(columnaActual > 3){
+                columnaActual = 3;
+            }
+        }
+    }
+
+    // ===== BORRAR =====
+    private void borrarUltimo(){
+
+        if(intentoActual > 6) return;
+
+        // 🔒 SOLO si la fila está activa
+        if(!tablero[intentoActual-1][0].isEditable()) return;
+
+        if(columnaActual > 0){
+            columnaActual--;
+        }
+
+        tablero[intentoActual-1][columnaActual].clear();
+    }
+
+    // ===== VALIDAR =====
+    private void validarFila(){
+
+    try{
+        int a = Integer.parseInt(tablero[intentoActual-1][0].getText());
+        int b = Integer.parseInt(tablero[intentoActual-1][1].getText());
+        int c = Integer.parseInt(tablero[intentoActual-1][2].getText());
+        int d = Integer.parseInt(tablero[intentoActual-1][3].getText());
+
+        int resultado = a * b + c - d;
+
+        if(solucion != null &&
+           a == solucion[0] &&
+           b == solucion[1] &&
+           c == solucion[2] &&
+           d == solucion[3]){
+
+            System.out.println("GANASTE");
+            bloquearTodo();
+            return;
+        }
+
+        // ❌ si solo da el resultado pero no es la solución
+        if(resultado == target){
+            System.out.println("Correcto pero no es la solución propuesta");
+        }
+
+        // 🔒 bloquear fila actual
+        deshabilitarFila(intentoActual-1);
+
+        intentoActual++;
+        columnaActual = 0;
+
+        if(intentoActual > 6){
+            System.out.println("PERDISTE");
+            bloquearTodo();
+            return;
+        }
+
+        // ✅ habilitar siguiente fila
+        habilitarFila(intentoActual-1);
+
+        }catch(Exception e){
+            System.out.println("Fila incompleta");
+        }
     }
     
+
+    // ===== BLOQUEAR TODO =====
+    private void bloquearTodo(){
+        for(int i = 0; i < 6; i++){
+            deshabilitarFila(i);
+        }
+    }
+
+    // ===== HABILITAR FILA =====
+    private void habilitarFila(int fila){
+        for(int j = 0; j < 4; j++){
+            tablero[fila][j].setEditable(true);
+            tablero[fila][j].setDisable(false);
+        }
+    }
+
+    // ===== DESHABILITAR FILA =====
+    private void deshabilitarFila(int fila){
+        for(int j = 0; j < 4; j++){
+            tablero[fila][j].setEditable(false);
+            tablero[fila][j].setDisable(true);
+        }
+    }
+
+    // ===== REINICIAR =====
+    private void reiniciarJuego(){
+
+        reiniciarCronometro();
+
+        intentoActual = 1;
+        columnaActual = 0;
+
+        generarNuevoJuego();
+
+        for(int i = 0; i < 6; i++){
+            for(int j = 0; j < 4; j++){
+                tablero[i][j].clear();
+            }
+        }
+
+        bloquearTodo();
+        habilitarFila(0);
+    }
+
+    private void actualizarLabel(){
+        int minutos = segundosTranscurridos / 60;
+        int segundos = segundosTranscurridos % 60;
+        String tiempo = String.format("%02d:%02d", minutos, segundos);
+        cronometro.setText(tiempo);
+    }
+
+    private void reiniciarCronometro(){
+        segundosTranscurridos = 0;
+        actualizarLabel();
+        timeline.playFromStart();
+    }
+
     @FXML
     void volverAlLobby(ActionEvent event) {
         try {
-            // 1. Cargar el archivo FXML del lobby
             FXMLLoader loader = new FXMLLoader(getClass().getResource("lobby.fxml"));
             Parent root = loader.load();
-            // 2. Obtener el Stage (la ventana) actual a partir del botón que se presionó
             Stage stage = (Stage) BtnRPP.getScene().getWindow();
-            // 3. Cambiar la escena
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -175,32 +271,4 @@ public class CJuegoPracticaFacil {
             e.printStackTrace();
         }
     }
-    @FXML
-    private int segundosTranscurridos = 0;
-    private Timeline timeline;
-    
-    @FXML
-    public void initialize(){
-        //Iniciarmos el cronometro
-        cronometro.setText("00:00");
-        //Logica del cronometro 
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1),event ->{ 
-            segundosTranscurridos++;
-            actualizarLabel();
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-    }
-    private void actualizarLabel(){
-        int minutos = segundosTranscurridos / 60;
-        int segundos = segundosTranscurridos % 60;
-        String tiempo = String.format("%02d:%02d", minutos, segundos);
-        cronometro.setText(tiempo);
-    }
-    private void reiniciarCronometro(){
-        segundosTranscurridos = 0;
-        actualizarLabel();
-        timeline.playFromStart();
-    }
-
 }
