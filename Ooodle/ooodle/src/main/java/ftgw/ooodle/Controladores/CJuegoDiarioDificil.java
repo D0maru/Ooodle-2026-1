@@ -1,135 +1,74 @@
 package ftgw.ooodle.Controladores;
 
+import java.io.IOException;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
+import javafx.util.Duration;
 public class CJuegoDiarioDificil {
 
+    //---- Metodos cronometro ----
     @FXML
-    private Button BtnRPP;
-
+    private Label cronometro;
+    private int segundosTranscurridos =0;
+    private Timeline timeline;
     @FXML
-    private Button btn1;
+    public void initialize(){
 
-    @FXML
-    private Button btn10;
+        // ===== CRONÓMETRO =====
+        cronometro.setText("00:00");
 
-    @FXML
-    private Button btn11;
-
-    @FXML
-    private Button btn12;
-
-    @FXML
-    private Button btn2;
-
-    @FXML
-    private Button btn3;
-
-    @FXML
-    private Button btn4;
-
-    @FXML
-    private Button btn5;
-
-    @FXML
-    private Button btn6;
-
-    @FXML
-    private Button btn7;
-
-    @FXML
-    private Button btn8;
-
-    @FXML
-    private Button btn9;
-
-    @FXML
-    private Button btnRestart;
-
-    @FXML
-    private Button btncheck;
-
-    @FXML
-    private Button btndel;
-
-    @FXML
-    private TextField num1;
-
-    @FXML
-    private TextField num1f2;
-
-    @FXML
-    private TextField num1f3;
-
-    @FXML
-    private TextField num1f4;
-
-    @FXML
-    private TextField num1f5;
-
-    @FXML
-    private TextField num1f6;
-
-    @FXML
-    private TextField num2;
-
-    @FXML
-    private TextField num2f2;
-
-    @FXML
-    private TextField num2f3;
-
-    @FXML
-    private TextField num2f4;
-
-    @FXML
-    private TextField num2f5;
-
-    @FXML
-    private TextField num2f6;
-
-    @FXML
-    private TextField num3;
-
-    @FXML
-    private TextField num3f2;
-
-    @FXML
-    private TextField num3f3;
-
-    @FXML
-    private TextField num3f4;
-
-    @FXML
-    private TextField num3f5;
-
-    @FXML
-    private TextField num3f6;
-
-    @FXML
-    private TextField num4;
-
-    @FXML
-    private TextField num4f2;
-
-    @FXML
-    private TextField num4f3;
-
-    @FXML
-    private TextField num4f4;
-
-    @FXML
-    private TextField num4f5;
-
-    @FXML
-    private TextField num4f6;
-
-    @FXML
-    void volverAlLobby(ActionEvent event) {
-
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1),event ->{ 
+            segundosTranscurridos++;
+            actualizarLabel();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+    private void actualizarLabel(){
+        if(segundosTranscurridos >= 3600){
+            cronometro.setText("!Te demoraste mucho!");
+            timeline.stop();
+            return;
+        }
+        int minutos = segundosTranscurridos / 60;
+        int segundos = segundosTranscurridos % 60;
+        String tiempo = String.format("%02d:%02d", minutos, segundos);
+        cronometro.setText(tiempo);
+        
     }
 
+    private void reiniciarCronometro(){
+        segundosTranscurridos = 0;
+        actualizarLabel();
+        timeline.playFromStart();
+    }
+    @FXML
+    private Button BtnRPP;
+    @FXML
+    void volverAlLobby(ActionEvent event) {
+         try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) BtnRPP.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            System.err.println("Error al cargar el lobby: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    public void ClickRestart(ActionEvent event){
+        reiniciarCronometro();
+    }
 }

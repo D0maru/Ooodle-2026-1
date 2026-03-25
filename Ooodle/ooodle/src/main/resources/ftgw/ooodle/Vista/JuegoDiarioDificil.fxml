@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.Controladores.CJuegoDiarioDificil">
    <children>
-      <Button fx:id="btnRestart" layoutX="494.0" layoutY="50.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="83.0" style="-fx-background-color: gray;" text="Restart" textFill="#fcfbfb">
+      <Button fx:id="btnRestart" layoutX="494.0" layoutY="50.0" mnemonicParsing="false" onAction="#ClickRestart" prefHeight="37.0" prefWidth="83.0" style="-fx-background-color: gray;" text="Restart" textFill="#fcfbfb">
          <font>
             <Font size="16.0" />
          </font>
@@ -203,7 +203,7 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="378.0" layoutY="104.0" prefHeight="273.0" prefWidth="207.0">
+      <AnchorPane layoutX="378.0" layoutY="86.0" prefHeight="273.0" prefWidth="207.0">
          <children>
             <Button fx:id="btncheck" layoutX="16.0" layoutY="25.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: red;" text="Check" textFill="WHITE">
                <font>
@@ -277,7 +277,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="BtnRPP" layoutX="39.0" layoutY="32.0" mnemonicParsing="false" onAction="#volverAlLobby" prefHeight="46.0" prefWidth="58.0">
+      <Button fx:id="BtnRPP" layoutX="48.0" layoutY="40.0" mnemonicParsing="false" onAction="#volverAlLobby" prefHeight="38.0" prefWidth="49.0">
          <graphic>
             <ImageView fitHeight="32.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -286,5 +286,10 @@
             </ImageView>
          </graphic>
       </Button>
+      <Label fx:id="cronometro" alignment="CENTER" layoutX="395.0" layoutY="360.0" prefHeight="27.0" prefWidth="185.0" textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

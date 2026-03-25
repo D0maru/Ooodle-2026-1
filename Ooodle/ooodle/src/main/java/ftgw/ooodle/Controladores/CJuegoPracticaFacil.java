@@ -37,7 +37,8 @@ public class CJuegoPracticaFacil {
     private Label[] resultados;
 
     // ===== CRONÓMETRO =====
-    private int segundosTranscurridos = 0;
+    //private int segundosTranscurridos = 3540; //para probar la hora ahi iran 59:00 tambien toca modificar el set text a 59:00 para que funcione
+    private int segundosTranscurridos =0;
     private Timeline timeline;
 
     @FXML
@@ -297,10 +298,16 @@ private void validarFila(){
     }
 
     private void actualizarLabel(){
+        if(segundosTranscurridos >= 3600){
+            cronometro.setText("!Te demoraste mucho!");
+            timeline.stop();
+            return;
+        }
         int minutos = segundosTranscurridos / 60;
         int segundos = segundosTranscurridos % 60;
         String tiempo = String.format("%02d:%02d", minutos, segundos);
         cronometro.setText(tiempo);
+        
     }
 
     private void reiniciarCronometro(){

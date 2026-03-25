@@ -26,6 +26,7 @@ public class CLobby {
 
     @FXML
     void traerReglas(ActionEvent event) {
+        System.out.println("Intentando cargar reglas...");
         cambiarEscena("/ftgw/ooodle/Vista/Reglas.fxml");
     }
 

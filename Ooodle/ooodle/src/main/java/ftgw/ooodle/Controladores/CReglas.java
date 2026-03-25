@@ -6,10 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+//import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class CReglas {
 
@@ -24,20 +26,15 @@ public class CReglas {
 
     @FXML
     void volverLobby(ActionEvent event) {
-
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Lobby.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
             Parent root = loader.load();
-
-            PanelBase.getChildren().clear();
-            PanelBase.getChildren().add(root);
-
-            AnchorPane.setTopAnchor(root, 0.0);
-            AnchorPane.setBottomAnchor(root, 0.0);
-            AnchorPane.setLeftAnchor(root, 0.0);
-            AnchorPane.setRightAnchor(root, 0.0);
-
+            Stage stage = (Stage) botonVolver.getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
+            System.err.println("Error al cargar el lobby: " + e.getMessage());
             e.printStackTrace();
         }
     }
