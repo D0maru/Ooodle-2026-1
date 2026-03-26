@@ -255,14 +255,14 @@
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../imagenes/ICONO.png" />
+                  <Image url="@../../../imagenes/25694.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <Label fx:id="cronometro" layoutX="449.0" layoutY="348.0" prefHeight="30.0" prefWidth="119.0" textAlignment="CENTER">
+      <Label fx:id="cronometro" alignment="CENTER" layoutX="393.0" layoutY="348.0" prefHeight="30.0" prefWidth="192.0" textAlignment="CENTER" wrapText="true">
          <font>
-            <Font size="25.0" />
+            <Font size="18.0" />
          </font>
       </Label>
    </children>

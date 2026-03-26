@@ -52,7 +52,7 @@
          </font>
       </Button>
 
-      <Button fx:id="botonReglas" layoutX="162.0" layoutY="336.0" onAction="#traerReglas" prefHeight="40.0" prefWidth="262.0" style="-fx-background-color: green;" text="Reglas" textFill="#efecec" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="162.0" AnchorPane.rightAnchor="176.0">
+      <Button fx:id="botonReglas"  layoutX="162.0" layoutY="336.0" onAction="#traerReglas" prefHeight="40.0" prefWidth="262.0" style="-fx-background-color: green;" text="Reglas" textFill="#efecec" AnchorPane.bottomAnchor="24.0" AnchorPane.leftAnchor="162.0" AnchorPane.rightAnchor="176.0">
          <font>
             <Font size="14.0" />
          </font>
