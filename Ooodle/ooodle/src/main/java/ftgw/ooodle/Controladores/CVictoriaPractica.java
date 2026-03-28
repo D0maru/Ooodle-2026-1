@@ -13,20 +13,22 @@ import javafx.stage.Stage;
 
 public class CVictoriaPractica {
 
-    @FXML
-    private Button botonRegresoLobby;
+    @FXML private Button botonRegresoLobby;
+    @FXML private Button botonjugardenuevo;
 
-    @FXML
-    private Button botonjugardenuevo;
+    private boolean modoDificil;
+
+    public void setModoDificil(boolean modoDificil) {
+        this.modoDificil = modoDificil;
+    }
 
     @FXML
     void Volver_Inicio(ActionEvent event) {
         try {
-        Parent root = FXMLLoader.load(getClass().getResource("Vista/Lobby.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,16 +36,17 @@ public class CVictoriaPractica {
 
     @FXML
     void Volver_a_Jugar(ActionEvent event) {
-        //Es necesario buscar una manera de aclarar a cual pantalla de practica volver, la de dificultad facil o dificultad dificil
         try {
-        Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+            String fxml = modoDificil
+                ? "JuegoPracticaDificil.fxml"
+                : "JuegoPracticaFacil.fxml";
+
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }

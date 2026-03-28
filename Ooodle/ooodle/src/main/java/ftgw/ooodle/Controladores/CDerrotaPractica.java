@@ -14,40 +14,30 @@ import javafx.stage.Stage;
 
 public class CDerrotaPractica {
 
-    //Esta clase permitira volver a la interfaz anterior independendientemente cual sea
     public static class SceneManager {
-    private static final Stack<Scene> historial = new Stack<>();
+        private static final Stack<Scene> historial = new Stack<>();
 
-    public static void push(Scene scene) {
-        historial.push(scene);
+        public static void push(Scene scene) { historial.push(scene); }
+        public static Scene pop() { return !historial.isEmpty() ? historial.pop() : null; }
+        public static boolean hasPrevious() { return !historial.isEmpty(); }
     }
 
-    public static Scene pop() {
-        if (!historial.isEmpty()) {
-            return historial.pop();
-        }
-        return null;
+    @FXML private Button botonRegresoLobby;
+    @FXML private Button botonjugardenuevo;
+
+    private boolean modoDificil;
+
+    public void setModoDificil(boolean modoDificil) {
+        this.modoDificil = modoDificil;
     }
-
-    public static boolean hasPrevious() {
-        return !historial.isEmpty();
-    }
-}
-
-    @FXML
-    private Button botonRegresoLobby;
-
-    @FXML
-    private Button botonjugardenuevo;
 
     @FXML
     void Volver_Inicio(ActionEvent event) {
         try {
-        Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,16 +45,17 @@ public class CDerrotaPractica {
 
     @FXML
     void Volver_a_Jugar(ActionEvent event) {
-        //Es necesario buscar una manera de aclarar a cual pantalla de practica volver, la de dificultad facil o dificultad dificil
         try {
-        Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+            String fxml = modoDificil
+                ? "JuegoPracticaDificil.fxml"
+                : "JuegoPracticaFacil.fxml";
+
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }
