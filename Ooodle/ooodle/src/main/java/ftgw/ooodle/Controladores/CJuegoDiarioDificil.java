@@ -38,6 +38,11 @@ public class CJuegoDiarioDificil {
     private TextField[][] tablero;
     private Label[] resultados;
 
+    // ===== COLORES =====
+    private static final String VERDE    = "-fx-background-color: #00e676; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
+    private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
+    private static final String GRIS     = "-fx-background-color: #616161; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16px;";
+
     // ===== CRONÓMETRO =====
     private int segundosTranscurridos = 0;
     private Timeline timeline;
@@ -182,6 +187,9 @@ public class CJuegoDiarioDificil {
 
             int resultado = a * b + c - d;
 
+            // ===== RETROALIMENTACIÓN DE COLORES =====
+            aplicarColores(intentoActual - 1, new int[]{a, b, c, d});
+
             // 🎉 GANAR
             if (solucion != null &&
                 a == solucion[0] &&
@@ -210,6 +218,26 @@ public class CJuegoDiarioDificil {
         } catch (Exception e) {
             e.printStackTrace();
             mostrarError("Ocurrió un error inesperado.");
+        }
+    }
+
+    // ===== APLICAR COLORES =====
+    private void aplicarColores(int fila, int[] intento) {
+        for (int j = 0; j < 4; j++) {
+            TextField celda = tablero[fila][j];
+
+            if (intento[j] == solucion[j]) {
+                celda.setStyle(VERDE);
+            } else {
+                boolean estaEnSolucion = false;
+                for (int s = 0; s < 4; s++) {
+                    if (intento[j] == solucion[s]) {
+                        estaEnSolucion = true;
+                        break;
+                    }
+                }
+                celda.setStyle(estaEnSolucion ? AMARILLO : GRIS);
+            }
         }
     }
 
@@ -263,8 +291,10 @@ public class CJuegoDiarioDificil {
         generarNuevoJuego();
 
         for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++)
+            for (int j = 0; j < 4; j++) {
                 tablero[i][j].clear();
+                tablero[i][j].setStyle(""); // limpiar colores
+            }
 
         bloquearTodo();
         habilitarFila(0);

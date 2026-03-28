@@ -41,6 +41,11 @@ public class CJuegoPracticaDificil {
     private TextField[][] tablero;
     private Label[] resultados;
 
+    // ===== COLORES =====
+    private static final String VERDE    = "-fx-background-color: #00e676; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
+    private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
+    private static final String GRIS     = "-fx-background-color: #616161; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16px;";
+
     // ===== CRONÓMETRO =====
     private int segundosTranscurridos = 0;
     private Timeline timeline;
@@ -48,7 +53,6 @@ public class CJuegoPracticaDificil {
     @FXML
     public void initialize() {
 
-        // ===== CRONÓMETRO =====
         cronometro.setText("00:00");
 
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
@@ -58,7 +62,6 @@ public class CJuegoPracticaDificil {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        // ===== TABLERO =====
         tablero = new TextField[][]{
             {a1, b1, c1, d1},
             {a2, b2, c2, d2},
@@ -71,7 +74,6 @@ public class CJuegoPracticaDificil {
         resultados = new Label[]{res1, res2, res3, res4, res5, res6};
 
         generarNuevoJuego();
-
         bloquearTodo();
         habilitarFila(0);
     }
@@ -104,17 +106,14 @@ public class CJuegoPracticaDificil {
             reiniciarJuego();
             return;
         }
-
         if (boton == BDel) {
             borrarUltimo();
             return;
         }
-
         if (boton == Bcheck) {
             validarFila();
             return;
         }
-
         if (boton.getText().matches("([1-9]|1[0-2])")) {
             escribirNumero(boton.getText());
         }
@@ -125,29 +124,21 @@ public class CJuegoPracticaDificil {
         if (intentoActual > 6) return;
 
         TextField campo = tablero[intentoActual - 1][columnaActual];
-
         if (!campo.isEditable()) return;
 
         if (campo.getText().isEmpty()) {
             campo.setText(num);
             columnaActual++;
-
-            if (columnaActual > 3) {
-                columnaActual = 3;
-            }
+            if (columnaActual > 3) columnaActual = 3;
         }
     }
 
     // ===== BORRAR =====
     private void borrarUltimo() {
         if (intentoActual > 6) return;
-
         if (!tablero[intentoActual - 1][0].isEditable()) return;
 
-        if (columnaActual > 0) {
-            columnaActual--;
-        }
-
+        if (columnaActual > 0) columnaActual--;
         tablero[intentoActual - 1][columnaActual].clear();
     }
 
@@ -165,7 +156,6 @@ public class CJuegoPracticaDificil {
         try {
             String[] valores = new String[4];
 
-            // ===== VALIDAR VACÍOS + FORMATO (1 a 12) =====
             for (int i = 0; i < 4; i++) {
                 valores[i] = tablero[intentoActual - 1][i].getText();
 
@@ -174,20 +164,17 @@ public class CJuegoPracticaDificil {
                     return;
                 }
 
-                // Solo números del 1 al 12
                 if (!valores[i].matches("([1-9]|1[0-2])")) {
                     mostrarError("Solo se permiten números del 1 al 12.");
                     return;
                 }
             }
 
-            // ===== PARSEAR =====
             int a = Integer.parseInt(valores[0]);
             int b = Integer.parseInt(valores[1]);
             int c = Integer.parseInt(valores[2]);
             int d = Integer.parseInt(valores[3]);
 
-            // ===== VALIDAR NÚMEROS REPETIDOS =====
             if (a == b || a == c || a == d ||
                 b == c || b == d ||
                 c == d) {
@@ -197,13 +184,15 @@ public class CJuegoPracticaDificil {
 
             int resultado = a * b + c - d;
 
+            // ===== RETROALIMENTACIÓN DE COLORES =====
+            aplicarColores(intentoActual - 1, new int[]{a, b, c, d});
+
             // 🎉 GANAR
             if (solucion != null &&
                 a == solucion[0] &&
                 b == solucion[1] &&
                 c == solucion[2] &&
                 d == solucion[3]) {
-
                 cambiarEscena("VictoriaPractica.fxml");
                 return;
             }
@@ -213,7 +202,6 @@ public class CJuegoPracticaDificil {
             }
 
             deshabilitarFila(intentoActual - 1);
-
             intentoActual++;
             columnaActual = 0;
 
@@ -230,42 +218,59 @@ public class CJuegoPracticaDificil {
         }
     }
 
+    // ===== APLICAR COLORES =====
+    private void aplicarColores(int fila, int[] intento) {
+        for (int j = 0; j < 4; j++) {
+            TextField celda = tablero[fila][j];
+
+            if (intento[j] == solucion[j]) {
+                celda.setStyle(VERDE);
+            } else {
+                boolean estaEnSolucion = false;
+                for (int s = 0; s < 4; s++) {
+                    if (intento[j] == solucion[s]) {
+                        estaEnSolucion = true;
+                        break;
+                    }
+                }
+                celda.setStyle(estaEnSolucion ? AMARILLO : GRIS);
+            }
+        }
+    }
+
     // ===== CAMBIO DE ESCENA =====
     private void cambiarEscena(String fxml) {
-    try {
-        if (timeline != null) { timeline.stop(); }
+        try {
+            if (timeline != null) { timeline.stop(); }
 
-        var resource = getClass().getResource("/ftgw/ooodle/Vista/" + fxml);
-        if (resource == null) {
-            System.err.println("No se encontró el FXML: " + fxml);
-            return;
+            var resource = getClass().getResource("/ftgw/ooodle/Vista/" + fxml);
+            if (resource == null) {
+                System.err.println("No se encontró el FXML: " + fxml);
+                return;
+            }
+
+            FXMLLoader loader = new FXMLLoader(resource);
+            Parent root = loader.load();
+
+            Object controller = loader.getController();
+            if (controller instanceof CVictoriaPractica) {
+                ((CVictoriaPractica) controller).setModoDificil(true);
+            } else if (controller instanceof CDerrotaPractica) {
+                ((CDerrotaPractica) controller).setModoDificil(true);
+            }
+
+            Stage stage = (Stage) Bcheck.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-        FXMLLoader loader = new FXMLLoader(resource);
-        Parent root = loader.load();
-
-        // Pasar la dificultad al controlador de victoria/derrota
-        Object controller = loader.getController();
-        if (controller instanceof CVictoriaPractica) {
-            ((CVictoriaPractica) controller).setModoDificil(true); // true en el difícil
-        } else if (controller instanceof CDerrotaPractica) {
-            ((CDerrotaPractica) controller).setModoDificil(true); // true en el difícil
-        }
-
-        Stage stage = (Stage) Bcheck.getScene().getWindow(); // Bcheck en el difícil
-        stage.setScene(new Scene(root));
-        stage.show();
-
-    } catch (Exception e) {
-        e.printStackTrace();
     }
-}
 
     // ===== BLOQUEAR TODO =====
     private void bloquearTodo() {
-        for (int i = 0; i < 6; i++) {
-            deshabilitarFila(i);
-        }
+        for (int i = 0; i < 6; i++) deshabilitarFila(i);
     }
 
     private void habilitarFila(int fila) {
@@ -285,17 +290,15 @@ public class CJuegoPracticaDificil {
     // ===== REINICIAR =====
     private void reiniciarJuego() {
         reiniciarCronometro();
-
         intentoActual = 1;
         columnaActual = 0;
-
         generarNuevoJuego();
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++)
             for (int j = 0; j < 4; j++) {
                 tablero[i][j].clear();
+                tablero[i][j].setStyle(""); // limpiar colores
             }
-        }
 
         bloquearTodo();
         habilitarFila(0);
@@ -310,8 +313,7 @@ public class CJuegoPracticaDificil {
         }
         int minutos = segundosTranscurridos / 60;
         int segundos = segundosTranscurridos % 60;
-        String tiempo = String.format("%02d:%02d", minutos, segundos);
-        cronometro.setText(tiempo);
+        cronometro.setText(String.format("%02d:%02d", minutos, segundos));
     }
 
     private void reiniciarCronometro() {
@@ -327,8 +329,7 @@ public class CJuegoPracticaDificil {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) BtnVL.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+            stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
             System.err.println("Error al cargar el lobby: " + e.getMessage());
