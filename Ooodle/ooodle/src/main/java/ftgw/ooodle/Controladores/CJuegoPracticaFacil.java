@@ -233,13 +233,12 @@ private void validarFila(){
     
 
     // ===== CAMBIO DE ESCENA =====
-    private void cambiarEscena(String fxml){
+private void cambiarEscena(String fxml) {
+    try {
+        if (timeline != null) { timeline.stop(); }
 
-    try{
-        if(timeline != null){timeline.stop();}
         var resource = getClass().getResource("/ftgw/ooodle/Vista/" + fxml);
-
-        if(resource == null){
+        if (resource == null) {
             System.err.println("No se encontró el FXML: " + fxml);
             return;
         }
@@ -247,11 +246,19 @@ private void validarFila(){
         FXMLLoader loader = new FXMLLoader(resource);
         Parent root = loader.load();
 
-        Stage stage = (Stage) BCheck.getScene().getWindow();
+        // Pasar la dificultad al controlador de victoria/derrota
+        Object controller = loader.getController();
+        if (controller instanceof CVictoriaPractica) {
+            ((CVictoriaPractica) controller).setModoDificil(false); // true en el difícil
+        } else if (controller instanceof CDerrotaPractica) {
+            ((CDerrotaPractica) controller).setModoDificil(false); // true en el difícil
+        }
+
+        Stage stage = (Stage) BCheck.getScene().getWindow(); // Bcheck en el difícil
         stage.setScene(new Scene(root));
         stage.show();
 
-    }catch(Exception e){
+    } catch (Exception e) {
         e.printStackTrace();
     }
 }
