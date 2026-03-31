@@ -17,14 +17,15 @@ import javafx.stage.Stage;
 
 public class CJuegoPracticaFacil {
 
-    @FXML private Button BCheck, BDel, BT1, BT2, BT3, BT4, BT5, BT6, BT7, BT8, BT9, BTRestart, BotonLobby;
+    @FXML private Button B1, B2, B3, B4, B5, B6, B7, B8, B9;
+    @FXML private Button BCheck, BDel, BTRestart, BotonLobby;
 
-    @FXML private TextField a1,a2,a3,a4,a5,a6;
-    @FXML private TextField b1,b2,b3,b4,b5,b6;
-    @FXML private TextField c1,c2,c3,c4,c5,c6;
-    @FXML private TextField d1,d2,d3,d4,d5,d6;
+    @FXML private TextField a1, a2, a3, a4, a5, a6;
+    @FXML private TextField b1, b2, b3, b4, b5, b6;
+    @FXML private TextField c1, c2, c3, c4, c5, c6;
+    @FXML private TextField d1, d2, d3, d4, d5, d6;
 
-    @FXML private Label res_1,res_2,res_3,res_4,res_5,res_6;
+    @FXML private Label res_1, res_2, res_3, res_4, res_5, res_6;
     @FXML private Label cronometro;
 
     // ===== VARIABLES DEL JUEGO =====
@@ -40,12 +41,13 @@ public class CJuegoPracticaFacil {
     private static final String VERDE    = "-fx-background-color: #00e676; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
     private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
     private static final String GRIS     = "-fx-background-color: #616161; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16px;";
+
     // ===== CRONÓMETRO =====
     private int segundosTranscurridos = 0;
     private Timeline timeline;
 
     @FXML
-    public void initialize(){
+    public void initialize() {
 
         cronometro.setText("00:00");
 
@@ -56,29 +58,57 @@ public class CJuegoPracticaFacil {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        // ===== TABLERO =====
         tablero = new TextField[][]{
-            {a1,b1,c1,d1},
-            {a2,b2,c2,d2},
-            {a3,b3,c3,d3},
-            {a4,b4,c4,d4},
-            {a5,b5,c5,d5},
-            {a6,b6,c6,d6}
+            {a1, b1, c1, d1},
+            {a2, b2, c2, d2},
+            {a3, b3, c3, d3},
+            {a4, b4, c4, d4},
+            {a5, b5, c5, d5},
+            {a6, b6, c6, d6}
         };
 
-        resultados = new Label[]{res_1,res_2,res_3,res_4,res_5,res_6};
+        resultados = new Label[]{res_1, res_2, res_3, res_4, res_5, res_6};
 
         generarNuevoJuego();
         bloquearTodo();
         habilitarFila(0);
     }
 
+    // ===== BOTONES NUMÉRICOS INDIVIDUALES =====
+    @FXML void Click1(ActionEvent event) { escribirNumero("1"); }
+    @FXML void Click2(ActionEvent event) { escribirNumero("2"); }
+    @FXML void Click3(ActionEvent event) { escribirNumero("3"); }
+    @FXML void Click4(ActionEvent event) { escribirNumero("4"); }
+    @FXML void Click5(ActionEvent event) { escribirNumero("5"); }
+    @FXML void Click6(ActionEvent event) { escribirNumero("6"); }
+    @FXML void Click7(ActionEvent event) { escribirNumero("7"); }
+    @FXML void Click8(ActionEvent event) { escribirNumero("8"); }
+    @FXML void Click9(ActionEvent event) { escribirNumero("9"); }
+
+    // ===== CHECK =====
+    @FXML
+    void ClickCheck(ActionEvent event) {
+        validarFila();
+    }
+
+    // ===== DEL =====
+    @FXML
+    void ClickDel(ActionEvent event) {
+        borrarUltimo();
+    }
+
+    // ===== RESTART =====
+    @FXML
+    void ClickRestart(ActionEvent event) {
+        reiniciarJuego();
+    }
+
     // ===== GENERAR JUEGO =====
-    private void generarNuevoJuego(){
+    private void generarNuevoJuego() {
         target = (int)(Math.random() * 83) - 4;
         solucion = ftgw.ooodle.Ecuacion.generateEquation(target, false);
 
-        if(solucion != null){
+        if (solucion != null) {
             System.out.printf(
                 "SOLUCIÓN: %d * %d + %d - %d = %d%n",
                 solucion[0], solucion[1], solucion[2], solucion[3], target
@@ -87,57 +117,39 @@ public class CJuegoPracticaFacil {
             System.out.println("No se encontró solución para: " + target);
         }
 
-        for(Label l : resultados){
+        for (Label l : resultados) {
             l.setText(String.valueOf(target));
         }
     }
 
-    @FXML
-    void Click(ActionEvent event) {
-        Button boton = (Button) event.getSource();
-
-        if(boton == BTRestart){
-            reiniciarJuego();
-            return;
-        }
-        if(boton == BDel){
-            borrarUltimo();
-            return;
-        }
-        if(boton == BCheck){
-            validarFila();
-            return;
-        }
-        if(boton.getText().matches("[1-9]")){
-            escribirNumero(boton.getText());
-        }
-    }
-
     // ===== ESCRIBIR =====
-    private void escribirNumero(String num){
-        if(intentoActual > 6) return;
+    private void escribirNumero(String num) {
+        if (intentoActual > 6) return;
 
-        TextField campo = tablero[intentoActual-1][columnaActual];
-        if(!campo.isEditable()) return;
+        TextField campo = tablero[intentoActual - 1][columnaActual];
+        if (!campo.isEditable()) return;
 
-        if(campo.getText().isEmpty()){
+        if (campo.getText().isEmpty()) {
             campo.setText(num);
             columnaActual++;
-            if(columnaActual > 3) columnaActual = 3;
+            if (columnaActual > 3) columnaActual = 3;
         }
     }
 
     // ===== BORRAR =====
-    private void borrarUltimo(){
-        if(intentoActual > 6) return;
-        if(!tablero[intentoActual-1][0].isEditable()) return;
+    private void borrarUltimo() {
+        if (intentoActual > 6) return;
+        if (!tablero[intentoActual - 1][0].isEditable()) return;
 
-        if(columnaActual > 0) columnaActual--;
-        tablero[intentoActual-1][columnaActual].clear();
+        // Si la casilla actual ya está vacía, retrocede primero
+        if (columnaActual > 0 && tablero[intentoActual - 1][columnaActual].getText().isEmpty()) {
+            columnaActual--;
+        }
+        tablero[intentoActual - 1][columnaActual].clear();
     }
 
     // ===== MOSTRAR ERROR =====
-    private void mostrarError(String mensaje){
+    private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
@@ -146,18 +158,18 @@ public class CJuegoPracticaFacil {
     }
 
     // ===== VALIDAR FILA =====
-    private void validarFila(){
-        try{
+    private void validarFila() {
+        try {
             String[] valores = new String[4];
 
-            for(int i = 0; i < 4; i++){
-                valores[i] = tablero[intentoActual-1][i].getText();
+            for (int i = 0; i < 4; i++) {
+                valores[i] = tablero[intentoActual - 1][i].getText();
 
-                if(valores[i] == null || valores[i].trim().isEmpty()){
+                if (valores[i] == null || valores[i].trim().isEmpty()) {
                     mostrarError("Debes completar todos los espacios.");
                     return;
                 }
-                if(!valores[i].matches("[1-9]")){
+                if (!valores[i].matches("[1-9]")) {
                     mostrarError("Solo se permiten números del 1 al 9.");
                     return;
                 }
@@ -168,62 +180,59 @@ public class CJuegoPracticaFacil {
             int c = Integer.parseInt(valores[2]);
             int d = Integer.parseInt(valores[3]);
 
-            if(a == b || a == c || a == d ||
-               b == c || b == d ||
-               c == d){
+            if (a == b || a == c || a == d ||
+                b == c || b == d ||
+                c == d) {
                 mostrarError("No puedes usar números repetidos.");
                 return;
             }
 
             int resultado = a * b + c - d;
 
-            // ===== RETROALIMENTACIÓN DE COLORES =====
-            aplicarColores(intentoActual-1, new int[]{a, b, c, d});
+            aplicarColores(intentoActual - 1, new int[]{a, b, c, d});
 
             // 🎉 GANAR
-            if(solucion != null &&
-               a == solucion[0] &&
-               b == solucion[1] &&
-               c == solucion[2] &&
-               d == solucion[3]){
+            if (solucion != null &&
+                a == solucion[0] &&
+                b == solucion[1] &&
+                c == solucion[2] &&
+                d == solucion[3]) {
                 cambiarEscena("VictoriaPractica.fxml");
                 return;
             }
 
-            if(resultado == target){
+            if (resultado == target) {
                 System.out.println("Correcto pero no es la solución propuesta");
             }
 
-            deshabilitarFila(intentoActual-1);
+            deshabilitarFila(intentoActual - 1);
             intentoActual++;
             columnaActual = 0;
 
-            if(intentoActual > 6){
+            if (intentoActual > 6) {
                 cambiarEscena("DerrotaPractica.fxml");
                 return;
             }
 
-            habilitarFila(intentoActual-1);
+            habilitarFila(intentoActual - 1);
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             mostrarError("Ocurrió un error inesperado.");
         }
     }
 
     // ===== APLICAR COLORES =====
-    private void aplicarColores(int fila, int[] intento){
-        for(int j = 0; j < 4; j++){
+    private void aplicarColores(int fila, int[] intento) {
+        for (int j = 0; j < 4; j++) {
             TextField celda = tablero[fila][j];
 
-            if(intento[j] == solucion[j]){
-                // Posición y número correctos → VERDE
+            if (intento[j] == solucion[j]) {
                 celda.setStyle(VERDE);
             } else {
-                // Verificar si el número existe en alguna posición de la solución
                 boolean estaEnSolucion = false;
-                for(int s = 0; s < 4; s++){
-                    if(intento[j] == solucion[s]){
+                for (int s = 0; s < 4; s++) {
+                    if (intento[j] == solucion[s]) {
                         estaEnSolucion = true;
                         break;
                     }
@@ -234,12 +243,12 @@ public class CJuegoPracticaFacil {
     }
 
     // ===== CAMBIO DE ESCENA =====
-    private void cambiarEscena(String fxml){
-        try{
-            if(timeline != null){ timeline.stop(); }
+    private void cambiarEscena(String fxml) {
+        try {
+            if (timeline != null) { timeline.stop(); }
 
             var resource = getClass().getResource("/ftgw/ooodle/Vista/" + fxml);
-            if(resource == null){
+            if (resource == null) {
                 System.err.println("No se encontró el FXML: " + fxml);
                 return;
             }
@@ -248,9 +257,9 @@ public class CJuegoPracticaFacil {
             Parent root = loader.load();
 
             Object controller = loader.getController();
-            if(controller instanceof CVictoriaPractica){
+            if (controller instanceof CVictoriaPractica) {
                 ((CVictoriaPractica) controller).setModoDificil(false);
-            } else if(controller instanceof CDerrotaPractica){
+            } else if (controller instanceof CDerrotaPractica) {
                 ((CDerrotaPractica) controller).setModoDificil(false);
             }
 
@@ -258,51 +267,50 @@ public class CJuegoPracticaFacil {
             stage.setScene(new Scene(root));
             stage.show();
 
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     // ===== BLOQUEAR TODO =====
-    private void bloquearTodo(){
-        for(int i = 0; i < 6; i++) deshabilitarFila(i);
+    private void bloquearTodo() {
+        for (int i = 0; i < 6; i++) deshabilitarFila(i);
     }
 
-    private void habilitarFila(int fila){
-        for(int j = 0; j < 4; j++){
+    private void habilitarFila(int fila) {
+        for (int j = 0; j < 4; j++) {
             tablero[fila][j].setEditable(true);
             tablero[fila][j].setDisable(false);
         }
     }
 
-    private void deshabilitarFila(int fila){
-        for(int j = 0; j < 4; j++){
+    private void deshabilitarFila(int fila) {
+        for (int j = 0; j < 4; j++) {
             tablero[fila][j].setEditable(false);
             tablero[fila][j].setDisable(true);
         }
     }
 
     // ===== REINICIAR =====
-    private void reiniciarJuego(){
+    private void reiniciarJuego() {
         reiniciarCronometro();
         intentoActual = 1;
         columnaActual = 0;
         generarNuevoJuego();
 
-        for(int i = 0; i < 6; i++){
-            for(int j = 0; j < 4; j++){
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 4; j++) {
                 tablero[i][j].clear();
-                tablero[i][j].setStyle(""); // limpiar colores
+                tablero[i][j].setStyle("");
             }
-        }
 
         bloquearTodo();
         habilitarFila(0);
     }
 
     // ===== CRONÓMETRO =====
-    private void actualizarLabel(){
-        if(segundosTranscurridos >= 3600){
+    private void actualizarLabel() {
+        if (segundosTranscurridos >= 3600) {
             cronometro.setText("!Te demoraste mucho!");
             timeline.stop();
             return;
@@ -312,7 +320,7 @@ public class CJuegoPracticaFacil {
         cronometro.setText(String.format("%02d:%02d", minutos, segundos));
     }
 
-    private void reiniciarCronometro(){
+    private void reiniciarCronometro() {
         segundosTranscurridos = 0;
         actualizarLabel();
         timeline.playFromStart();

@@ -20,7 +20,8 @@ import javafx.util.Duration;
 public class CJuegoDiarioFacil {
 
     @FXML private Button B1, B2, B3, B4, B5, B6, B7, B8, B9;
-    @FXML private Button Bcheck, Bdel, Blobby, Brestart, BtnRPP;
+    @FXML private Button Bcheck, Bdel, Blobby, Brestart;
+    @FXML private AnchorPane PanelBase;
 
     @FXML private TextField a1, a2, a3, a4, a5, a6;
     @FXML private TextField b1, b2, b3, b4, b5, b6;
@@ -28,8 +29,7 @@ public class CJuegoDiarioFacil {
     @FXML private TextField d1, d2, d3, d4, d5, d6;
 
     @FXML private Label res1, res2, res3, res4, res5, res6;
-    @FXML private Label cronometro, letrero;
-    @FXML private AnchorPane PanelBase;
+    @FXML private Label cronometro;
 
     // ===== VARIABLES DEL JUEGO =====
     private int target;
@@ -77,6 +77,35 @@ public class CJuegoDiarioFacil {
         habilitarFila(0);
     }
 
+    // ===== BOTONES NUMÉRICOS INDIVIDUALES =====
+    @FXML void Click1(ActionEvent event) { escribirNumero("1"); }
+    @FXML void Click2(ActionEvent event) { escribirNumero("2"); }
+    @FXML void Click3(ActionEvent event) { escribirNumero("3"); }
+    @FXML void Click4(ActionEvent event) { escribirNumero("4"); }
+    @FXML void Click5(ActionEvent event) { escribirNumero("5"); }
+    @FXML void Click6(ActionEvent event) { escribirNumero("6"); }
+    @FXML void Click7(ActionEvent event) { escribirNumero("7"); }
+    @FXML void Click8(ActionEvent event) { escribirNumero("8"); }
+    @FXML void Click9(ActionEvent event) { escribirNumero("9"); }
+
+    // ===== CHECK =====
+    @FXML
+    void ClickCheck(ActionEvent event) {
+        validarFila();
+    }
+
+    // ===== DEL =====
+    @FXML
+    void ClickDel(ActionEvent event) {
+        borrarUltimo();
+    }
+
+    // ===== RESTART =====
+    @FXML
+    public void ClickRestart(ActionEvent event) {
+        reiniciarJuego();
+    }
+
     // ===== GENERAR JUEGO =====
     private void generarNuevoJuego() {
         target = (int)(Math.random() * 83) - 4;
@@ -94,30 +123,6 @@ public class CJuegoDiarioFacil {
         for (Label l : resultados) {
             l.setText(String.valueOf(target));
         }
-    }
-
-    // ===== BOTONES NUMÉRICOS =====
-    @FXML
-    void ClickNumero(ActionEvent event) {
-        Button boton = (Button) event.getSource();
-        if (boton.getText().matches("[1-9]")) {
-            escribirNumero(boton.getText());
-        }
-    }
-
-    @FXML
-    void ClickCheck(ActionEvent event) {
-        validarFila();
-    }
-
-    @FXML
-    void ClickDel(ActionEvent event) {
-        borrarUltimo();
-    }
-
-    @FXML
-    public void ClickRestart(ActionEvent event) {
-        reiniciarJuego();
     }
 
     // ===== ESCRIBIR =====
@@ -139,7 +144,10 @@ public class CJuegoDiarioFacil {
         if (intentoActual > 6) return;
         if (!tablero[intentoActual - 1][0].isEditable()) return;
 
-        if (columnaActual > 0) columnaActual--;
+        // Si la casilla actual ya está vacía, retrocede primero
+        if (columnaActual > 0 && tablero[intentoActual - 1][columnaActual].getText().isEmpty()) {
+            columnaActual--;
+        }
         tablero[intentoActual - 1][columnaActual].clear();
     }
 
@@ -185,7 +193,6 @@ public class CJuegoDiarioFacil {
 
             int resultado = a * b + c - d;
 
-            // ===== RETROALIMENTACIÓN DE COLORES =====
             aplicarColores(intentoActual - 1, new int[]{a, b, c, d});
 
             // 🎉 GANAR
@@ -291,7 +298,7 @@ public class CJuegoDiarioFacil {
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 4; j++) {
                 tablero[i][j].clear();
-                tablero[i][j].setStyle(""); // limpiar colores
+                tablero[i][j].setStyle("");
             }
 
         bloquearTodo();

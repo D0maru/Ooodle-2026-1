@@ -18,8 +18,22 @@ import javafx.util.Duration;
 
 public class CJuegoDiarioDificil {
 
-    @FXML private Button B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12;
-    @FXML private Button Bcheck, Bdel, Blooby, Brestart, BtnRPP;
+    @FXML private Button B1;
+    @FXML private Button B10;
+    @FXML private Button B11;
+    @FXML private Button B12;
+    @FXML private Button B2;
+    @FXML private Button B3;
+    @FXML private Button B4;
+    @FXML private Button B5;
+    @FXML private Button B6;
+    @FXML private Button B7;
+    @FXML private Button B8;
+    @FXML private Button B9;
+    @FXML private Button Bcheck;
+    @FXML private Button Bdel;
+    @FXML private Button Blooby;
+    @FXML private Button Brestart;
 
     @FXML private TextField a1, a2, a3, a4, a5, a6;
     @FXML private TextField b1, b2, b3, b4, b5, b6;
@@ -59,7 +73,6 @@ public class CJuegoDiarioDificil {
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
 
-        // ===== TABLERO =====
         tablero = new TextField[][]{
             {a1, b1, c1, d1},
             {a2, b2, c2, d2},
@@ -74,6 +87,38 @@ public class CJuegoDiarioDificil {
         generarNuevoJuego();
         bloquearTodo();
         habilitarFila(0);
+    }
+
+    // ===== BOTONES NUMÉRICOS INDIVIDUALES =====
+    @FXML void Click1(ActionEvent event)  { escribirNumero("1");  }
+    @FXML void Click2(ActionEvent event)  { escribirNumero("2");  }
+    @FXML void Click3(ActionEvent event)  { escribirNumero("3");  }
+    @FXML void Click4(ActionEvent event)  { escribirNumero("4");  }
+    @FXML void Click5(ActionEvent event)  { escribirNumero("5");  }
+    @FXML void Click6(ActionEvent event)  { escribirNumero("6");  }
+    @FXML void Click7(ActionEvent event)  { escribirNumero("7");  }
+    @FXML void Click8(ActionEvent event)  { escribirNumero("8");  }
+    @FXML void Click9(ActionEvent event)  { escribirNumero("9");  }
+    @FXML void Click10(ActionEvent event) { escribirNumero("10"); }
+    @FXML void Click11(ActionEvent event) { escribirNumero("11"); }
+    @FXML void Click12(ActionEvent event) { escribirNumero("12"); }
+
+    // ===== CHECK =====
+    @FXML
+    void ClickCheck(ActionEvent event) {
+        validarFila();
+    }
+
+    // ===== DEL =====
+    @FXML
+    void ClickDel(ActionEvent event) {
+        borrarUltimo();
+    }
+
+    // ===== RESTART =====
+    @FXML
+    public void ClickRestart(ActionEvent event) {
+        reiniciarJuego();
     }
 
     // ===== GENERAR JUEGO =====
@@ -95,33 +140,6 @@ public class CJuegoDiarioDificil {
         }
     }
 
-    // ===== BOTONES NUMÉRICOS =====
-    @FXML
-    void ClickNumero(ActionEvent event) {
-        Button boton = (Button) event.getSource();
-        if (boton.getText().matches("([1-9]|1[0-2])")) {
-            escribirNumero(boton.getText());
-        }
-    }
-
-    // ===== CHECK =====
-    @FXML
-    void ClickCheck(ActionEvent event) {
-        validarFila();
-    }
-
-    // ===== DEL =====
-    @FXML
-    void ClickDel(ActionEvent event) {
-        borrarUltimo();
-    }
-
-    // ===== RESTART =====
-    @FXML
-    public void ClickRestart(ActionEvent event) {
-        reiniciarJuego();
-    }
-
     // ===== ESCRIBIR =====
     private void escribirNumero(String num) {
         if (intentoActual > 6) return;
@@ -141,8 +159,12 @@ public class CJuegoDiarioDificil {
         if (intentoActual > 6) return;
         if (!tablero[intentoActual - 1][0].isEditable()) return;
 
-        if (columnaActual > 0) columnaActual--;
+        // Si la casilla actual ya está vacía, retrocede primero
+        if (columnaActual > 0 && tablero[intentoActual - 1][columnaActual].getText().isEmpty()) {
+            columnaActual--;
+        }
         tablero[intentoActual - 1][columnaActual].clear();
+        // No retroceder si ya estamos en la primera casilla
     }
 
     // ===== MOSTRAR ERROR =====
@@ -187,7 +209,6 @@ public class CJuegoDiarioDificil {
 
             int resultado = a * b + c - d;
 
-            // ===== RETROALIMENTACIÓN DE COLORES =====
             aplicarColores(intentoActual - 1, new int[]{a, b, c, d});
 
             // 🎉 GANAR
@@ -293,7 +314,7 @@ public class CJuegoDiarioDificil {
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 4; j++) {
                 tablero[i][j].clear();
-                tablero[i][j].setStyle(""); // limpiar colores
+                tablero[i][j].setStyle("");
             }
 
         bloquearTodo();

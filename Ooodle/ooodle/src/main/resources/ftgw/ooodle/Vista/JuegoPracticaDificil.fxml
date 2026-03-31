@@ -22,62 +22,62 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B1" layoutX="14.0" layoutY="221.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="1">
+            <Button fx:id="B1" layoutX="14.0" layoutY="221.0" mnemonicParsing="false" onAction="#Click1" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="1">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B2" layoutX="78.0" layoutY="221.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="2">
+            <Button fx:id="B2" layoutX="78.0" layoutY="221.0" mnemonicParsing="false" onAction="#Click2" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="2">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B3" layoutX="141.0" layoutY="221.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="3">
+            <Button fx:id="B3" layoutX="141.0" layoutY="221.0" mnemonicParsing="false" onAction="#Click3" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="3">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B4" layoutX="14.0" layoutY="177.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="4">
+            <Button fx:id="B4" layoutX="14.0" layoutY="177.0" mnemonicParsing="false" onAction="#Click4" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="4">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B5" layoutX="78.0" layoutY="177.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="5">
+            <Button fx:id="B5" layoutX="78.0" layoutY="177.0" mnemonicParsing="false" onAction="#Click5" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="5">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B6" layoutX="141.0" layoutY="177.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="6">
+            <Button fx:id="B6" layoutX="141.0" layoutY="177.0" mnemonicParsing="false" onAction="#Click6" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="6">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B7" layoutX="14.0" layoutY="131.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="7">
+            <Button fx:id="B7" layoutX="14.0" layoutY="131.0" mnemonicParsing="false" onAction="#Click7" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="7">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B8" layoutX="78.0" layoutY="131.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="8">
+            <Button fx:id="B8" layoutX="78.0" layoutY="131.0" mnemonicParsing="false" onAction="#Click8" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="8">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B9" layoutX="141.0" layoutY="131.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="9">
+            <Button fx:id="B9" layoutX="141.0" layoutY="131.0" mnemonicParsing="false" onAction="#Click9" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="9">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B10" layoutX="14.0" layoutY="83.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="10">
+            <Button fx:id="B10" layoutX="14.0" layoutY="83.0" mnemonicParsing="false" onAction="#Click10" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="10">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B11" layoutX="77.0" layoutY="83.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="11">
+            <Button fx:id="B11" layoutX="77.0" layoutY="83.0" mnemonicParsing="false" onAction="#Click11" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="11">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="B12" layoutX="141.0" layoutY="83.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="12">
+            <Button fx:id="B12" layoutX="141.0" layoutY="83.0" mnemonicParsing="false" onAction="#Click12" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="12">
                <font>
                   <Font size="16.0" />
                </font>
