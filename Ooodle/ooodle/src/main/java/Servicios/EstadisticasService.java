@@ -10,7 +10,6 @@ public class EstadisticasService {
 
     private static String obtenerRuta() {
         try {
-            // Ruta absoluta del .class de esta clase en target/classes
             String claseUrl = EstadisticasService.class
                 .getProtectionDomain()
                 .getCodeSource()
@@ -18,7 +17,6 @@ public class EstadisticasService {
                 .toURI()
                 .getPath();
 
-            // claseUrl termina en /target/classes/  →  subimos 2 niveles = raíz del proyecto
             File targetClasses = new File(claseUrl);
             File raiz = targetClasses.getParentFile().getParentFile();
 
@@ -34,7 +32,7 @@ public class EstadisticasService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return "Estadisticas.json"; // fallback junto al ejecutable
+            return "Estadisticas.json";
         }
     }
 
@@ -48,12 +46,13 @@ public class EstadisticasService {
             System.out.println("[EstadisticasService] Cargando | existe: " + archivo.exists() + " | " + archivo.getAbsolutePath());
             if (!archivo.exists()) return stats;
             String contenido = new String(Files.readAllBytes(archivo.toPath()));
-            stats.partidasJugadas  = extraerInt(contenido, "partidasJugadas");
-            stats.partidasGanadas  = extraerInt(contenido, "partidasGanadas");
-            stats.rachaActual      = extraerInt(contenido, "rachaActual");
-            stats.rachaMaxima      = extraerInt(contenido, "rachaMaxima");
+            stats.partidasJugadas   = extraerInt(contenido, "partidasJugadas");
+            stats.partidasGanadas   = extraerInt(contenido, "partidasGanadas");
+            stats.rachaActual       = extraerInt(contenido, "rachaActual");
+            stats.rachaMaxima       = extraerInt(contenido, "rachaMaxima");
             stats.porcentajeGanadas = extraerInt(contenido, "porcentajeGanadas");
-            stats.indiceAdivinanza = extraerArray(contenido, "indiceAdivinanza");
+            stats.indiceAdivinanza  = extraerArray(contenido, "indiceAdivinanza");
+            stats.diarioJugadoHoy   = extraerBoolean(contenido, "diarioJugadoHoy");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -75,17 +74,18 @@ public class EstadisticasService {
             System.out.println("[EstadisticasService] Guardando en: " + archivo.getAbsolutePath());
             FileWriter writer = new FileWriter(archivo);
             writer.write("{\n");
-            writer.write("\"partidasJugadas\": "  + stats.partidasJugadas  + ",\n");
-            writer.write("\"partidasGanadas\": "  + stats.partidasGanadas  + ",\n");
-            writer.write("\"rachaActual\": "       + stats.rachaActual       + ",\n");
-            writer.write("\"rachaMaxima\": "       + stats.rachaMaxima       + ",\n");
-            writer.write("\"porcentajeGanadas\": " + stats.porcentajeGanadas + ",\n");
+            writer.write("\"partidasJugadas\": "   + stats.partidasJugadas   + ",\n");
+            writer.write("\"partidasGanadas\": "   + stats.partidasGanadas   + ",\n");
+            writer.write("\"rachaActual\": "        + stats.rachaActual        + ",\n");
+            writer.write("\"rachaMaxima\": "        + stats.rachaMaxima        + ",\n");
+            writer.write("\"porcentajeGanadas\": "  + stats.porcentajeGanadas  + ",\n");
             writer.write("\"indiceAdivinanza\": [");
             for (int i = 0; i < stats.indiceAdivinanza.length; i++) {
                 writer.write(String.valueOf(stats.indiceAdivinanza[i]));
                 if (i < stats.indiceAdivinanza.length - 1) writer.write(", ");
             }
-            writer.write("]\n}");
+            writer.write("],\n");
+            writer.write("\"diarioJugadoHoy\": " + stats.diarioJugadoHoy + "\n}");
             writer.close();
             System.out.println("[EstadisticasService] Guardado OK");
         } catch (Exception e) {
@@ -146,7 +146,7 @@ public class EstadisticasService {
             int inicio = json.indexOf(patron);
             if (inicio == -1) return new int[6];
             inicio = json.indexOf("[", inicio) + 1;
-            int fin   = json.indexOf("]", inicio);
+            int fin = json.indexOf("]", inicio);
             String contenido = json.substring(inicio, fin);
             String[] partes  = contenido.split(",");
             int[] resultado  = new int[partes.length];
@@ -155,6 +155,23 @@ public class EstadisticasService {
             return resultado;
         } catch (Exception e) {
             return new int[6];
+        }
+    }
+
+    // =========================
+    // 🔧 EXTRAER BOOLEANO
+    // =========================
+    private static boolean extraerBoolean(String json, String clave) {
+        try {
+            String patron = "\"" + clave + "\":";
+            int inicio = json.indexOf(patron);
+            if (inicio == -1) return false;
+            inicio += patron.length();
+            int fin = json.indexOf(",", inicio);
+            if (fin == -1) fin = json.indexOf("\n", inicio);
+            return Boolean.parseBoolean(json.substring(inicio, fin).trim());
+        } catch (Exception e) {
+            return false;
         }
     }
 }

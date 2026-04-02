@@ -8,6 +8,8 @@ public class Estadisticas {
     public int rachaMaxima;
     public int porcentajeGanadas;
     public int[] indiceAdivinanza;
+    public boolean diarioJugadoHoy;
+
  
     public Estadisticas() {
         this.partidasJugadas   = 0;
@@ -16,6 +18,7 @@ public class Estadisticas {
         this.rachaMaxima       = 0;
         this.porcentajeGanadas = 0;
         this.indiceAdivinanza  = new int[6];
+        this.diarioJugadoHoy   = false;
     }
 }
  

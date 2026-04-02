@@ -1,6 +1,7 @@
 package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
+import Servicios.Estadisticas;
 import Servicios.EstadisticasService;
 
 import javafx.animation.KeyFrame;
@@ -145,7 +146,6 @@ public class CJuegoDiarioFacil {
         if (intentoActual > 6) return;
         if (!tablero[intentoActual - 1][0].isEditable()) return;
 
-        // Si la casilla actual ya está vacía, retrocede primero
         if (columnaActual > 0 && tablero[intentoActual - 1][columnaActual].getText().isEmpty()) {
             columnaActual--;
         }
@@ -203,6 +203,7 @@ public class CJuegoDiarioFacil {
                 c == solucion[2] &&
                 d == solucion[3]) {
                 EstadisticasService.registrarVictoria(intentoActual);
+                marcarDiarioJugado();
                 cambiarEscena("VictoriaDiario.fxml");
                 return;
             }
@@ -217,6 +218,7 @@ public class CJuegoDiarioFacil {
 
             if (intentoActual > 6) {
                 EstadisticasService.registrarDerrota();
+                marcarDiarioJugado();
                 cambiarEscena("DerrotaDiario.fxml");
                 return;
             }
@@ -227,6 +229,13 @@ public class CJuegoDiarioFacil {
             e.printStackTrace();
             mostrarError("Ocurrió un error inesperado.");
         }
+    }
+
+    // ===== MARCAR DIARIO JUGADO =====
+    private void marcarDiarioJugado() {
+        Estadisticas stats = EstadisticasService.cargar();
+        stats.diarioJugadoHoy = true;
+        EstadisticasService.guardar(stats);
     }
 
     // ===== APLICAR COLORES =====
