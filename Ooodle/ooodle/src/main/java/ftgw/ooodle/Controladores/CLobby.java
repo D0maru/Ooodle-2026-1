@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.chart.BarChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
@@ -18,24 +17,57 @@ import Servicios.EstadisticasService;
  
 public class CLobby {
  
-    @FXML private BarChart<?, ?> HistoEstad;
-    @FXML private AnchorPane PanelInterfaz;
-    @FXML private Button botonReglas;
-    @FXML private Circle circuloDificultad;
-    @FXML private Label lblRango;
- 
-    // Labels de estadísticas
-    @FXML private Label D_partidasJugadas;
-    @FXML private Label D_RachaMaxima;
-    @FXML private Label D_RachaActual;
-    @FXML private Label D_PorcentajeVictorias;
-    @FXML private Label Ind_1;
-    @FXML private Label Ind_2;
-    @FXML private Label Ind_3;
-    @FXML private Label Ind_4;
-    @FXML private Label Ind_5;
-    @FXML private Label Ind_6;
- 
+    @FXML
+    private Label D_PorcentajeVictorias;
+
+    @FXML
+    private Label D_RachaActual;
+
+    @FXML
+    private Label D_RachaMaxima;
+
+    @FXML
+    private Label D_partidasJugadas;
+
+    @FXML
+    private Label Ind_1;
+
+    @FXML
+    private Label Ind_2;
+
+    @FXML
+    private Label Ind_3;
+
+    @FXML
+    private Label Ind_4;
+
+    @FXML
+    private Label Ind_5;
+
+    @FXML
+    private Label Ind_6;
+
+    @FXML
+    private AnchorPane PanelInterfaz;
+
+    @FXML
+    private Label Reloj_Daily;
+
+    @FXML
+    private Button botonReglas;
+
+    @FXML
+    private Button btnDiario;
+
+    @FXML
+    private Button btnPractica;
+
+    @FXML
+    private Circle circuloDificultad;
+
+    @FXML
+    private Label lblRango;
+
     private boolean modo12 = false;
  
     @FXML

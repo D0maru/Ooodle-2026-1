@@ -1,8 +1,8 @@
 {
-"partidasJugadas": 4,
-"partidasGanadas": 3,
-"rachaActual": 0,
+"partidasJugadas": 5,
+"partidasGanadas": 4,
+"rachaActual": 1,
 "rachaMaxima": 3,
-"porcentajeGanadas": 75,
-"indiceAdivinanza": [2, 0, 0, 1, 0, 0]
+"porcentajeGanadas": 80,
+"indiceAdivinanza": [3, 0, 0, 1, 0, 0]
 }
