@@ -1,6 +1,7 @@
 package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
+import Servicios.EstadisticasService;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -217,6 +218,7 @@ public class CJuegoDiarioDificil {
                 b == solucion[1] &&
                 c == solucion[2] &&
                 d == solucion[3]) {
+                EstadisticasService.registrarVictoria(intentoActual);
                 cambiarEscena("VictoriaDiario.fxml");
                 return;
             }
@@ -230,6 +232,7 @@ public class CJuegoDiarioDificil {
             columnaActual = 0;
 
             if (intentoActual > 6) {
+                EstadisticasService.registrarDerrota();
                 cambiarEscena("DerrotaDiario.fxml");
                 return;
             }

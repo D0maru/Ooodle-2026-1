@@ -46,13 +46,13 @@
       <Accordion layoutX="314.0" layoutY="183.0" />
       <Label layoutX="395.0" layoutY="83.0" text="ESTADISTICAS" />
       <Label layoutX="342.0" layoutY="119.0" text="Partidas jugadas: " />
-      <Label fx:id="D_partidasJugadas" layoutX="436.0" layoutY="119.0" text="10" />
+      <Label fx:id="D_partidasJugadas" layoutX="436.0" layoutY="119.0" text="0" />
       <Label layoutX="342.0" layoutY="144.0" text="Racha Maxima:" />
-      <Label fx:id="D_RachaMaxima" layoutX="429.0" layoutY="144.0" text="10" />
+      <Label fx:id="D_RachaMaxima" layoutX="429.0" layoutY="144.0" text="0" />
       <Label layoutX="463.0" layoutY="144.0" text="Actual:" />
-      <Label fx:id="D_RachaActual" layoutX="505.0" layoutY="144.0" text="10" />
+      <Label fx:id="D_RachaActual" layoutX="505.0" layoutY="144.0" text="0" />
       <Label layoutX="342.0" layoutY="169.0" text="\% Win: " />
-      <Label fx:id="D_PorcentajeVictorias" layoutX="382.0" layoutY="169.0" text="10" />
+      <Label fx:id="D_PorcentajeVictorias" layoutX="382.0" layoutY="169.0" text="0" />
       <Label layoutX="341.0" layoutY="199.0" text="Indice de adivinanza" />
       <Label fx:id="D_PorcentajeVictorias11" layoutX="342.0" layoutY="227.0" text="Intento 1:" />
       <Label fx:id="D_PorcentajeVictorias111" layoutX="342.0" layoutY="263.0" text="Intento 2:" />
@@ -60,12 +60,12 @@
       <Label fx:id="D_PorcentajeVictorias11111" layoutX="457.0" layoutY="226.0" text="Intento 4:" />
       <Label fx:id="D_PorcentajeVictorias11112" layoutX="455.0" layoutY="262.0" text="Intento 5:" />
       <Label fx:id="D_PorcentajeVictorias11113" layoutX="455.0" layoutY="299.0" text="Intento 6:" />
-      <Label fx:id="Ind_1" layoutX="401.0" layoutY="227.0" text="10" />
-      <Label fx:id="Ind_2" layoutX="401.0" layoutY="262.0" text="10" />
-      <Label fx:id="Ind_3" layoutX="402.0" layoutY="300.0" text="10" />
-      <Label fx:id="Ind_4" layoutX="518.0" layoutY="227.0" text="10" />
-      <Label fx:id="Ind_5" layoutX="518.0" layoutY="263.0" text="10" />
-      <Label fx:id="Ind_6" layoutX="518.0" layoutY="300.0" text="10" />
+      <Label fx:id="Ind_1" layoutX="401.0" layoutY="227.0" text="0" />
+      <Label fx:id="Ind_2" layoutX="401.0" layoutY="262.0" text="0" />
+      <Label fx:id="Ind_3" layoutX="402.0" layoutY="300.0" text="0" />
+      <Label fx:id="Ind_4" layoutX="518.0" layoutY="227.0" text="0" />
+      <Label fx:id="Ind_5" layoutX="518.0" layoutY="263.0" text="0" />
+      <Label fx:id="Ind_6" layoutX="518.0" layoutY="300.0" text="0" />
       <Label layoutX="300.0" layoutY="346.0" text="Siguiente desafio:" />
       <Label fx:id="Reloj_Daily" layoutX="415.0" layoutY="346.0" text="00:00:00" />
 
