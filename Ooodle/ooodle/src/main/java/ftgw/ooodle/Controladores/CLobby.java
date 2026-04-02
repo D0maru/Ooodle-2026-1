@@ -80,12 +80,20 @@ public class CLobby {
 
             long segundosRestantes = ChronoUnit.SECONDS.between(ahora, medianoche);
 
-            // 🔥 Reinicio automático al llegar a 0
+            // Reinicio automatico al llegar a 0 (medianoche)
             if (segundosRestantes <= 0) {
                 medianoche = ahora.toLocalDate().plusDays(1).atStartOfDay();
                 segundosRestantes = ChronoUnit.SECONDS.between(ahora, medianoche);
 
-                // Opcional: habilitar el modo diario otra vez
+                // Habilitar modo diario y persistir el reset
+                Estadisticas statsReset = EstadisticasService.cargar();
+                // Si el jugador no jugó hoy, la racha se rompe
+                if (!statsReset.diarioJugadoHoy) {
+                    statsReset.rachaActual = 0;
+                }
+                statsReset.diarioJugadoHoy = false;
+                statsReset.ultimoDiaJugado = ahora.toLocalDate().plusDays(1).toString();
+                EstadisticasService.guardar(statsReset);
                 btnDiario.setDisable(false);
             }
 

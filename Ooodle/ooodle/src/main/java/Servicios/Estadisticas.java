@@ -9,6 +9,8 @@ public class Estadisticas {
     public int porcentajeGanadas;
     public int[] indiceAdivinanza;
     public boolean diarioJugadoHoy;
+    /** Fecha ISO (yyyy-MM-dd) del último día en que se jugó el modo diario */
+    public String ultimoDiaJugado;
 
  
     public Estadisticas() {
@@ -19,6 +21,7 @@ public class Estadisticas {
         this.porcentajeGanadas = 0;
         this.indiceAdivinanza  = new int[6];
         this.diarioJugadoHoy   = false;
+        this.ultimoDiaJugado   = "";
     }
 }
  

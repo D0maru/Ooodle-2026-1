@@ -1,9 +1,10 @@
 {
-"partidasJugadas": 12,
-"partidasGanadas": 10,
-"rachaActual": 0,
+"partidasJugadas": 13,
+"partidasGanadas": 11,
+"rachaActual": 1,
 "rachaMaxima": 7,
-"porcentajeGanadas": 83,
-"indiceAdivinanza": [9, 0, 0, 1, 0, 0],
-"diarioJugadoHoy": true
+"porcentajeGanadas": 84,
+"indiceAdivinanza": [10, 0, 0, 1, 0, 0],
+"diarioJugadoHoy": true,
+"ultimoDiaJugado": "2026-04-02"
 }

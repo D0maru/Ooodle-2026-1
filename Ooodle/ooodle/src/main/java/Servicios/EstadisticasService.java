@@ -3,6 +3,7 @@ package Servicios;
 import java.io.File;
 import java.io.FileWriter;
 import java.nio.file.Files;
+import java.time.LocalDate;
 
 public class EstadisticasService {
 
@@ -53,6 +54,22 @@ public class EstadisticasService {
             stats.porcentajeGanadas = extraerInt(contenido, "porcentajeGanadas");
             stats.indiceAdivinanza  = extraerArray(contenido, "indiceAdivinanza");
             stats.diarioJugadoHoy   = extraerBoolean(contenido, "diarioJugadoHoy");
+            stats.ultimoDiaJugado   = extraerString(contenido, "ultimoDiaJugado");
+
+            // Logica de cambio de dia
+            String hoy = LocalDate.now().toString();
+            boolean esNuevoDia = !hoy.equals(stats.ultimoDiaJugado);
+            if (esNuevoDia) {
+                // Si existia un dia anterior y el jugador NO jugo el diario, la racha se rompe
+                if (!stats.ultimoDiaJugado.isEmpty() && !stats.diarioJugadoHoy) {
+                    System.out.println("[EstadisticasService] No jugo ayer -> racha a 0");
+                    stats.rachaActual = 0;
+                }
+                // Nuevo dia: habilitar el modo diario
+                stats.diarioJugadoHoy = false;
+                stats.ultimoDiaJugado = hoy;
+                guardar(stats);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -85,7 +102,10 @@ public class EstadisticasService {
                 if (i < stats.indiceAdivinanza.length - 1) writer.write(", ");
             }
             writer.write("],\n");
-            writer.write("\"diarioJugadoHoy\": " + stats.diarioJugadoHoy + "\n}");
+            writer.write("\"diarioJugadoHoy\": " + stats.diarioJugadoHoy + ",\n");
+            String diaActual = (stats.ultimoDiaJugado == null || stats.ultimoDiaJugado.isEmpty())
+                ? LocalDate.now().toString() : stats.ultimoDiaJugado;
+            writer.write("\"ultimoDiaJugado\": \"" + diaActual + "\"\n}");
             writer.close();
             System.out.println("[EstadisticasService] Guardado OK");
         } catch (Exception e) {
@@ -106,6 +126,8 @@ public class EstadisticasService {
         if (stats.rachaActual > stats.rachaMaxima) stats.rachaMaxima = stats.rachaActual;
         int idx = Math.max(0, Math.min(5, intentoEnQueGano - 1));
         stats.indiceAdivinanza[idx]++;
+        stats.diarioJugadoHoy = true;
+        stats.ultimoDiaJugado = LocalDate.now().toString();
         guardar(stats);
     }
 
@@ -117,7 +139,30 @@ public class EstadisticasService {
         Estadisticas stats = cargar();
         stats.partidasJugadas++;
         stats.rachaActual = 0;
+        stats.diarioJugadoHoy = true;
+        stats.ultimoDiaJugado = LocalDate.now().toString();
         guardar(stats);
+    }
+
+    // =========================
+    // 🔧 EXTRAER STRING
+    // =========================
+    private static String extraerString(String json, String clave) {
+        try {
+            String patron = "\"" + clave + "\":";
+            int inicio = json.indexOf(patron);
+            if (inicio == -1) return "";
+            inicio += patron.length();
+            while (inicio < json.length() && json.charAt(inicio) == ' ') inicio++;
+            if (inicio < json.length() && json.charAt(inicio) == '"') {
+                inicio++;
+                int fin = json.indexOf('"', inicio);
+                return (fin == -1) ? "" : json.substring(inicio, fin).trim();
+            }
+            return "";
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     // =========================
