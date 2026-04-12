@@ -121,7 +121,7 @@ public class CJuegoDiarioDificil {
     // ===== GENERAR JUEGO =====
     private void generarNuevoJuego() {
         target = (int)(Math.random() * 149) - 7;
-        solucion = ftgw.ooodle.Ecuacion.generateEquation(target, true);
+        solucion = ftgw.ooodle.Modelo.Ecuacion.generateEquation(target, true);
 
         if (solucion != null) {
             System.out.printf(
