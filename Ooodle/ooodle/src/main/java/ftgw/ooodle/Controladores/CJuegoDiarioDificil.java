@@ -3,7 +3,7 @@ package ftgw.ooodle.Controladores;
 import java.io.IOException;
 import Servicios.Estadisticas;
 import Servicios.EstadisticasService;
-
+import ftgw.ooodle.Modelo.CronometroJuego;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -60,18 +60,22 @@ public class CJuegoDiarioDificil {
     private static final String GRIS     = "-fx-background-color: #616161; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16px;";
 
     // ===== CRONÓMETRO =====
-    private int segundosTranscurridos = 0;
-    private Timeline timeline;
+    // private int segundosTranscurridos = 0;
+    // private Timeline timeline;
+    private CronometroJuego cronometroJuego;
+
 
     @FXML
     public void initialize() {
-        cronometro.setText("00:00");
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            segundosTranscurridos++;
-            actualizarLabel();
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
+        // cronometro.setText("00:00");
+        // timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        //     segundosTranscurridos++;
+        //     actualizarLabel();
+        // }));
+        // timeline.setCycleCount(Timeline.INDEFINITE);
+        // timeline.play();
+        cronometroJuego = new CronometroJuego(cronometro);
+        cronometroJuego.initialize();
         tablero = new TextField[][]{
             {a1, b1, c1, d1},
             {a2, b2, c2, d2},
@@ -271,8 +275,8 @@ public class CJuegoDiarioDificil {
     // ===== CAMBIO DE ESCENA =====
     private void cambiarEscena(String fxml) {
         try {
-            if (timeline != null) { timeline.stop(); }
-
+            // if (timeline != null) { timeline.stop(); }
+            cronometroJuego.DetenerCronometro();
             var resource = getClass().getResource("/ftgw/ooodle/Vista/" + fxml);
             if (resource == null) {
                 System.err.println("No se encontró el FXML: " + fxml);
@@ -312,7 +316,8 @@ public class CJuegoDiarioDificil {
 
     // ===== REINICIAR =====
     private void reiniciarJuego() {
-        reiniciarCronometro();
+        //reiniciarCronometro();
+        cronometroJuego.ReiniciarCronometro();
         intentoActual = 1;
         columnaActual = 0;
         generarNuevoJuego();
@@ -328,22 +333,22 @@ public class CJuegoDiarioDificil {
     }
 
     // ===== CRONÓMETRO =====
-    private void actualizarLabel() {
-        if (segundosTranscurridos >= 3600) {
-            cronometro.setText("!Te demoraste mucho!");
-            timeline.stop();
-            return;
-        }
-        int minutos = segundosTranscurridos / 60;
-        int segundos = segundosTranscurridos % 60;
-        cronometro.setText(String.format("%02d:%02d", minutos, segundos));
-    }
+    // private void actualizarLabel() {
+    //     if (segundosTranscurridos >= 3600) {
+    //         cronometro.setText("!Te demoraste mucho!");
+    //         timeline.stop();
+    //         return;
+    //     }
+    //     int minutos = segundosTranscurridos / 60;
+    //     int segundos = segundosTranscurridos % 60;
+    //     cronometro.setText(String.format("%02d:%02d", minutos, segundos));
+    // }
 
-    private void reiniciarCronometro() {
-        segundosTranscurridos = 0;
-        actualizarLabel();
-        timeline.playFromStart();
-    }
+    // private void reiniciarCronometro() {
+    //     segundosTranscurridos = 0;
+    //     actualizarLabel();
+    //     timeline.playFromStart();
+    // }
 
     // ===== VOLVER AL LOBBY =====
     @FXML
