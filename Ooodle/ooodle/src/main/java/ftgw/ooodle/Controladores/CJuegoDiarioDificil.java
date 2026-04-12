@@ -65,16 +65,13 @@ public class CJuegoDiarioDificil {
 
     @FXML
     public void initialize() {
-
         cronometro.setText("00:00");
-
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
             segundosTranscurridos++;
             actualizarLabel();
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
         tablero = new TextField[][]{
             {a1, b1, c1, d1},
             {a2, b2, c2, d2},
@@ -83,9 +80,7 @@ public class CJuegoDiarioDificil {
             {a5, b5, c5, d5},
             {a6, b6, c6, d6}
         };
-
         resultados = new Label[]{res1, res2, res3, res4, res5, res6};
-
         generarNuevoJuego();
         bloquearTodo();
         habilitarFila(0);

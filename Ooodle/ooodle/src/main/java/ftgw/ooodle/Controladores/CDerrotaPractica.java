@@ -17,9 +17,15 @@ public class CDerrotaPractica {
     public static class SceneManager {
         private static final Stack<Scene> historial = new Stack<>();
 
-        public static void push(Scene scene) { historial.push(scene); }
-        public static Scene pop() { return !historial.isEmpty() ? historial.pop() : null; }
-        public static boolean hasPrevious() { return !historial.isEmpty(); }
+        public static void push(Scene scene) { 
+            historial.push(scene); 
+        }
+        public static Scene pop() { 
+            return !historial.isEmpty() ? historial.pop() : null; 
+        }
+        public static boolean hasPrevious() { 
+            return !historial.isEmpty(); 
+        }
     }
 
     @FXML private Button botonRegresoLobby;
