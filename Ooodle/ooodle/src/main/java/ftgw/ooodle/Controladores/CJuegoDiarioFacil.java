@@ -46,34 +46,34 @@ public class CJuegoDiarioFacil {
         Label[] resultados = {res1, res2, res3, res4, res5, res6};
 
         juego = new Juego(false, tablero, resultados);
-        juego.generarNuevoJuego();
-        juego.bloquearTodo();
-        juego.habilitarFila(0);
+        juego.GenerarNuevoJuego();
+        juego.BloquearTodo();
+        juego.HabilitarFila(0);
     }
 
-    @FXML void Click1(ActionEvent e) { juego.escribirNumero("1"); }
-    @FXML void Click2(ActionEvent e) { juego.escribirNumero("2"); }
-    @FXML void Click3(ActionEvent e) { juego.escribirNumero("3"); }
-    @FXML void Click4(ActionEvent e) { juego.escribirNumero("4"); }
-    @FXML void Click5(ActionEvent e) { juego.escribirNumero("5"); }
-    @FXML void Click6(ActionEvent e) { juego.escribirNumero("6"); }
-    @FXML void Click7(ActionEvent e) { juego.escribirNumero("7"); }
-    @FXML void Click8(ActionEvent e) { juego.escribirNumero("8"); }
-    @FXML void Click9(ActionEvent e) { juego.escribirNumero("9"); }
+    @FXML void Click1(ActionEvent e) { juego.EscribirNumero("1"); }
+    @FXML void Click2(ActionEvent e) { juego.EscribirNumero("2"); }
+    @FXML void Click3(ActionEvent e) { juego.EscribirNumero("3"); }
+    @FXML void Click4(ActionEvent e) { juego.EscribirNumero("4"); }
+    @FXML void Click5(ActionEvent e) { juego.EscribirNumero("5"); }
+    @FXML void Click6(ActionEvent e) { juego.EscribirNumero("6"); }
+    @FXML void Click7(ActionEvent e) { juego.EscribirNumero("7"); }
+    @FXML void Click8(ActionEvent e) { juego.EscribirNumero("8"); }
+    @FXML void Click9(ActionEvent e) { juego.EscribirNumero("9"); }
 
-    @FXML void ClickDel(ActionEvent e)     { juego.borrarDigito(); }
+    @FXML void ClickDel(ActionEvent e)     { juego.BorrarDigito(); }
     @FXML void ClickRestart(ActionEvent e) {
         cronometroJuego.ReiniciarCronometro();
-        juego.reiniciar();
+        juego.ReiniciarJuego();
     }
 
     @FXML
     void ClickCheck(ActionEvent e) {
-        String resultado = juego.validarFila();
+        String resultado = juego.ValidarFila();
         if (resultado == null) return;
         switch (resultado) {
             case "GANASTE":
-                EstadisticasService.registrarVictoria(juego.getIntentoActual());
+                EstadisticasService.registrarVictoria(juego.GetIntentoActual());
                 cambiarEscena(e, "VictoriaDiario.fxml");
                 break;
             case "PERDISTE":

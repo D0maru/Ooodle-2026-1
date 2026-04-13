@@ -31,7 +31,7 @@ public class Juego {
     }
 
     // ===== GENERAR NUEVO JUEGO =====
-    public void generarNuevoJuego() {
+    public void GenerarNuevoJuego() {
         target = modoDificil
             ? (int)(Math.random() * 149) - 7
             : (int)(Math.random() * 83)  - 4;
@@ -51,7 +51,7 @@ public class Juego {
     }
 
     // ===== ESCRIBIR NÚMERO =====
-    public void escribirNumero(String num) {
+    public void EscribirNumero(String num) {
         if (intentoActual > 6) return;
 
         TextField campo = tablero[intentoActual - 1][columnaActual];
@@ -65,7 +65,7 @@ public class Juego {
     }
 
     // ===== BORRAR DÍGITO =====
-    public void borrarDigito() {
+    public void BorrarDigito() {
         if (intentoActual > 6) return;
         if (!tablero[intentoActual - 1][0].isEditable()) return;
 
@@ -76,7 +76,7 @@ public class Juego {
     }
 
     // ===== MOSTRAR ERROR =====
-    private void mostrarError(String mensaje) {
+    private void MostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
@@ -85,7 +85,7 @@ public class Juego {
     }
 
     // ===== APLICAR COLORES =====
-    private void aplicarColores(int fila, int[] intento) {
+    private void AplicarColores(int fila, int[] intento) {
         for (int j = 0; j < 4; j++) {
             TextField celda = tablero[fila][j];
 
@@ -106,7 +106,7 @@ public class Juego {
 
     // ===== VALIDAR FILA =====
     // Retorna: "GANASTE", "PERDISTE", "CONTINUA", o null si hay error de validación
-    public String validarFila() {
+    public String ValidarFila() {
         try {
             String[] valores = new String[4];
             String regex = modoDificil ? "([1-9]|1[0-2])" : "[1-9]";
@@ -118,11 +118,11 @@ public class Juego {
                 valores[i] = tablero[intentoActual - 1][i].getText();
 
                 if (valores[i] == null || valores[i].trim().isEmpty()) {
-                    mostrarError("Debes completar todos los espacios.");
+                    MostrarError(mensajeRango);MostrarError("Debes completar todos los espacios.");
                     return null;
                 }
                 if (!valores[i].matches(regex)) {
-                    mostrarError(mensajeRango);
+                    MostrarError(mensajeRango);
                     return null;
                 }
             }
@@ -133,11 +133,11 @@ public class Juego {
             int d = Integer.parseInt(valores[3]);
 
             if (a == b || a == c || a == d || b == c || b == d || c == d) {
-                mostrarError("No puedes usar números repetidos.");
+                MostrarError("No puedes usar números repetidos.");
                 return null;
             }
 
-            aplicarColores(intentoActual - 1, new int[]{a, b, c, d});
+            AplicarColores(intentoActual - 1, new int[]{a, b, c, d});
 
             // Verificar victoria
             if (solucion != null &&
@@ -146,24 +146,24 @@ public class Juego {
                 return "GANASTE";
             }
 
-            deshabilitarFila(intentoActual - 1);
+            DeshabilitarFila(intentoActual - 1);
             intentoActual++;
             columnaActual = 0;
 
             if (intentoActual > 6) return "PERDISTE";
 
-            habilitarFila(intentoActual - 1);
+            HabilitarFila(intentoActual - 1);
             return "CONTINUA";
 
         } catch (Exception e) {
             e.printStackTrace();
-            mostrarError("Ocurrió un error inesperado.");
+            MostrarError("Ocurrió un error inesperado.");
             return null;
         }
     }
 
     // ===== REINICIAR =====
-    public void reiniciar() {
+    public void ReiniciarJuego() {
         intentoActual = 1;
         columnaActual = 0;
 
@@ -173,27 +173,27 @@ public class Juego {
                 tablero[i][j].setStyle("");
             }
 
-        bloquearTodo();
-        habilitarFila(0);
-        generarNuevoJuego();
+        BloquearTodo();
+        HabilitarFila(0);
+        GenerarNuevoJuego();
     }
 
     // ===== GETTERS ÚTILES =====
-    public int getIntentoActual() { return intentoActual; }
+    public int GetIntentoActual() { return intentoActual; }
 
     // ===== MANEJO DE FILAS =====
-    public void bloquearTodo() {
-        for (int i = 0; i < 6; i++) deshabilitarFila(i);
+    public void BloquearTodo() {
+        for (int i = 0; i < 6; i++) DeshabilitarFila(i);
     }
 
-    public void habilitarFila(int fila) {
+    public void HabilitarFila(int fila) {
         for (int j = 0; j < 4; j++) {
             tablero[fila][j].setEditable(true);
             tablero[fila][j].setDisable(false);
         }
     }
 
-    public void deshabilitarFila(int fila) {
+    public void DeshabilitarFila(int fila) {
         for (int j = 0; j < 4; j++) {
             tablero[fila][j].setEditable(false);
             tablero[fila][j].setDisable(true);
