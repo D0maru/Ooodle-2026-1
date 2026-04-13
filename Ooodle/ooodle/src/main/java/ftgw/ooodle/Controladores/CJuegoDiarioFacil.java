@@ -71,11 +71,6 @@ public class CJuegoDiarioFacil {
     void ClickCheck(ActionEvent e) {
         String resultado = juego.validarFila();
         if (resultado == null) return;
-
-        // FIX: break en cada case para evitar fall-through.
-        // FIX: marcarDiarioJugado() eliminado — registrarVictoria/Derrota ya lo hacen internamente.
-        // FIX 1: break en cada case — evita fall-through (causa del doble registro).
-        // FIX 2: Stage obtenido del ActionEvent — evita NullPointerException con botones en paneles anidados.
         switch (resultado) {
             case "GANASTE":
                 EstadisticasService.registrarVictoria(juego.getIntentoActual());

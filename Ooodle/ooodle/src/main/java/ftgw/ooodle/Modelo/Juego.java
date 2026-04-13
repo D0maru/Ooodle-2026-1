@@ -36,7 +36,7 @@ public class Juego {
             ? (int)(Math.random() * 149) - 7
             : (int)(Math.random() * 83)  - 4;
 
-        solucion = Ecuacion.generateEquation(target, modoDificil);
+        solucion = Ecuacion.GenerarEcuacion(target, modoDificil);
 
         if (solucion != null) {
             System.out.printf("SOLUCIÓN: %d * %d + %d - %d = %d%n",

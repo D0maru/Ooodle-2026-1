@@ -3,10 +3,10 @@ package ftgw.ooodle.Modelo;
 
 public class Ecuacion {
 
-    private static int evaluate(int a, int b, int c, int d) {
+    private static int Evaluar(int a, int b, int c, int d) {
         return (a * b) + c - d;
     }
-    public static int[] generateEquation(int target, boolean modoDificil) { //retorna un arreglo [a,b,c,d]
+    public static int[] GenerarEcuacion(int target, boolean modoDificil) { //retorna un arreglo [a,b,c,d]
         int min = 1;
         int max;
         if (modoDificil) {
@@ -24,7 +24,7 @@ public class Ecuacion {
                     for (int d = min; d <= max; d++) {
                         if (d == a || d == b || d == c) continue;
 
-                        if (evaluate(a, b, c, d) == target) {
+                        if (Evaluar(a, b, c, d) == target) {
                             return new int[]{a, b, c, d};
                         }
                     }
@@ -41,7 +41,7 @@ public class Ecuacion {
         }else{
             target = (int)(Math.random() * 83) - 4;
         }
-        int[] eq = generateEquation(target, modoDificil);
+        int[] eq = GenerarEcuacion(target, modoDificil);
         System.out.print("Respuesta ingresada:" + target + " || Dificultad: ");
         if (modoDificil) {
             System.out.println("1 - 12");
