@@ -10,12 +10,15 @@ import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import Servicios.Estadisticas;
@@ -42,12 +45,13 @@ public class CLobby {
     @FXML private Label lblRango;
 
     private boolean modo12 = false;
+    private Timeline relojTimeline;
 
     @FXML
     public void initialize() {
         Estadisticas stats = EstadisticasService.cargar();
 
-        btnDiario.setDisable(stats.diarioJugadoHoy); //si jugo o no el modo diario
+        btnDiario.setDisable(stats.diarioJugadoHoy);
         D_partidasJugadas.setText(String.valueOf(stats.partidasJugadas));
         D_RachaMaxima.setText(String.valueOf(stats.rachaMaxima));
         D_RachaActual.setText(String.valueOf(stats.rachaActual));
@@ -62,9 +66,6 @@ public class CLobby {
             Ind_6.setText(String.valueOf(stats.indiceAdivinanza[5]));
         }
 
-        btnDiario.setDisable(stats.diarioJugadoHoy);
-
-        // Iniciar reloj daily
         iniciarRelojDaily();
     }
 
@@ -72,22 +73,18 @@ public class CLobby {
     // ⏱ RELOJ CUENTA REGRESIVA
     // =========================
     private void iniciarRelojDaily() {
-
-        Timeline reloj = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+        relojTimeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
 
             LocalDateTime ahora = LocalDateTime.now();
             LocalDateTime medianoche = ahora.toLocalDate().plusDays(1).atStartOfDay();
 
             long segundosRestantes = ChronoUnit.SECONDS.between(ahora, medianoche);
 
-            // Reinicio automatico al llegar a 0 (medianoche)
             if (segundosRestantes <= 0) {
                 medianoche = ahora.toLocalDate().plusDays(1).atStartOfDay();
                 segundosRestantes = ChronoUnit.SECONDS.between(ahora, medianoche);
 
-                // Habilitar modo diario y persistir el reset
                 Estadisticas statsReset = EstadisticasService.cargar();
-                // Si el jugador no jugó hoy, la racha se rompe
                 if (!statsReset.diarioJugadoHoy) {
                     statsReset.rachaActual = 0;
                 }
@@ -104,17 +101,27 @@ public class CLobby {
             Reloj_Daily.setText(
                 String.format("%02d:%02d:%02d", horas, minutos, segundos)
             );
-
         }));
 
-        reloj.setCycleCount(Timeline.INDEFINITE);
-        reloj.play();
+        relojTimeline.setCycleCount(Timeline.INDEFINITE);
+        relojTimeline.play();
     }
 
     @FXML
     void traerReglas(ActionEvent event) {
         System.out.println("Intentando cargar reglas...");
-        cambiarEscena("/ftgw/ooodle/Vista/Reglas.fxml");
+        // Las reglas sí pueden ir embebidas o en ventana separada — mantenemos original
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Reglas.fxml"));
+            Parent root = loader.load();
+            PanelInterfaz.getChildren().setAll(root);
+            AnchorPane.setTopAnchor(root, 0.0);
+            AnchorPane.setBottomAnchor(root, 0.0);
+            AnchorPane.setLeftAnchor(root, 0.0);
+            AnchorPane.setRightAnchor(root, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -135,30 +142,37 @@ public class CLobby {
 
     @FXML
     void abrirJPrac(ActionEvent event) {
+        // FIX: detener el reloj antes de salir para evitar accesos concurrentes al JSON
+        if (relojTimeline != null) relojTimeline.stop();
+
         String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoPracticaDificil.fxml"
                              : "/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml";
-        cambiarEscena(ruta);
+        // FIX: reemplazar escena completa en lugar de embeber en PanelInterfaz.
+        // Embeber dejaba el Lobby activo (con su Timeline), causaba NullPointerException
+        // en los controladores del juego, y permitia registrar partidas multiples.
+        cambiarEscenaCompleta(event, ruta);
     }
 
     @FXML
     void abrirJdiario(ActionEvent event) {
+        // FIX: detener el reloj antes de salir
+        if (relojTimeline != null) relojTimeline.stop();
+
         String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoDiarioDificil.fxml"
                              : "/ftgw/ooodle/Vista/JuegoDiarioFacil.fxml";
-        cambiarEscena(ruta);
+        // FIX: reemplazar escena completa
+        cambiarEscenaCompleta(event, ruta);
     }
 
-    private void cambiarEscena(String ruta) {
+    // FIX: nuevo método que reemplaza la escena completa del Stage,
+    // igual que hacen todos los demás controladores del proyecto.
+    private void cambiarEscenaCompleta(ActionEvent event, String ruta) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ruta));
             Parent root = loader.load();
-
-            PanelInterfaz.getChildren().setAll(root);
-
-            AnchorPane.setTopAnchor(root, 0.0);
-            AnchorPane.setBottomAnchor(root, 0.0);
-            AnchorPane.setLeftAnchor(root, 0.0);
-            AnchorPane.setRightAnchor(root, 0.0);
-
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             System.err.println("No se pudo cargar la vista: " + ruta);
             e.printStackTrace();
