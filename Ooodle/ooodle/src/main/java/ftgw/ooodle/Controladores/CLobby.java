@@ -1,11 +1,7 @@
 package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,6 +19,7 @@ import javafx.util.Duration;
 
 import Servicios.Estadisticas;
 import Servicios.EstadisticasService;
+import ftgw.ooodle.Modelo.RelojDiario;
 
 public class CLobby {
 
@@ -45,7 +42,7 @@ public class CLobby {
     @FXML private Label lblRango;
 
     private boolean modo12 = false;
-    private Timeline relojTimeline;
+    private RelojDiario relojDiario;
 
     @FXML
     public void initialize() {
@@ -66,42 +63,8 @@ public class CLobby {
             Ind_6.setText(String.valueOf(stats.indiceAdivinanza[5]));
         }
 
-        iniciarRelojDaily();
-    }
-
-    private void iniciarRelojDaily() {
-        relojTimeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
-
-            LocalDateTime ahora = LocalDateTime.now();
-            LocalDateTime medianoche = ahora.toLocalDate().plusDays(1).atStartOfDay();
-
-            long segundosRestantes = ChronoUnit.SECONDS.between(ahora, medianoche);
-
-            if (segundosRestantes <= 0) {
-                medianoche = ahora.toLocalDate().plusDays(1).atStartOfDay();
-                segundosRestantes = ChronoUnit.SECONDS.between(ahora, medianoche);
-
-                Estadisticas statsReset = EstadisticasService.cargar();
-                if (!statsReset.diarioJugadoHoy) {
-                    statsReset.rachaActual = 0;
-                }
-                statsReset.diarioJugadoHoy = false;
-                statsReset.ultimoDiaJugado = ahora.toLocalDate().plusDays(1).toString();
-                EstadisticasService.guardar(statsReset);
-                btnDiario.setDisable(false);
-            }
-
-            long horas = segundosRestantes / 3600;
-            long minutos = (segundosRestantes % 3600) / 60;
-            long segundos = segundosRestantes % 60;
-
-            Reloj_Daily.setText(
-                String.format("%02d:%02d:%02d", horas, minutos, segundos)
-            );
-        }));
-
-        relojTimeline.setCycleCount(Timeline.INDEFINITE);
-        relojTimeline.play();
+        relojDiario = new RelojDiario(Reloj_Daily, btnDiario);
+        relojDiario.iniciar();
     }
 
     @FXML
@@ -138,8 +101,8 @@ public class CLobby {
 
     @FXML
     void abrirJPrac(ActionEvent event) {
-        if (relojTimeline != null) relojTimeline.stop();
 
+        relojDiario.detener();
         String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoPracticaDificil.fxml"
                              : "/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml";
        
@@ -148,11 +111,10 @@ public class CLobby {
 
     @FXML
     void abrirJdiario(ActionEvent event) {
-        if (relojTimeline != null) relojTimeline.stop();
 
+        relojDiario.detener();
         String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoDiarioDificil.fxml"
                              : "/ftgw/ooodle/Vista/JuegoDiarioFacil.fxml";
-        // FIX: reemplazar escena completa
         cambiarEscenaCompleta(event, ruta);
     }
 
