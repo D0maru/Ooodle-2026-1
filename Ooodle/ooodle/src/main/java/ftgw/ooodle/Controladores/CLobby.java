@@ -69,9 +69,6 @@ public class CLobby {
         iniciarRelojDaily();
     }
 
-    // =========================
-    // ⏱ RELOJ CUENTA REGRESIVA
-    // =========================
     private void iniciarRelojDaily() {
         relojTimeline = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
 
@@ -110,7 +107,6 @@ public class CLobby {
     @FXML
     void traerReglas(ActionEvent event) {
         System.out.println("Intentando cargar reglas...");
-        // Las reglas sí pueden ir embebidas o en ventana separada — mantenemos original
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Reglas.fxml"));
             Parent root = loader.load();
@@ -142,20 +138,16 @@ public class CLobby {
 
     @FXML
     void abrirJPrac(ActionEvent event) {
-        // FIX: detener el reloj antes de salir para evitar accesos concurrentes al JSON
         if (relojTimeline != null) relojTimeline.stop();
 
         String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoPracticaDificil.fxml"
                              : "/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml";
-        // FIX: reemplazar escena completa en lugar de embeber en PanelInterfaz.
-        // Embeber dejaba el Lobby activo (con su Timeline), causaba NullPointerException
-        // en los controladores del juego, y permitia registrar partidas multiples.
+       
         cambiarEscenaCompleta(event, ruta);
     }
 
     @FXML
     void abrirJdiario(ActionEvent event) {
-        // FIX: detener el reloj antes de salir
         if (relojTimeline != null) relojTimeline.stop();
 
         String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoDiarioDificil.fxml"
@@ -164,8 +156,7 @@ public class CLobby {
         cambiarEscenaCompleta(event, ruta);
     }
 
-    // FIX: nuevo método que reemplaza la escena completa del Stage,
-    // igual que hacen todos los demás controladores del proyecto.
+
     private void cambiarEscenaCompleta(ActionEvent event, String ruta) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ruta));
