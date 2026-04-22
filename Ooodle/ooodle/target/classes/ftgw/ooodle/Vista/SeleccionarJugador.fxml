@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.Controladores.CSeleccionarJugador">
+   <children>
+      <Label fx:id="labelTitulo" layoutX="100.0" layoutY="43.0" text="SELECCIONAR/CREAR JUGADOR">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Label>
+      <Button fx:id="botonAgrergarJugador" layoutX="447.0" layoutY="211.0" mnemonicParsing="false" onAction="#agregarJugador" text="+" />
+      <ScrollPane layoutX="157.0" layoutY="126.0" prefHeight="200.0" prefWidth="200.0">
+        <content>
+          <AnchorPane fx:id="panelJugadores" minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>
