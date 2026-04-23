@@ -27,7 +27,8 @@ public class CVictoriaPractica {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root, ((Node) event.getSource()).getScene().getWidth(), ((Node) event.getSource()).getScene().getHeight()));
+        stage.setMaximized(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

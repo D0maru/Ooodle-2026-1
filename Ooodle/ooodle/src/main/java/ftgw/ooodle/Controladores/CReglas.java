@@ -30,8 +30,9 @@ public class CReglas {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) botonVolver.getScene().getWindow();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
+             Scene scene = new Scene(root, botonVolver.getScene().getWidth(), botonVolver.getScene().getHeight());
+    stage.setScene(scene);
+    stage.setMaximized(true);
             stage.show();
         } catch (IOException e) {
             System.err.println("Error al cargar el lobby: " + e.getMessage());

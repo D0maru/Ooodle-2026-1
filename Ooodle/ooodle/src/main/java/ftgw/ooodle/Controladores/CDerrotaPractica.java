@@ -41,8 +41,9 @@ public class CDerrotaPractica {
     void Volver_Inicio(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+           Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root, ((Node) event.getSource()).getScene().getWidth(), ((Node) event.getSource()).getScene().getHeight()));
+        stage.setMaximized(true);   
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -58,8 +59,9 @@ public class CDerrotaPractica {
 
             Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+        stage.setScene(new Scene(root, ((Node) event.getSource()).getScene().getWidth(), ((Node) event.getSource()).getScene().getHeight()));
+        stage.setMaximized(true);
+        stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -124,7 +124,8 @@ public class CLobby {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(ruta));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight()));
+        stage.setMaximized(true);
             stage.show();
         } catch (IOException e) {
             System.err.println("No se pudo cargar la vista: " + ruta);
