@@ -1,20 +1,17 @@
 package ftgw.ooodle.Controladores;
 
+import Servicios.JugadorDAO;
+import ftgw.ooodle.Modelo.Sesion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import java.util.List;
 
 public class CSeleccionarJugador {
 
     @FXML private Button botonAgregarJugador;
-    @FXML private Label labelTitulo;
     @FXML private AnchorPane panelJugadores;
-
-    // VBox interno donde se apilan las filas de jugadores
     private VBox listaJugadores;
 
     @FXML
@@ -26,13 +23,23 @@ public class CSeleccionarJugador {
         scroll.setFitToWidth(true);
         scroll.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
 
-        // Anclar el scroll a los 4 lados del panelJugadores
         AnchorPane.setTopAnchor(scroll, 0.0);
         AnchorPane.setBottomAnchor(scroll, 0.0);
         AnchorPane.setLeftAnchor(scroll, 0.0);
         AnchorPane.setRightAnchor(scroll, 0.0);
 
         panelJugadores.getChildren().add(scroll);
+
+        // Cargar datos existentes de la base de datos
+        cargarJugadoresDesdeBD();
+    }
+
+    private void cargarJugadoresDesdeBD() {
+        listaJugadores.getChildren().clear();
+        List<String> nombres = JugadorDAO.obtenerTodos();
+        for (String nombre : nombres) {
+            agregarFilaJugador(nombre);
+        }
     }
 
     @FXML
@@ -42,50 +49,71 @@ public class CSeleccionarJugador {
         dialogo.setHeaderText("Ingresa el nombre del jugador");
         dialogo.setContentText("Nombre:");
 
-        ButtonType guardar  = new ButtonType("Guardar",  ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancelar = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
-        dialogo.getDialogPane().getButtonTypes().setAll(guardar, cancelar);
-
         dialogo.showAndWait().ifPresent(nombre -> {
-            if (nombre == null || nombre.trim().isEmpty()) return;
-            agregarFilaJugador(nombre.trim());
+            if (nombre != null && !nombre.trim().isEmpty()) {
+                String n = nombre.trim();
+                // 1. Guardar en Base de Datos
+                JugadorDAO.guardarJugador(n);
+                // 2. Refrescar Interfaz
+                agregarFilaJugador(n);
+            }
         });
     }
 
     private void agregarFilaJugador(String nombre) {
+        // 1. Crear el Label del nombre
         Label lblNombre = new Label("👤  " + nombre);
-        lblNombre.setStyle("-fx-text-fill: #c0c0ee; -fx-font-size: 13px;");
+        lblNombre.setStyle("-fx-text-fill: #c0c0ee; -fx-font-size: 13px; -fx-cursor: hand;");
         HBox.setHgrow(lblNombre, Priority.ALWAYS);
 
-        Button btnEliminar = new Button("🗑  Eliminar");
-        btnEliminar.setStyle(
-            "-fx-background-color: #7a3a4a; -fx-text-fill: white; " +
-            "-fx-font-size: 12px; -fx-background-radius: 6; -fx-cursor: hand;"
-        );
+        // EVENTO: Al hacer clic en el nombre, guardar sesión e ir al lobby
+        lblNombre.setOnMouseClicked(e -> {
+            System.out.println("Seleccionado: " + nombre);
+            Sesion.setJugadorActual(nombre); 
+            irAlLobby(); 
+        });
 
-        HBox fila = new HBox(10, lblNombre, btnEliminar);
-        fila.setStyle(
-            "-fx-alignment: center-left; -fx-padding: 10 14 10 14; " +
-            "-fx-background-color: #252550; -fx-background-radius: 8;"
-        );
+        // 2. Crear el botón de eliminar (ESTO ES LO QUE TE FALTABA)
+        Button btnEliminar = new Button("🗑 Eliminar");
+        btnEliminar.setStyle("-fx-background-color: #7a3a4a; -fx-text-fill: white; -fx-font-size: 11px; -fx-cursor: hand;");
 
+        // Evento del botón eliminar
         btnEliminar.setOnAction(e -> {
-            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacion.setTitle("Eliminar Jugador");
-            confirmacion.setHeaderText("¿Seguro que quieres eliminar al jugador?");
-            confirmacion.setContentText("\"" + nombre + "\" será eliminado de la lista.");
-
-            ButtonType siEliminar = new ButtonType("Sí, eliminar", ButtonBar.ButtonData.OK_DONE);
-            ButtonType noCancelar = new ButtonType("Cancelar",     ButtonBar.ButtonData.CANCEL_CLOSE);
-            confirmacion.getButtonTypes().setAll(siEliminar, noCancelar);
-
-            confirmacion.showAndWait().ifPresent(respuesta -> {
-                if (respuesta == siEliminar) {
-                    listaJugadores.getChildren().remove(fila);
+            Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION, "¿Eliminar a " + nombre + "?", ButtonType.YES, ButtonType.NO);
+            confirmacion.showAndWait().ifPresent(res -> {
+                if (res == ButtonType.YES) {
+                    Servicios.JugadorDAO.eliminarJugador(nombre);
+                    // Necesitamos encontrar la fila para removerla
+                    listaJugadores.getChildren().removeIf(node -> {
+                        if (node instanceof HBox) {
+                            HBox hb = (HBox) node;
+                            return hb.getChildren().contains(btnEliminar);
+                        }
+                        return false;
+                    });
                 }
             });
         });
 
+        // 3. Crear la fila (HBox) agregando AMBOS elementos
+        HBox fila = new HBox(10, lblNombre, btnEliminar);
+        fila.setStyle("-fx-alignment: center-left; -fx-padding: 8; -fx-background-color: #252550; -fx-background-radius: 8;");
+
+        // 4. Agregar la fila al VBox principal
         listaJugadores.getChildren().add(fila);
     }
+    private void irAlLobby() {
+    try {
+        // Reemplaza "Lobby.fxml" por el nombre real de tu archivo del lobby
+        javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+        javafx.scene.Parent root = loader.load();
+        
+        javafx.stage.Stage stage = (javafx.stage.Stage) panelJugadores.getScene().getWindow();
+        stage.setScene(new javafx.scene.Scene(root));
+        stage.show();
+    } catch (java.io.IOException e) {
+        System.err.println("Error al cargar el Lobby: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
 }
