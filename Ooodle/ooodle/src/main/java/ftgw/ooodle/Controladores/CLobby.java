@@ -1,7 +1,6 @@
 package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
-
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +17,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import Servicios.Estadisticas;
-import Servicios.EstadisticasService;
+import Servicios.UsuarioDAO; // Importamos el nuevo DAO
 import ftgw.ooodle.Modelo.RelojDiario;
 
 public class CLobby {
@@ -27,12 +26,7 @@ public class CLobby {
     @FXML private Label D_RachaActual;
     @FXML private Label D_RachaMaxima;
     @FXML private Label D_partidasJugadas;
-    @FXML private Label Ind_1;
-    @FXML private Label Ind_2;
-    @FXML private Label Ind_3;
-    @FXML private Label Ind_4;
-    @FXML private Label Ind_5;
-    @FXML private Label Ind_6;
+    @FXML private Label Ind_1, Ind_2, Ind_3, Ind_4, Ind_5, Ind_6;
     @FXML private AnchorPane PanelInterfaz;
     @FXML private Label Reloj_Daily;
     @FXML private Button botonReglas;
@@ -43,11 +37,17 @@ public class CLobby {
 
     private boolean modo12 = false;
     private RelojDiario relojDiario;
+    private UsuarioDAO usuarioDAO = new UsuarioDAO(); // Instancia del DAO
+    
+    // TODO: Este nombre debería venir de la pantalla de Login
+    private String nombreUsuarioActual = "Jugador1"; 
 
     @FXML
     public void initialize() {
-        Estadisticas stats = EstadisticasService.cargar();
+        // REEMPLAZO: Usamos el DAO para obtener datos de la BD
+        Estadisticas stats = usuarioDAO.obtenerEstadisticas(nombreUsuarioActual);
 
+        // Llenamos la interfaz con los datos recuperados
         btnDiario.setDisable(stats.diarioJugadoHoy);
         D_partidasJugadas.setText(String.valueOf(stats.partidasJugadas));
         D_RachaMaxima.setText(String.valueOf(stats.rachaMaxima));
@@ -63,13 +63,15 @@ public class CLobby {
             Ind_6.setText(String.valueOf(stats.indiceAdivinanza[5]));
         }
 
-        relojDiario = new RelojDiario(Reloj_Daily, btnDiario);
+        // Corregimos la creación del reloj pasando el nombre del usuario
+        relojDiario = new RelojDiario(Reloj_Daily, btnDiario, nombreUsuarioActual);
         relojDiario.iniciar();
     }
 
+    // --- El resto de tus métodos (traerReglas, cambiarDificultad, etc.) se mantienen igual ---
+
     @FXML
     void traerReglas(ActionEvent event) {
-        System.out.println("Intentando cargar reglas...");
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Reglas.fxml"));
             Parent root = loader.load();
@@ -86,7 +88,6 @@ public class CLobby {
     @FXML
     void cambiarDificultad(MouseEvent event) {
         TranslateTransition animation = new TranslateTransition(Duration.millis(200), circuloDificultad);
-
         if (!modo12) {
             animation.setToX(22);
             lblRango.setText("Numbers 1 to 12");
@@ -101,23 +102,19 @@ public class CLobby {
 
     @FXML
     void abrirJPrac(ActionEvent event) {
-
         relojDiario.detener();
         String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoPracticaDificil.fxml"
                              : "/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml";
-       
         cambiarEscenaCompleta(event, ruta);
     }
 
     @FXML
     void abrirJdiario(ActionEvent event) {
-
         relojDiario.detener();
         String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoDiarioDificil.fxml"
                              : "/ftgw/ooodle/Vista/JuegoDiarioFacil.fxml";
         cambiarEscenaCompleta(event, ruta);
     }
-
 
     private void cambiarEscenaCompleta(ActionEvent event, String ruta) {
         try {
@@ -125,7 +122,7 @@ public class CLobby {
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight()));
-        stage.setMaximized(true);
+            stage.setMaximized(true);
             stage.show();
         } catch (IOException e) {
             System.err.println("No se pudo cargar la vista: " + ruta);
