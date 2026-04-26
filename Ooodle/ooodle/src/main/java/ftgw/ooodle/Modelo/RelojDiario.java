@@ -10,17 +10,21 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 import Servicios.Estadisticas;
-import Servicios.EstadisticasService;
+import Servicios.UsuarioDAO; // Importamos el nuevo DAO
 
 public class RelojDiario {
 
     private final Label labelReloj;
     private final Button btnDiario;
+    private final String nombreUsuario; // Necesitamos el nombre para la BD
+    private final UsuarioDAO usuarioDAO; // Instancia del DAO
     private Timeline timeline;
 
-    public RelojDiario(Label labelReloj, Button btnDiario) {
+    public RelojDiario(Label labelReloj, Button btnDiario, String nombreUsuario) {
         this.labelReloj = labelReloj;
         this.btnDiario = btnDiario;
+        this.nombreUsuario = nombreUsuario;
+        this.usuarioDAO = new UsuarioDAO();
     }
 
     public void iniciar() {
@@ -31,18 +35,20 @@ public class RelojDiario {
             long segundosRestantes = ChronoUnit.SECONDS.between(ahora, medianoche);
 
             if (segundosRestantes <= 0) {
-                segundosRestantes = ChronoUnit.SECONDS.between(
-                    LocalDateTime.now(),
-                    LocalDateTime.now().toLocalDate().plusDays(1).atStartOfDay()
-                );
+                // LÓGICA DE REINICIO A MEDIANOCHE
+                // 1. Obtenemos las estadísticas actuales del usuario desde la BD
+                Estadisticas stats = usuarioDAO.obtenerEstadisticas(nombreUsuario);
 
-                Estadisticas stats = EstadisticasService.cargar();
+                // 2. Aplicamos la lógica de cambio de día
                 if (!stats.diarioJugadoHoy) {
-                    stats.rachaActual = 0;
+                    stats.rachaActual = 0; // Se rompe la racha si no jugó
                 }
                 stats.diarioJugadoHoy = false;
-                stats.ultimoDiaJugado = ahora.toLocalDate().plusDays(1).toString();
-                EstadisticasService.guardar(stats);
+                stats.ultimoDiaJugado = ahora.toLocalDate().toString();
+
+                // 3. Guardamos el JSON actualizado en MySQL
+                usuarioDAO.actualizarEstadisticas(nombreUsuario, stats);
+
                 btnDiario.setDisable(false);
             }
 

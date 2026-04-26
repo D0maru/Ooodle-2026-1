@@ -1,7 +1,10 @@
 package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
-import Servicios.EstadisticasService;
+import java.time.LocalDate;
+
+import Servicios.Estadisticas;
+import Servicios.UsuarioDAO; // Importamos el nuevo DAO
 import ftgw.ooodle.Modelo.CronometroJuego;
 import ftgw.ooodle.Modelo.Juego;
 import javafx.event.ActionEvent;
@@ -30,6 +33,10 @@ public class CJuegoDiarioDificil {
 
     private Juego juego;
     private CronometroJuego cronometroJuego;
+
+    // NUEVO: Manejo de base de datos
+    private UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private String nombreUsuarioActual = "Jugador1"; // Temporal, debe ser consistente con el Lobby
 
     @FXML
     public void initialize() {
@@ -73,15 +80,34 @@ public class CJuegoDiarioDificil {
         String resultado = juego.ValidarFila();
         if (resultado == null) return;
 
-        // FIX: break en cada case para evitar fall-through.
-        // FIX: marcarDiarioJugado() eliminado — registrarVictoria/Derrota ya lo hacen internamente.
+        // Cargamos las estadísticas actuales de la BD
+        Estadisticas stats = usuarioDAO.obtenerEstadisticas(nombreUsuarioActual);
+
         switch (resultado) {
             case "GANASTE":
-                EstadisticasService.registrarVictoria(juego.GetIntentoActual());
+                // Lógica de victoria (antes en EstadisticasService)
+                stats.partidasJugadas++;
+                stats.partidasGanadas++;
+                stats.rachaActual++;
+                if (stats.rachaActual > stats.rachaMaxima) stats.rachaMaxima = stats.rachaActual;
+                
+                int idx = Math.max(0, Math.min(5, juego.GetIntentoActual() - 1));
+                stats.indiceAdivinanza[idx]++;
+                stats.diarioJugadoHoy = true;
+                stats.ultimoDiaJugado = LocalDate.now().toString();
+
+                usuarioDAO.actualizarEstadisticas(nombreUsuarioActual, stats);
                 cambiarEscena(e, "VictoriaDiario.fxml");
                 break;
+
             case "PERDISTE":
-                EstadisticasService.registrarDerrota();
+                // Lógica de derrota
+                stats.partidasJugadas++;
+                stats.rachaActual = 0;
+                stats.diarioJugadoHoy = true;
+                stats.ultimoDiaJugado = LocalDate.now().toString();
+
+                usuarioDAO.actualizarEstadisticas(nombreUsuarioActual, stats);
                 cambiarEscena(e, "DerrotaDiario.fxml");
                 break;
         }
@@ -92,9 +118,9 @@ public class CJuegoDiarioDificil {
             cronometroJuego.DetenerCronometro();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
             Parent root = loader.load();
-        Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root, ((Node) evento.getSource()).getScene().getWidth(), ((Node) evento.getSource()).getScene().getHeight()));
-        stage.setMaximized(true);
+            Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, ((Node) evento.getSource()).getScene().getWidth(), ((Node) evento.getSource()).getScene().getHeight()));
+            stage.setMaximized(true);
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,9 +133,9 @@ public class CJuegoDiarioDificil {
             cronometroJuego.DetenerCronometro();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
             Parent root = loader.load();
-        Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root, ((Node) e.getSource()).getScene().getWidth(), ((Node) e.getSource()).getScene().getHeight()));
-        stage.setMaximized(true);
+            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root, ((Node) e.getSource()).getScene().getWidth(), ((Node) e.getSource()).getScene().getHeight()));
+            stage.setMaximized(true);
             stage.show();
         } catch (IOException e2) {
             e2.printStackTrace();
