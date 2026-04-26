@@ -1,7 +1,7 @@
 package ftgw.ooodle.Controladores;
 
 import Servicios.JugadorDAO;
-import ftgw.ooodle.Modelo.Sesion;
+//import ftgw.ooodle.Modelo.Sesion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -69,7 +69,7 @@ public class CSeleccionarJugador {
         // EVENTO: Al hacer clic en el nombre, guardar sesión e ir al lobby
         lblNombre.setOnMouseClicked(e -> {
             System.out.println("Seleccionado: " + nombre);
-            Sesion.setJugadorActual(nombre); 
+        //Sesion.setJugadorActual(nombre); 
             irAlLobby(); 
         });
 
