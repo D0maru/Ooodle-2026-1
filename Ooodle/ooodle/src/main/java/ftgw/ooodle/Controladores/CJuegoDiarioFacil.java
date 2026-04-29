@@ -122,7 +122,8 @@ public class CJuegoDiarioFacil {
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, ((Node) evento.getSource()).getScene().getWidth(), ((Node) evento.getSource()).getScene().getHeight()));
-            stage.setMaximized(true);
+            stage.setResizable(false);   
+            stage.setMaximized(false);   
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,7 +138,8 @@ public class CJuegoDiarioFacil {
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, ((Node) e.getSource()).getScene().getWidth(), ((Node) e.getSource()).getScene().getHeight()));
-            stage.setMaximized(true);
+            stage.setResizable(false);   
+            stage.setMaximized(false);   
             stage.show();
         } catch (IOException e2) {
             e2.printStackTrace();

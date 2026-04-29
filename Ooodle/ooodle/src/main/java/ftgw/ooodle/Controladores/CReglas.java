@@ -31,8 +31,9 @@ public class CReglas {
             Parent root = loader.load();
             Stage stage = (Stage) botonVolver.getScene().getWindow();
              Scene scene = new Scene(root, botonVolver.getScene().getWidth(), botonVolver.getScene().getHeight());
-    stage.setScene(scene);
-    stage.setMaximized(true);
+            stage.setScene(scene);
+            stage.setResizable(false);   
+            stage.setMaximized(false);   
             stage.show();
         } catch (IOException e) {
             System.err.println("Error al cargar el lobby: " + e.getMessage());

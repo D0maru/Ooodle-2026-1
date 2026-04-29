@@ -70,7 +70,7 @@ public class CJuegoPracticaDificil {
     @FXML void EliminarValor(ActionEvent e)  { juego.BorrarDigito(); }
     @FXML void VerificarValor(ActionEvent e) { ClickCheck(e); }
 
-    @FXML void BRestart(ActionEvent e) {
+    @FXML void ClickRestart(ActionEvent e) {
         cronometroJuego.ReiniciarCronometro();
         juego.ReiniciarJuego();
     }
@@ -104,8 +104,9 @@ public class CJuegoPracticaDificil {
                 ((CDerrotaPractica) controller).setModoDificil(modoDificil);
 
             Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
-          stage.setScene(new Scene(root, ((Node) evento.getSource()).getScene().getWidth(), ((Node) evento.getSource()).getScene().getHeight()));
-        stage.setMaximized(true); 
+            stage.setScene(new Scene(root, ((Node) evento.getSource()).getScene().getWidth(), ((Node) evento.getSource()).getScene().getHeight()));
+            stage.setResizable(false);   
+            stage.setMaximized(false);   
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,7 +121,8 @@ public class CJuegoPracticaDificil {
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, ((Node) e.getSource()).getScene().getWidth(), ((Node) e.getSource()).getScene().getHeight()));
-        stage.setMaximized(true); 
+            stage.setResizable(false);   
+            stage.setMaximized(false);   
             stage.show();
         } catch (IOException e2) {
             e2.printStackTrace();

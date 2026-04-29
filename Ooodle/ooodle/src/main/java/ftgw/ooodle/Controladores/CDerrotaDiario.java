@@ -23,6 +23,8 @@ public class CDerrotaDiario {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root, ((Node) event.getSource()).getScene().getWidth(), ((Node) event.getSource()).getScene().getHeight());
         stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setMaximized(false);
         stage.show();
     } catch (IOException e) {
         e.printStackTrace();

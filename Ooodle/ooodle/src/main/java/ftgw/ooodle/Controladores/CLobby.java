@@ -1,132 +1,157 @@
 package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
+
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
+import javafx.scene.*;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import Servicios.Estadisticas;
-import Servicios.UsuarioDAO; // Importamos el nuevo DAO
+import Servicios.UsuarioDAO;
 import ftgw.ooodle.Modelo.RelojDiario;
 
 public class CLobby {
 
-    @FXML private Label D_PorcentajeVictorias;
-    @FXML private Label D_RachaActual;
-    @FXML private Label D_RachaMaxima;
-    @FXML private Label D_partidasJugadas;
-    @FXML private Label Ind_1, Ind_2, Ind_3, Ind_4, Ind_5, Ind_6;
-    @FXML private AnchorPane PanelInterfaz;
+    // --- COMPONENTES UI ---
+    @FXML private Label Label_Nickname;
+    @FXML private Label Label_PorcentajeVictorias;
+    @FXML private Label Label_RachaActual;
+    @FXML private Label Label_RachaMaxima;
+    @FXML private Label Label_idUsuario;
     @FXML private Label Reloj_Daily;
+    @FXML private Label lblRango;
+
     @FXML private Button botonReglas;
     @FXML private Button btnDiario;
     @FXML private Button btnPractica;
+
+    @FXML private AnchorPane PanelInterfaz;
     @FXML private Circle circuloDificultad;
-    @FXML private Label lblRango;
 
-    private boolean modo12 = false;
+    // --- ESTADO ---
+    private boolean modoDificil = false;
+    private String nombreUsuarioActual = "Jugador1";
+
+    // --- SERVICIOS ---
+    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
     private RelojDiario relojDiario;
-    private UsuarioDAO usuarioDAO = new UsuarioDAO(); // Instancia del DAO
-    
-    // TODO: Este nombre debería venir de la pantalla de Login
-    private String nombreUsuarioActual = "Jugador1"; 
 
+    // --- CONSTANTES ---
+    private static final String RUTA_REGLAS = "/ftgw/ooodle/Vista/Reglas.fxml";
+    private static final String PRACTICA_FACIL = "/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml";
+    private static final String PRACTICA_DIFICIL = "/ftgw/ooodle/Vista/JuegoPracticaDificil.fxml";
+    private static final String DIARIO_FACIL = "/ftgw/ooodle/Vista/JuegoDiarioFacil.fxml";
+    private static final String DIARIO_DIFICIL = "/ftgw/ooodle/Vista/JuegoDiarioDificil.fxml";
+
+    // --- INICIALIZACIÓN ---
     @FXML
     public void initialize() {
-        // REEMPLAZO: Usamos el DAO para obtener datos de la BD
+        cargarEstadisticas();
+        iniciarReloj();
+    }
+
+    private void cargarEstadisticas() {
         Estadisticas stats = usuarioDAO.obtenerEstadisticas(nombreUsuarioActual);
 
-        // Llenamos la interfaz con los datos recuperados
         btnDiario.setDisable(stats.diarioJugadoHoy);
-        D_partidasJugadas.setText(String.valueOf(stats.partidasJugadas));
-        D_RachaMaxima.setText(String.valueOf(stats.rachaMaxima));
-        D_RachaActual.setText(String.valueOf(stats.rachaActual));
-        D_PorcentajeVictorias.setText(stats.porcentajeGanadas + "%");
+        Label_RachaMaxima.setText(String.valueOf(stats.rachaMaxima));
+        Label_RachaActual.setText(String.valueOf(stats.rachaActual));
+        Label_PorcentajeVictorias.setText(stats.porcentajeGanadas + "%");
+    }
 
-        if (stats.indiceAdivinanza != null && stats.indiceAdivinanza.length >= 6) {
-            Ind_1.setText(String.valueOf(stats.indiceAdivinanza[0]));
-            Ind_2.setText(String.valueOf(stats.indiceAdivinanza[1]));
-            Ind_3.setText(String.valueOf(stats.indiceAdivinanza[2]));
-            Ind_4.setText(String.valueOf(stats.indiceAdivinanza[3]));
-            Ind_5.setText(String.valueOf(stats.indiceAdivinanza[4]));
-            Ind_6.setText(String.valueOf(stats.indiceAdivinanza[5]));
-        }
-
-        // Corregimos la creación del reloj pasando el nombre del usuario
+    private void iniciarReloj() {
         relojDiario = new RelojDiario(Reloj_Daily, btnDiario, nombreUsuarioActual);
         relojDiario.iniciar();
     }
 
-    // --- El resto de tus métodos (traerReglas, cambiarDificultad, etc.) se mantienen igual ---
+    // --- EVENTOS UI ---
 
     @FXML
     void traerReglas(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Reglas.fxml"));
-            Parent root = loader.load();
-            PanelInterfaz.getChildren().setAll(root);
-            AnchorPane.setTopAnchor(root, 0.0);
-            AnchorPane.setBottomAnchor(root, 0.0);
-            AnchorPane.setLeftAnchor(root, 0.0);
-            AnchorPane.setRightAnchor(root, 0.0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        cargarVistaEnPanel(RUTA_REGLAS);
     }
 
     @FXML
     void cambiarDificultad(MouseEvent event) {
-        TranslateTransition animation = new TranslateTransition(Duration.millis(200), circuloDificultad);
-        if (!modo12) {
-            animation.setToX(22);
-            lblRango.setText("Numbers 1 to 12");
-            modo12 = true;
-        } else {
-            animation.setToX(0);
-            lblRango.setText("Numbers 1 to 9");
-            modo12 = false;
-        }
-        animation.play();
+        modoDificil = !modoDificil;
+        animarDificultad();
+        actualizarTextoDificultad();
     }
 
     @FXML
     void abrirJPrac(ActionEvent event) {
-        relojDiario.detener();
-        String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoPracticaDificil.fxml"
-                             : "/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml";
-        cambiarEscenaCompleta(event, ruta);
+        abrirJuego(event, PRACTICA_FACIL, PRACTICA_DIFICIL);
     }
 
     @FXML
     void abrirJdiario(ActionEvent event) {
+        abrirJuego(event, DIARIO_FACIL, DIARIO_DIFICIL);
+    }
+
+    // --- LÓGICA AUXILIAR ---
+
+    private void abrirJuego(ActionEvent event, String rutaFacil, String rutaDificil) {
         relojDiario.detener();
-        String ruta = modo12 ? "/ftgw/ooodle/Vista/JuegoDiarioDificil.fxml"
-                             : "/ftgw/ooodle/Vista/JuegoDiarioFacil.fxml";
+        String ruta = modoDificil ? rutaDificil : rutaFacil;
         cambiarEscenaCompleta(event, ruta);
+    }
+
+    private void cargarVistaEnPanel(String ruta) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(ruta));
+            PanelInterfaz.getChildren().setAll(root);
+            ajustarAnchors(root);
+        } catch (IOException e) {
+            manejarError("Error cargando vista", ruta, e);
+        }
     }
 
     private void cambiarEscenaCompleta(ActionEvent event, String ruta) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(ruta));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource(ruta));
+            Stage stage = obtenerStage(event);
+
             stage.setScene(new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight()));
-            stage.setMaximized(true);
+            stage.setResizable(false);   
+            stage.setMaximized(false);   
             stage.show();
+
         } catch (IOException e) {
-            System.err.println("No se pudo cargar la vista: " + ruta);
-            e.printStackTrace();
+            manejarError("No se pudo cargar la vista", ruta, e);
         }
+    }
+
+    private void animarDificultad() {
+        TranslateTransition animation = new TranslateTransition(Duration.millis(200), circuloDificultad);
+        animation.setToX(modoDificil ? 22 : 0);
+        animation.play();
+    }
+
+    private void actualizarTextoDificultad() {
+        lblRango.setText(modoDificil ? "Numbers 1 to 12" : "Numbers 1 to 9");
+    }
+
+    private void ajustarAnchors(Parent root) {
+        AnchorPane.setTopAnchor(root, 0.0);
+        AnchorPane.setBottomAnchor(root, 0.0);
+        AnchorPane.setLeftAnchor(root, 0.0);
+        AnchorPane.setRightAnchor(root, 0.0);
+    }
+
+    private Stage obtenerStage(ActionEvent event) {
+        return (Stage) ((Node) event.getSource()).getScene().getWindow();
+    }
+
+    private void manejarError(String mensaje, String ruta, Exception e) {
+        System.err.println(mensaje + ": " + ruta);
+        e.printStackTrace();
     }
 }

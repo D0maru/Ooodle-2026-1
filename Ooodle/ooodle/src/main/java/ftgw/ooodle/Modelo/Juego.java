@@ -32,18 +32,24 @@ public class Juego {
 
     // ===== GENERAR NUEVO JUEGO =====
     public void GenerarNuevoJuego() {
-        target = modoDificil
-            ? (int)(Math.random() * 149) - 7
-            : (int)(Math.random() * 83)  - 4;
+        int maxIntentos = 100;
+        solucion = null;
 
-        solucion = Ecuacion.GenerarEcuacion(target, modoDificil);
-
-        if (solucion != null) {
-            System.out.printf("SOLUCIÓN: %d * %d + %d - %d = %d%n",
-                solucion[0], solucion[1], solucion[2], solucion[3], target);
-        } else {
-            System.out.println("No se encontró solución para: " + target);
+        for (int i = 0; i < maxIntentos && solucion == null; i++) {
+            target = modoDificil
+                ? (int)(Math.random() * 149) - 7
+                : (int)(Math.random() * 83)  - 4;
+            solucion = Ecuacion.GenerarEcuacion(target, modoDificil);
         }
+
+        if (solucion == null) {
+            // Fallback garantizado: hardcodear un target con solución conocida
+            target = modoDificil ? 100 : 14; // 10*11+2-12=100 / 3*5+1-2=14
+            solucion = Ecuacion.GenerarEcuacion(target, modoDificil);
+        }
+
+        System.out.printf("SOLUCIÓN: %d * %d + %d - %d = %d%n",
+            solucion[0], solucion[1], solucion[2], solucion[3], target);
 
         for (Label l : resultados) {
             l.setText(String.valueOf(target));
