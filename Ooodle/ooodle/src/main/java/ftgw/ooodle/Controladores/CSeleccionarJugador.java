@@ -1,6 +1,7 @@
 package ftgw.ooodle.Controladores;
 
 import Servicios.DAOUsuario;
+import ftgw.ooodle.Modelo.SesionUsuario;
 import ftgw.ooodle.Modelo.Usuario; // Importante importar tu modelo
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,8 +47,9 @@ public class CSeleccionarJugador {
         HBox.setHgrow(lblNombre, Priority.ALWAYS);
         //Evento el cual deja ir al lobby al hacer click en el nombre del jugador
         lblNombre.setOnMouseClicked(e -> {
-                System.out.println("Seleccionado: " + usuario.getNickname());
-                irAlLobby();
+            System.out.println("Seleccionado: "+usuario.getNickname());
+            SesionUsuario.getInstancia().setUsuarioActual(usuario);
+            irAlLobby();
             
         });
 

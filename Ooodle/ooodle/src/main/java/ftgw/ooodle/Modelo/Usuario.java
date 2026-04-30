@@ -1,11 +1,9 @@
 package ftgw.ooodle.Modelo;
-
-import java.sql.Date;
-
 public class Usuario {
     public int id;
     private String nickname;
     private boolean juegoDiario;
+    private boolean puedeJugar;
     
     public Usuario(int id, String nickname, Boolean juegoDiario) {
         this.id = id;
@@ -14,5 +12,15 @@ public class Usuario {
     }
     public String getNickname() {
         return nickname;
+    }
+    public int getId(){
+        return id;
+    }
+    public void setPuedeJugar(boolean puedeJugar) {
+        this.puedeJugar = puedeJugar;
+    }
+    //Getter para permiso de jugar
+    public boolean isPuedeJugar() {
+        return puedeJugar;
     }
 }

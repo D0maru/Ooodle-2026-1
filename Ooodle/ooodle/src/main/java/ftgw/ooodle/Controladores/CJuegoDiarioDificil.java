@@ -6,6 +6,7 @@ import ftgw.ooodle.Modelo.CronometroJuego;
 import ftgw.ooodle.Modelo.Juego;
 import ftgw.ooodle.Modelo.ResultadoPartida;
 import ftgw.ooodle.Modelo.Usuario;
+import ftgw.ooodle.Modelo.SesionUsuario; // IMPORTANTE
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,24 +35,13 @@ public class CJuegoDiarioDificil {
 
     private Juego juego;
     private CronometroJuego cronometroJuego;
-
-    // Persistencia y Usuario
-    private Usuario usuarioActual; 
     private DAOEstadisticas daoEstadisticas = new DAOEstadisticas();
-
-    /**
-     * Recibe el usuario desde el Lobby o controlador anterior.
-     */
-    public void setUsuario(Usuario usuario) {
-        this.usuarioActual = usuario;
-    }
 
     @FXML
     public void initialize() {
         cronometroJuego = new CronometroJuego(cronometro);
         cronometroJuego.initialize();
 
-        // Mapeo del tablero para la lógica de dificultad difícil (true)
         TextField[][] tablero = {
             {a1, b1, c1, d1}, {a2, b2, c2, d2},
             {a3, b3, c3, d3}, {a4, b4, c4, d4},
@@ -59,7 +49,6 @@ public class CJuegoDiarioDificil {
         };
         Label[] resultados = {res1, res2, res3, res4, res5, res6};
 
-        // El primer parámetro 'true' indica que es modo difícil
         juego = new Juego(true, tablero, resultados);
         juego.GenerarNuevoJuego();
         juego.BloquearTodo();
@@ -89,26 +78,27 @@ public class CJuegoDiarioDificil {
 
     @FXML
     void ClickCheck(ActionEvent e) {
-        String resultado = juego.ValidarFila();
-        if (resultado == null) return;
+        String resultadoValidacion = juego.ValidarFila();
+        if (resultadoValidacion == null) return;
 
-        ResultadoPartida datosParaDAO;
-        int id = usuarioActual.id; 
+        // Obtenemos el usuario directamente de la sesión
+        Usuario usuario = SesionUsuario.getInstancia().getUsuarioActual();
+        int id = usuario.getId(); 
 
-        if (resultado.equals("GANASTE")) {
-            // Generamos ticket de éxito para el DAO
-            datosParaDAO = new ResultadoPartida(id, 1, 1, 1);
+        if (resultadoValidacion.equals("GANASTE")) {
+            ResultadoPartida datos = new ResultadoPartida(id, 1, 1, 1);
             
-            // Actualizamos la base de datos y refrescamos el objeto local
-            this.usuarioActual = daoEstadisticas.actualizarDatos(datosParaDAO);
+            // Actualizamos la BD y guardamos el nuevo estado del usuario en la Sesión Global
+            Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
+            SesionUsuario.getInstancia().setUsuarioActual(actualizado);
             
             cambiarEscena(e, "VictoriaDiario.fxml");
             
-        } else if (resultado.equals("PERDISTE")) {
-            // Generamos ticket de fracaso: -1 resetea racha en el DAO
-            datosParaDAO = new ResultadoPartida(id, -1, 0, 1);
+        } else if (resultadoValidacion.equals("PERDISTE")) {
+            ResultadoPartida datos = new ResultadoPartida(id, -1, 0, 1);
             
-            this.usuarioActual = daoEstadisticas.actualizarDatos(datosParaDAO);
+            Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
+            SesionUsuario.getInstancia().setUsuarioActual(actualizado);
             
             cambiarEscena(e, "DerrotaDiario.fxml");
         }
@@ -117,9 +107,7 @@ public class CJuegoDiarioDificil {
     private void cambiarEscena(ActionEvent evento, String fxml) {
         try {
             cronometroJuego.DetenerCronometro();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
-            Parent root = loader.load();
-            Object controller = loader.getController();
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
             Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -132,13 +120,7 @@ public class CJuegoDiarioDificil {
     void volverAlLobby(ActionEvent e) {
         try {
             cronometroJuego.DetenerCronometro();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
-            Parent root = loader.load();
-            
-            // Es vital pasar el usuario de vuelta al Lobby para mantener el nickname e ID
-            Object proximoControlador = loader.getController();
-            // if (proximoControlador instanceof CLobby) { ((CLobby) proximoControlador).setUsuario(this.usuarioActual); }
-
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

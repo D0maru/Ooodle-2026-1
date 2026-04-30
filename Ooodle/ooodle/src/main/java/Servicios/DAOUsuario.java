@@ -21,7 +21,7 @@ public class DAOUsuario {
  // poner aque compare la fecha de el id con la fecha actual 
     public List<Usuario> cargarUsuarios() {
         List<Usuario> lista = new ArrayList<>();
-        String sql = "SELECT Id, Nickname, Ultimojuego FROM usuarios";
+        String sql = "SELECT Id, Nickname, Ultimojuego FROM Usuario";
 
         try (Connection con = DriverManager.getConnection(url, user, pass);
              PreparedStatement ps = con.prepareStatement(sql);
@@ -41,15 +41,22 @@ public class DAOUsuario {
         return lista;
     }
 
-    public String agregarUsuario(String nickname) {
-        String sql = "INSERT INTO usuarios (nickname, ultimo_juego) VALUES (?, '1970-01-01')";
+    public String agregarUsuario(String nickname) {       
+        String sql = "INSERT INTO Usuario (Nickname, UltimoJuego) VALUES (?, '1970-01-01')";
+        String sqlEst = "INSERT INTO Estadisticas (idUsuario) VALUES (?)";
 
         try (Connection con = DriverManager.getConnection(url, user, pass);
-            PreparedStatement ps = con.prepareStatement(sql)) {
-            
+            PreparedStatement ps = con.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, nickname);
             ps.executeUpdate();
-            
+            ResultSet rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                int idGenerado = rs.getInt(1); 
+                try (PreparedStatement psEst = con.prepareStatement(sqlEst)) {
+                    psEst.setInt(1, idGenerado);
+                    psEst.executeUpdate();
+                }
+            }
             return "Usuario " + nickname + " agregado correctamente.";
             
         } catch (SQLException e) {
@@ -59,7 +66,7 @@ public class DAOUsuario {
     }
 
     public String eliminarUsuario(int id) {
-    String sql = "DELETE FROM usuarios WHERE id = ?";
+    String sql = "DELETE FROM Usuario WHERE Id = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, pass);
             PreparedStatement ps = con.prepareStatement(sql)) {

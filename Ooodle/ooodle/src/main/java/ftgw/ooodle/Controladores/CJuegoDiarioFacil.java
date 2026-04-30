@@ -1,12 +1,12 @@
 package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
-import java.sql.Date;
 import Servicios.DAOEstadisticas;
 import ftgw.ooodle.Modelo.CronometroJuego;
 import ftgw.ooodle.Modelo.Juego;
 import ftgw.ooodle.Modelo.ResultadoPartida;
 import ftgw.ooodle.Modelo.Usuario;
+import ftgw.ooodle.Modelo.SesionUsuario; // Importante
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,25 +37,16 @@ public class CJuegoDiarioFacil {
 
     private Juego juego;
     private CronometroJuego cronometroJuego;
-    
-    // Lógica de Usuario y Persistencia
-    private Usuario usuarioActual; 
     private DAOEstadisticas daoEstadisticas = new DAOEstadisticas();
 
-    /**
-     * Método fundamental para recibir al usuario desde el Lobby.
-     * Sin esto, el juego daría error al intentar guardar estadísticas.
-     */
-    public void setUsuario(Usuario usuario) {
-        this.usuarioActual = usuario;
-    }
+    // NOTA: Ya no necesitamos setUsuario ni el atributo privado usuarioActual
+    // porque usaremos SesionUsuario.getInstancia() directamente.
 
     @FXML
     public void initialize() {
         cronometroJuego = new CronometroJuego(cronometro);
         cronometroJuego.initialize();
 
-        // Organización del tablero para la lógica de Juego.java
         TextField[][] tablero = {
             {a1, b1, c1, d1}, {a2, b2, c2, d2},
             {a3, b3, c3, d3}, {a4, b4, c4, d4},
@@ -87,31 +78,29 @@ public class CJuegoDiarioFacil {
         juego.ReiniciarJuego();
     }
 
-    /**
-     * Lógica principal de validación y guardado en Base de Datos.
-     */
     @FXML 
     void ClickCheck(ActionEvent e) {
-        String resultado = juego.ValidarFila();
-        if (resultado == null) return;
+        String resultadoValidacion = juego.ValidarFila();
+        if (resultadoValidacion == null) return;
 
-        ResultadoPartida datosParaDAO;
-        int id = usuarioActual.id; 
+        // Obtenemos el usuario de la sesión global
+        Usuario usuario = SesionUsuario.getInstancia().getUsuarioActual();
+        int id = usuario.getId(); 
 
-        if (resultado.equals("GANASTE")) {
-            // Creamos el ticket de éxito: +1 racha, +1 ganada, +1 jugada
-            datosParaDAO = new ResultadoPartida(id, 1, 1, 1);
+        if (resultadoValidacion.equals("GANASTE")) {
+            ResultadoPartida datos = new ResultadoPartida(id, 1, 1, 1);
             
-            // Actualizamos en BD y recibimos el objeto Usuario fresco
-            this.usuarioActual = daoEstadisticas.actualizarDatos(datosParaDAO);
+            // Actualizamos en BD y actualizamos la Sesión Global
+            Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
+            SesionUsuario.getInstancia().setUsuarioActual(actualizado);
             
             cambiarEscena(e, "VictoriaDiario.fxml");
             
-        } else if (resultado.equals("PERDISTE")) {
-            // Creamos el ticket de derrota: -1 resetea racha, 0 ganadas, +1 jugada
-            datosParaDAO = new ResultadoPartida(id, -1, 0, 1);
+        } else if (resultadoValidacion.equals("PERDISTE")) {
+            ResultadoPartida datos = new ResultadoPartida(id, -1, 0, 1);
             
-            this.usuarioActual = daoEstadisticas.actualizarDatos(datosParaDAO);
+            Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
+            SesionUsuario.getInstancia().setUsuarioActual(actualizado);
             
             cambiarEscena(e, "DerrotaDiario.fxml");
         }
@@ -120,15 +109,8 @@ public class CJuegoDiarioFacil {
     private void cambiarEscena(ActionEvent evento, String fxml) {
         try {
             cronometroJuego.DetenerCronometro();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
-            Parent root = loader.load();
-
-            Object ControladorDestino = loader.getController();
-            if(ControladorDestino instanceof CVictoriaDiario){ 
-                ((CVictoriaDiario) ControladorDestino).setUsuario(this.usuarioActual);
-            } else if (ControladorDestino instanceof CDerrotaDiario) {
-                ((CDerrotaDiario) ControladorDestino).setUsuario(this.usuarioActual);
-            }
+            // Ya no pasamos el usuario manualmente por el loader
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
             Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -141,14 +123,7 @@ public class CJuegoDiarioFacil {
     void volverAlLobby(ActionEvent e) {
         try {
             cronometroJuego.DetenerCronometro();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
-            Parent root = loader.load();
-            
-            // Al volver al lobby, es vital pasar el usuario para que no se pierda la sesión
-            Object proximoControlador = loader.getController();
-            // Suponiendo que tu CLobby tiene un método setUsuario
-            // ((CLobby) proximoControlador).setUsuario(this.usuarioActual);
-
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

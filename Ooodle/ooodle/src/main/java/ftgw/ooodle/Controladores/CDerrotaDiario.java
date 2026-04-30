@@ -1,8 +1,6 @@
 package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
-
-import ftgw.ooodle.Modelo.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,11 +14,6 @@ public class CDerrotaDiario {
     
     @FXML
     private Button BotonRegreso;
-    private Usuario UsuarioActual;
-    
-    public void setUsuario(Usuario u){
-        this.UsuarioActual = u;
-    }
     @FXML
     void Volver(ActionEvent event) {
     try {

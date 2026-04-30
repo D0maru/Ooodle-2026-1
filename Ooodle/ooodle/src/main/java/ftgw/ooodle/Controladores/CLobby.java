@@ -14,9 +14,13 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import Servicios.Estadisticas;
-import Servicios.UsuarioDAO;
+import Servicios.DAOEstadisticas;
+import ftgw.ooodle.Modelo.ResultadoPartida;
+import ftgw.ooodle.Modelo.SesionUsuario;
+import ftgw.ooodle.Modelo.Usuario;
 import ftgw.ooodle.Modelo.RelojDiario;
+
+
 
 public class CLobby {
 
@@ -38,10 +42,9 @@ public class CLobby {
 
     // --- ESTADO ---
     private boolean modoDificil = false;
-    private String nombreUsuarioActual = "Jugador1";
 
     // --- SERVICIOS ---
-    private final UsuarioDAO usuarioDAO = new UsuarioDAO();
+    private final DAOEstadisticas daoEstadisticas = new DAOEstadisticas();
     private RelojDiario relojDiario;
 
     // --- CONSTANTES ---
@@ -54,26 +57,50 @@ public class CLobby {
     // --- INICIALIZACIÓN ---
     @FXML
     public void initialize() {
-        cargarEstadisticas();
-        iniciarReloj();
+        if(SesionUsuario.getInstancia().getUsuarioActual() != null){
+            
+            cargarEstadisticas();
+            iniciarReloj();
+        }else{
+            System.err.println("No hay ningun usuario en sesion");
+        }
     }
 
     private void cargarEstadisticas() {
-        Estadisticas stats = usuarioDAO.obtenerEstadisticas(nombreUsuarioActual);
+        // 1. Obtenemos la referencia limpia del usuario
+        Usuario usuarioActual = SesionUsuario.getInstancia().getUsuarioActual();
+        
+        // 2. Llamamos al DAO UNA SOLA VEZ. 
+        // Recuerda que tu DAO ya tiene la línea que hace el .setPuedeJugar() internamente.
+        ResultadoPartida stats = daoEstadisticas.cargarEstadisticasAlLobby(usuarioActual.getId());
 
-        btnDiario.setDisable(stats.diarioJugadoHoy);
-        Label_RachaMaxima.setText(String.valueOf(stats.rachaMaxima));
+        // 3. Seteamos los textos
+        Label_Nickname.setText(usuarioActual.getNickname());
+        Label_idUsuario.setText("ID: " + usuarioActual.getId());
+        Label_RachaMaxima.setText(String.valueOf(stats.rachaMax));
         Label_RachaActual.setText(String.valueOf(stats.rachaActual));
-        Label_PorcentajeVictorias.setText(stats.porcentajeGanadas + "%");
+
+        if (stats.partidasJugadas > 0) {
+            double porcentaje = ((double) stats.partidasGanadas / stats.partidasJugadas) * 100;
+            Label_PorcentajeVictorias.setText(String.format("%.1f%%", porcentaje));
+        } else {
+            Label_PorcentajeVictorias.setText("0%");
+        }
+
+        // 4. USAMOS EL VALOR RECIÉN ACTUALIZADO
+        // Forzamos la lectura del objeto global por si acaso
+        boolean puedeJugar = SesionUsuario.getInstancia().getUsuarioActual().isPuedeJugar();
+        
+        System.out.println("DEBUG: ¿Puede jugar según el objeto? " + puedeJugar); // Para que lo veas en consola
+        
+        btnDiario.setDisable(!puedeJugar);
     }
 
     private void iniciarReloj() {
-        relojDiario = new RelojDiario(Reloj_Daily, btnDiario, nombreUsuarioActual);
+        boolean puedeJugar = SesionUsuario.getInstancia().getUsuarioActual().isPuedeJugar();
+        relojDiario = new RelojDiario(Reloj_Daily, btnDiario, puedeJugar);
         relojDiario.iniciar();
     }
-
-    // --- EVENTOS UI ---
-
     @FXML
     void traerReglas(ActionEvent event) {
         cargarVistaEnPanel(RUTA_REGLAS);

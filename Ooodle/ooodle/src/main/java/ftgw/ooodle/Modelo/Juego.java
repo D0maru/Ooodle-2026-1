@@ -1,5 +1,6 @@
 package ftgw.ooodle.Modelo;
 
+import ftgw.ooodle.Modelo.Usuario;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
@@ -17,6 +18,7 @@ public class Juego {
 
     private TextField[][] tablero;
     private Label[] resultados;
+    public static Usuario usuarioActual;
 
     // ===== COLORES =====
     private static final String VERDE    = "-fx-background-color: #00e676; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
