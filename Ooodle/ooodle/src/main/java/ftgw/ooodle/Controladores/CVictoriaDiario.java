@@ -2,6 +2,7 @@ package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
 
+import ftgw.ooodle.Modelo.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,9 +13,12 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class CVictoriaDiario {
-
+    private Usuario UsuarioActual;
     @FXML
     private Button botonRegresoLobby;
+    public void setUsuario(Usuario u){
+        this.UsuarioActual = u;
+    }
 
     @FXML
     void Volver(ActionEvent event) {
