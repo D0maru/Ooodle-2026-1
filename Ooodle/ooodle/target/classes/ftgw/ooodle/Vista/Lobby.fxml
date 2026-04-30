@@ -3,6 +3,9 @@
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Circle?>
@@ -11,14 +14,27 @@
 <AnchorPane fx:id="PanelInterfaz" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.Controladores.CLobby">
 
    <children>
+      <ImageView fitHeight="359.0" fitWidth="303.0" layoutX="308.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../imagenes/ESTADISTICA.jpeg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="400.0" fitWidth="275.0" layoutX="4.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../imagenes/fondo.jpeg" />
+         </image>
+      </ImageView>
 
-      <Label alignment="CENTER" layoutX="48.0" layoutY="45.0" prefHeight="40.0" prefWidth="317.0" text="FILL THE GRID WINNER" AnchorPane.leftAnchor="48.0" AnchorPane.rightAnchor="235.0" AnchorPane.topAnchor="45.0">
+      <Label alignment="CENTER" layoutX="174.0" layoutY="6.0" prefHeight="40.0" prefWidth="317.0" text="FILL THE GRID WINNER" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="6.0">
          <font>
-            <Font size="28.0" />
+            <Font name="System Bold Italic" size="28.0" />
          </font>
       </Label>
 
-      <Label fx:id="lblRango" layoutX="66.0" layoutY="116.0" text="Numbers 1 to 9" AnchorPane.leftAnchor="66.0" AnchorPane.topAnchor="116.0" />
+      <Label fx:id="lblRango" layoutX="90.0" layoutY="114.0" text="DIFFICULTY" textFill="#19750f" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="114.0">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
 
       <Pane layoutX="174.0" layoutY="113.0" onMouseClicked="#cambiarDificultad" prefHeight="23.0" prefWidth="42.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="174.0" AnchorPane.topAnchor="113.0">
          <children>
@@ -26,35 +42,64 @@
          </children>
       </Pane>
 
-      <Button fx:id="btnPractica" layoutX="66.0" layoutY="220.0" onAction="#abrirJPrac" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: green;" text="Modo Practica" textFill="#ece9e9" AnchorPane.bottomAnchor="140.0" AnchorPane.leftAnchor="66.0">
+      <Button fx:id="btnPractica" layoutX="66.0" layoutY="222.0" onAction="#abrirJPrac" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: green; -fx-background-radius: 10;" text=" Practica" textFill="#1b1a1a" AnchorPane.bottomAnchor="138.0" AnchorPane.leftAnchor="66.0">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
+         <effect>
+            <InnerShadow />
+         </effect>
       </Button>
 
-      <Button fx:id="btnDiario" layoutX="66.0" layoutY="160.0" onAction="#abrirJdiario" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: green;" text="Juego Diario" textFill="#fcfafa" AnchorPane.bottomAnchor="200.0" AnchorPane.rightAnchor="384.0">
+      <Button fx:id="btnDiario" layoutX="66.0" layoutY="160.0" onAction="#abrirJdiario" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: green; -fx-background-radius: 10;" text=" Diario" textFill="#111010" AnchorPane.bottomAnchor="200.0" AnchorPane.rightAnchor="384.0">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
+         <effect>
+            <InnerShadow />
+         </effect>
       </Button>
 
-      <Button fx:id="botonReglas" layoutX="66.0" layoutY="284.0" onAction="#traerReglas" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: green;" text="Reglas" textFill="#efecec" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="384.0">
+      <Button fx:id="botonReglas" layoutX="66.0" layoutY="284.0" onAction="#traerReglas" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: green; -fx-background-radius: 10;" text="Reglas" textFill="#1b1a1a" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="384.0">
          <font>
-            <Font size="14.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
+         <effect>
+            <InnerShadow />
+         </effect>
       </Button>
       <Accordion layoutX="314.0" layoutY="183.0" />
-      <Label layoutX="400.0" layoutY="172.0" text="ESTADISTICAS" />
-      <Label layoutX="365.0" layoutY="253.0" text="Racha Maxima:" />
-      <Label fx:id="Label_RachaMaxima" layoutX="472.0" layoutY="253.0" text="0" />
-      <Label layoutX="382.0" layoutY="202.0" text="Actual:" />
-      <Label fx:id="Label_RachaActual" layoutX="469.0" layoutY="202.0" text="0" />
-      <Label layoutX="381.0" layoutY="225.0" text="\% Win: " />
-      <Label fx:id="Label_PorcentajeVictorias" layoutX="472.0" layoutY="225.0" text="0" />
-      <Label layoutX="300.0" layoutY="346.0" text="Siguiente desafio:" />
-      <Label fx:id="Reloj_Daily" layoutX="415.0" layoutY="346.0" text="00:00:00" />
-      <Label fx:id="Label_Nickname" layoutX="401.0" layoutY="105.0" text="Juan orto-ñez" />
-      <Label fx:id="Label_idUsuario" layoutX="413.0" layoutY="128.0" text="id: 12314" />
+      <Label layoutX="358.0" layoutY="165.0" text="ESTADISTICAS" textFill="#19750f">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label layoutX="365.0" layoutY="253.0" text="Racha Maxima:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label fx:id="Label_RachaMaxima" layoutX="476.0" layoutY="255.0" text="0" />
+      <Label layoutX="382.0" layoutY="202.0" text="Actual:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label fx:id="Label_RachaActual" layoutX="476.0" layoutY="204.0" text="0" />
+      <Label layoutX="381.0" layoutY="225.0" text="\% Win: ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label fx:id="Label_PorcentajeVictorias" layoutX="476.0" layoutY="227.0" text="0" />
+      <Label fx:id="Reloj_Daily" layoutX="365.0" layoutY="324.0" text="00:00:00">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label fx:id="Label_Nickname" layoutX="371.0" layoutY="99.0" text="Juan orto-ñez">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label fx:id="Label_idUsuario" layoutX="376.0" layoutY="135.0" text="id: 12314">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
 
    </children>
 </AnchorPane>
