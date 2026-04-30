@@ -96,8 +96,6 @@ public class CLobby {
         abrirJuego(event, DIARIO_FACIL, DIARIO_DIFICIL);
     }
 
-    // --- LÓGICA AUXILIAR ---
-
     private void abrirJuego(ActionEvent event, String rutaFacil, String rutaDificil) {
         relojDiario.detener();
         String ruta = modoDificil ? rutaDificil : rutaFacil;
