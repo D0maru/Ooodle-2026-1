@@ -25,15 +25,15 @@
          </image>
       </ImageView>
 
-      <Label alignment="CENTER" layoutX="174.0" layoutY="6.0" prefHeight="40.0" prefWidth="317.0" text="FILL THE GRID WINNER" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="6.0">
+      <Label alignment="CENTER" layoutX="174.0" layoutY="6.0" prefHeight="40.0" prefWidth="317.0" text="FILL THE GRID WINNER" textFill="#737272" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="6.0">
          <font>
             <Font name="System Bold Italic" size="28.0" />
          </font>
       </Label>
 
-      <Label fx:id="lblRango" layoutX="56.0" layoutY="113.0" text="DIFFICULTY" textFill="#19750f" AnchorPane.leftAnchor="56.0" AnchorPane.topAnchor="113.0">
+      <Label fx:id="lblRango" layoutX="50.0" layoutY="110.0" text="DIFFICULTY" textFill="#19750f" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="110.0">
          <font>
-            <Font size="15.0" />
+            <Font name="Segoe Print" size="15.0" />
          </font></Label>
 
       <Pane layoutX="174.0" layoutY="113.0" onMouseClicked="#cambiarDificultad" prefHeight="23.0" prefWidth="42.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="174.0" AnchorPane.topAnchor="113.0">
@@ -94,11 +94,11 @@
             <Font size="20.0" />
          </font></Label>
 
-      <Label fx:id="Label_Nickname" layoutX="348.0" layoutY="83.0">
+      <Label fx:id="Label_Nickname" layoutX="348.0" layoutY="83.0" prefHeight="30.0" prefWidth="118.0" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="Label_idUsuario" layoutX="358.0" layoutY="123.0" text="id: 12314">
+      <Label fx:id="Label_idUsuario" layoutX="358.0" layoutY="123.0" prefHeight="26.0" prefWidth="81.0" text="id: 12314" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font></Label>

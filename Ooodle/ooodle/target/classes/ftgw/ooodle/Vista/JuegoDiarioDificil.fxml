@@ -34,7 +34,10 @@
                         <InnerShadow />
                      </input>
                   </Glow>
-               </effect></TextField>
+               </effect>
+               <font>
+                  <Font size="15.0" />
+               </font></TextField>
             <TextField fx:id="b1" layoutX="83.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
                <effect>
                   <InnerShadow />
