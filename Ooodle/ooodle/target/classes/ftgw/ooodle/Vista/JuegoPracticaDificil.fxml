@@ -3,6 +3,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,271 +14,426 @@
    <children>
       <AnchorPane layoutX="377.0" layoutY="86.0" prefHeight="273.0" prefWidth="207.0">
          <children>
-            <Button fx:id="Bcheck" layoutX="16.0" layoutY="25.0" mnemonicParsing="false" onAction="#VerificarValor" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: red;" text="Check" textFill="WHITE">
+            <Button fx:id="Bcheck" layoutX="16.0" layoutY="25.0" mnemonicParsing="false" onAction="#VerificarValor" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: GREEN; -fx-background-radius: 10;" text="Check" textFill="#1b1a1a">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold Italic" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="BDel" layoutX="124.0" layoutY="25.0" mnemonicParsing="false" onAction="#EliminarValor" prefHeight="46.0" prefWidth="74.0" style="-fx-background-color: black;" text="Del" textFill="#fcf9f9">
+            <Button fx:id="BDel" layoutX="124.0" layoutY="25.0" mnemonicParsing="false" onAction="#EliminarValor" prefHeight="46.0" prefWidth="74.0" style="-fx-background-color: RED; -fx-background-radius: 10;" text="Del" textFill="#1e1d1d">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B1" layoutX="14.0" layoutY="221.0" mnemonicParsing="false" onAction="#Click1" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="1">
+            <Button fx:id="B1" layoutX="14.0" layoutY="221.0" mnemonicParsing="false" onAction="#Click1" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="1">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B2" layoutX="78.0" layoutY="221.0" mnemonicParsing="false" onAction="#Click2" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="2">
+            <Button fx:id="B2" layoutX="78.0" layoutY="221.0" mnemonicParsing="false" onAction="#Click2" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="2">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B3" layoutX="141.0" layoutY="221.0" mnemonicParsing="false" onAction="#Click3" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="3">
+            <Button fx:id="B3" layoutX="141.0" layoutY="221.0" mnemonicParsing="false" onAction="#Click3" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="3">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B4" layoutX="14.0" layoutY="177.0" mnemonicParsing="false" onAction="#Click4" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="4">
+            <Button fx:id="B4" layoutX="14.0" layoutY="177.0" mnemonicParsing="false" onAction="#Click4" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="4">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold Italic" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B5" layoutX="78.0" layoutY="177.0" mnemonicParsing="false" onAction="#Click5" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="5">
+            <Button fx:id="B5" layoutX="78.0" layoutY="177.0" mnemonicParsing="false" onAction="#Click5" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="5">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold Italic" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B6" layoutX="141.0" layoutY="177.0" mnemonicParsing="false" onAction="#Click6" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="6">
+            <Button fx:id="B6" layoutX="141.0" layoutY="177.0" mnemonicParsing="false" onAction="#Click6" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="6">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold Italic" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B7" layoutX="14.0" layoutY="131.0" mnemonicParsing="false" onAction="#Click7" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="7">
+            <Button fx:id="B7" layoutX="14.0" layoutY="131.0" mnemonicParsing="false" onAction="#Click7" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="7">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B8" layoutX="78.0" layoutY="131.0" mnemonicParsing="false" onAction="#Click8" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="8">
+            <Button fx:id="B8" layoutX="78.0" layoutY="131.0" mnemonicParsing="false" onAction="#Click8" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="8">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B9" layoutX="141.0" layoutY="131.0" mnemonicParsing="false" onAction="#Click9" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="9">
+            <Button fx:id="B9" layoutX="141.0" layoutY="131.0" mnemonicParsing="false" onAction="#Click9" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="9">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B10" layoutX="14.0" layoutY="83.0" mnemonicParsing="false" onAction="#Click10" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="10">
+            <Button fx:id="B10" layoutX="14.0" layoutY="83.0" mnemonicParsing="false" onAction="#Click10" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="10">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold Italic" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B11" layoutX="77.0" layoutY="83.0" mnemonicParsing="false" onAction="#Click11" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="11">
+            <Button fx:id="B11" layoutX="77.0" layoutY="83.0" mnemonicParsing="false" onAction="#Click11" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="11">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold Italic" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
-            <Button fx:id="B12" layoutX="141.0" layoutY="83.0" mnemonicParsing="false" onAction="#Click12" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #D4D4D4;" text="12">
+            <Button fx:id="B12" layoutX="141.0" layoutY="83.0" mnemonicParsing="false" onAction="#Click12" prefHeight="38.0" prefWidth="58.0" style="-fx-background-color: #588157;" text="12">
                <font>
-                  <Font size="16.0" />
+                  <Font name="System Bold Italic" size="16.0" />
                </font>
+               <effect>
+                  <InnerShadow />
+               </effect>
             </Button>
          </children>
       </AnchorPane>
-      <Button fx:id="BRestart" layoutX="489.0" layoutY="49.0" mnemonicParsing="false" onAction="#ClickRestart" prefHeight="37.0" prefWidth="83.0" style="-fx-background-color: gray;" text="Restart" textFill="#fcfbfb">
+      <Button fx:id="BRestart" layoutX="489.0" layoutY="49.0" mnemonicParsing="false" onAction="#ClickRestart" prefHeight="37.0" prefWidth="83.0" style="-fx-background-color: #57A5CC; -fx-background-radius: 10;" text="Restart" textFill="#171717">
          <font>
-            <Font size="16.0" />
+            <Font name="System Bold" size="16.0" />
          </font>
+         <effect>
+            <InnerShadow />
+         </effect>
       </Button>
       <AnchorPane layoutX="18.0" layoutY="92.0" prefHeight="292.0" prefWidth="359.0">
          <children>
-            <TextField fx:id="a1" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="b1" layoutX="83.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="c1" layoutX="151.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d1" layoutX="220.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="a2" layoutX="14.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="a3" layoutX="14.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="a4" layoutX="14.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="a5" layoutX="14.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="a6" layoutX="14.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="b2" layoutX="83.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="b3" layoutX="83.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="b4" layoutX="83.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="b5" layoutX="83.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="b6" layoutX="83.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="c2" layoutX="151.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="c3" layoutX="151.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="c4" layoutX="151.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="c5" layoutX="151.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="c6" layoutX="151.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d2" layoutX="220.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d3" layoutX="220.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d4" layoutX="220.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d5" layoutX="220.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d6" layoutX="220.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
-            <Label layoutX="131.0" layoutY="16.0" text="+">
+            <TextField fx:id="a1" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+               <effect>
+                  <Glow level="0.82">
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <TextField fx:id="b1" layoutX="83.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="c1" layoutX="151.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="d1" layoutX="220.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+               <effect>
+                  <Glow>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <TextField fx:id="a2" layoutX="14.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+               <effect>
+                  <Glow level="0.82">
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <TextField fx:id="a3" layoutX="14.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+               <effect>
+                  <Glow level="0.82">
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <TextField fx:id="a4" layoutX="14.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+               <effect>
+                  <Glow level="0.82">
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <TextField fx:id="a5" layoutX="14.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+               <effect>
+                  <Glow level="0.82">
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <TextField fx:id="a6" layoutX="14.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+               <effect>
+                  <Glow level="0.82">
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <TextField fx:id="b2" layoutX="83.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="b3" layoutX="83.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="b4" layoutX="83.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="b5" layoutX="83.0" layoutY="187.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="b6" layoutX="83.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="c2" layoutX="151.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="c3" layoutX="151.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="c4" layoutX="151.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="c5" layoutX="151.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="c6" layoutX="151.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="d2" layoutX="220.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+               <effect>
+                  <Glow>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <TextField fx:id="d3" layoutX="220.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+               <effect>
+                  <Glow>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <TextField fx:id="d4" layoutX="220.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+               <effect>
+                  <Glow>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <TextField fx:id="d5" layoutX="220.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+               <effect>
+                  <Glow>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <TextField fx:id="d6" layoutX="220.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+               <effect>
+                  <Glow>
+                     <input>
+                        <InnerShadow />
+                     </input>
+                  </Glow>
+               </effect></TextField>
+            <Label layoutX="124.0" layoutY="2.0" text="+" textFill="#588157">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="16.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" layoutY="2.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="13.0" text="-">
+            <Label layoutX="198.0" layoutY="2.0" text="-" textFill="#344e41">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="271.0" layoutY="16.0" text="=">
+            <Label layoutX="266.0" layoutY="2.0" text="=" textFill="#9da68d">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
             <Label fx:id="res1" layoutX="308.0" layoutY="16.0" text="20">
                <font>
-                  <Font size="25.0" />
+                  <Font name="System Bold Italic" size="25.0" />
                </font>
             </Label>
             <Label fx:id="res2" layoutX="308.0" layoutY="62.0" text="20">
                <font>
-                  <Font size="25.0" />
+                  <Font name="System Bold Italic" size="25.0" />
                </font>
             </Label>
             <Label fx:id="res3" layoutX="308.0" layoutY="104.0" text="20">
                <font>
-                  <Font size="25.0" />
+                  <Font name="System Bold Italic" size="25.0" />
                </font>
             </Label>
             <Label fx:id="res4" layoutX="308.0" layoutY="146.0" text="20">
                <font>
-                  <Font size="25.0" />
+                  <Font name="System Bold Italic" size="25.0" />
                </font>
             </Label>
             <Label fx:id="res5" layoutX="308.0" layoutY="190.0" text="20">
                <font>
-                  <Font size="25.0" />
+                  <Font name="System Bold Italic" size="25.0" />
                </font>
             </Label>
             <Label fx:id="res6" layoutX="308.0" layoutY="234.0" text="20">
                <font>
-                  <Font size="25.0" />
+                  <Font name="System Bold Italic" size="25.0" />
                </font>
             </Label>
-            <Label layoutX="271.0" layoutY="62.0" text="=">
+            <Label layoutX="266.0" layoutY="48.0" text="=" textFill="#9da68d">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="271.0" layoutY="104.0" text="=">
+            <Label layoutX="266.0" layoutY="90.0" text="=" textFill="#9da68d">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="271.0" layoutY="146.0" text="=">
+            <Label layoutX="266.0" layoutY="135.0" text="=" textFill="#9da68d">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="271.0" layoutY="190.0" text="=">
+            <Label layoutX="266.0" layoutY="176.0" text="=" textFill="#9da68d">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="271.0" layoutY="234.0" text="=">
+            <Label layoutX="266.0" layoutY="220.0" text="=" textFill="#9da68d">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="59.0" text="-">
+            <Label layoutX="198.0" layoutY="48.0" text="-" textFill="#344e41">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="101.0" text="-">
+            <Label layoutX="198.0" layoutY="90.0" text="-" textFill="#344e41">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="143.0" text="-">
+            <Label layoutX="198.0" layoutY="135.0" text="-" textFill="#344e41">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="187.0" text="-">
+            <Label layoutX="201.0" layoutY="176.0" text="-" textFill="#344e41">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="231.0" text="-">
+            <Label layoutX="201.0" layoutY="220.0" text="-" textFill="#344e41">
                <font>
-                  <Font size="25.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="62.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" layoutY="48.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="104.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" layoutY="90.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="146.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" layoutY="132.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="190.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" layoutY="176.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="234.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" layoutY="220.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="131.0" layoutY="62.0" text="+">
+            <Label layoutX="124.0" layoutY="48.0" text="+" textFill="#588157">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="131.0" layoutY="104.0" text="+">
+            <Label layoutX="124.0" layoutY="90.0" text="+" textFill="#588157">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="131.0" layoutY="146.0" text="+">
+            <Label layoutX="124.0" layoutY="132.0" text="+" textFill="#588157">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="131.0" layoutY="190.0" text="+">
+            <Label layoutX="124.0" layoutY="179.0" text="+" textFill="#588157">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="131.0" layoutY="234.0" text="+">
+            <Label layoutX="124.0" layoutY="220.0" text="+" textFill="#588157">
                <font>
-                  <Font size="20.0" />
+                  <Font size="40.0" />
                </font>
             </Label>
          </children>
       </AnchorPane>
-      <Label fx:id="LabelOoodle" layoutX="259.0" layoutY="14.0" text="Ooodle">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Label fx:id="LabelModoPracticaDificil" layoutX="142.0" layoutY="50.0" prefHeight="36.0" prefWidth="297.0" text="Juego Modo Practica-Dificil" textAlignment="CENTER">
-         <font>
-            <Font name="System Italic" size="25.0" />
-         </font>
-      </Label>
       <Label fx:id="cronometro" alignment="CENTER" layoutX="389.0" layoutY="360.0" prefHeight="27.0" prefWidth="182.0" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="18.0" />
@@ -286,10 +443,15 @@
          <graphic>
             <ImageView fx:id="BLobby" fitHeight="28.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../imagenes/25694.png" />
+                  <Image url="@../../../imagenes/ICONO.png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
+      <ImageView fitHeight="83.0" fitWidth="257.0" layoutX="159.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../imagenes/title.jpeg" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
