@@ -101,355 +101,190 @@
          <effect>
             <InnerShadow />
          </effect></Button>
-      <AnchorPane layoutX="22.0" layoutY="94.0" prefHeight="292.0" prefWidth="359.0">
-         <children>
-<<<<<<< HEAD
-            <TextField fx:id="a1" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
-=======
-            <TextField fx:id="a1" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0">
->>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
-               <effect>
-                  <Glow level="0.82">
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect></TextField>
-<<<<<<< HEAD
-            <TextField fx:id="b1" layoutX="83.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="c1" layoutX="151.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="d1" layoutX="220.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
-               <effect>
-                  <Glow>
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect></TextField>
-            <TextField fx:id="a2" layoutX="14.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
-=======
-            <TextField fx:id="b1" layoutX="83.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="c1" layoutX="151.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d1" layoutX="220.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="a2" layoutX="14.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0">
->>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
-               <effect>
-                  <Glow level="0.82">
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect></TextField>
-<<<<<<< HEAD
-            <TextField fx:id="a3" layoutX="14.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
-=======
-            <TextField fx:id="a3" layoutX="14.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0">
->>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
-               <effect>
-                  <Glow level="0.82">
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect></TextField>
-<<<<<<< HEAD
-            <TextField fx:id="a4" layoutX="14.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
-=======
-            <TextField fx:id="a4" layoutX="14.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0">
->>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
-               <effect>
-                  <Glow level="0.82">
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect></TextField>
-<<<<<<< HEAD
-            <TextField fx:id="a5" layoutX="14.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
-=======
-            <TextField fx:id="a5" layoutX="14.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0">
->>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
-               <effect>
-                  <Glow level="0.82">
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect></TextField>
-<<<<<<< HEAD
-            <TextField fx:id="a6" layoutX="14.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
-=======
-            <TextField fx:id="a6" layoutX="14.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0">
->>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
-               <effect>
-                  <Glow level="0.82">
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect></TextField>
-<<<<<<< HEAD
-            <TextField fx:id="b2" layoutX="83.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="b3" layoutX="83.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="b4" layoutX="83.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="b5" layoutX="83.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="b6" layoutX="83.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="c2" layoutX="151.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="c3" layoutX="151.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="c4" layoutX="151.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="c5" layoutX="151.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="c6" layoutX="151.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="d2" layoutX="220.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
-               <effect>
-                  <Glow>
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect></TextField>
-            <TextField fx:id="d3" layoutX="220.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
-               <effect>
-                  <Glow>
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect></TextField>
-            <TextField fx:id="d4" layoutX="220.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
-               <effect>
-                  <InnerShadow>
-                     <input>
-                        <Glow />
-                     </input>
-                  </InnerShadow>
-               </effect></TextField>
-            <TextField fx:id="d5" layoutX="220.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
-               <effect>
-                  <Glow>
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect></TextField>
-            <TextField fx:id="d6" layoutX="220.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
-               <effect>
-                  <Glow>
-                     <input>
-                        <InnerShadow />
-                     </input>
-                  </Glow>
-               </effect></TextField>
-=======
-            <TextField fx:id="b2" layoutX="83.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0">
-               <effect>
-                  <InnerShadow />
-               </effect></TextField>
-            <TextField fx:id="b3" layoutX="83.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="b4" layoutX="83.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="b5" layoutX="83.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="b6" layoutX="83.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="c2" layoutX="151.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="c3" layoutX="151.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="c4" layoutX="151.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="c5" layoutX="151.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="c6" layoutX="151.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d2" layoutX="220.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d3" layoutX="220.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d4" layoutX="220.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d5" layoutX="220.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
-            <TextField fx:id="d6" layoutX="220.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
->>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
-            <Label layoutX="125.0" layoutY="2.0" text="+" textFill="#588157">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="271.0" text="=" textFill="#9da68d">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label fx:id="res_1" layoutX="308.0" layoutY="16.0" text="20">
-               <font>
-                  <Font name="System Bold Italic" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="res_2" layoutX="308.0" layoutY="62.0" text="20">
-               <font>
-                  <Font name="System Bold Italic" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="res_3" layoutX="308.0" layoutY="104.0" text="20">
-               <font>
-                  <Font name="System Bold Italic" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="res_4" layoutX="307.0" layoutY="146.0" text="20">
-               <font>
-                  <Font name="System Bold Italic" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="res_5" layoutX="308.0" layoutY="190.0" text="20">
-               <font>
-                  <Font name="System Bold Italic" size="25.0" />
-               </font>
-            </Label>
-            <Label fx:id="res_6" layoutX="308.0" layoutY="234.0" text="20">
-               <font>
-                  <Font name="System Bold Italic" size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="271.0" layoutY="51.0" text="=" textFill="#9da68d">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="271.0" layoutY="93.0" text="=" textFill="#9da68d">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="271.0" layoutY="135.0" text="=" textFill="#9da68d">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="271.0" layoutY="179.0" text="=" textFill="#9da68d">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="271.0" layoutY="220.0" text="=" textFill="#9da68d">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="201.0" layoutY="51.0" text="-" textFill="#344e41">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="201.0" text="-" textFill="#344e41">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="201.0" layoutY="93.0" text="-" textFill="#344e41">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="201.0" layoutY="135.0" text="-" textFill="#344e41">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="201.0" layoutY="179.0" text="-" textFill="#344e41">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="201.0" layoutY="220.0" text="-" textFill="#344e41">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="125.0" layoutY="51.0" text="+" textFill="#588157">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="125.0" layoutY="93.0" text="+" textFill="#588157">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="125.0" layoutY="135.0" text="+" textFill="#588157">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="125.0" layoutY="179.0" text="+" textFill="#588157">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="125.0" layoutY="223.0" text="+" textFill="#588157">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="60.0" layoutY="51.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="60.0" layoutY="93.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="60.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="60.0" layoutY="135.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="60.0" layoutY="179.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-            <Label layoutX="60.0" layoutY="223.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
+   <AnchorPane layoutX="22.0" layoutY="94.0" prefHeight="292.0" prefWidth="359.0">
+      <children>
+         <!-- FILA 1 -->
+         <TextField fx:id="a1" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41; -fx-text-fill: white;">
+            <effect>
+               <Glow level="0.82">
+                  <input>
+                     <InnerShadow />
+                  </input>
+               </Glow>
+            </effect>
+         </TextField>
+         <TextField fx:id="b1" layoutX="83.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+            <effect>
+               <InnerShadow />
+            </effect>
+         </TextField>
+         <TextField fx:id="c1" layoutX="151.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+            <effect>
+               <InnerShadow />
+            </effect>
+         </TextField>
+         <TextField fx:id="d1" layoutX="220.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+            <effect>
+               <Glow>
+                  <input>
+                     <InnerShadow />
+                  </input>
+               </Glow>
+            </effect>
+         </TextField>
+         <Label fx:id="res_1" layoutX="308.0" layoutY="16.0" text="20" textFill="#344e41">
+            <font>
+               <Font name="System Bold Italic" size="25.0" />
+            </font>
+         </Label>
+
+         <!-- FILA 2 -->
+         <TextField fx:id="a2" layoutX="14.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41; -fx-text-fill: white;">
+            <effect>
+               <Glow level="0.82">
+                  <input>
+                     <InnerShadow />
+                  </input>
+               </Glow>
+            </effect>
+         </TextField>
+         <TextField fx:id="b2" layoutX="83.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+            <effect>
+               <InnerShadow />
+            </effect>
+         </TextField>
+         <TextField fx:id="c2" layoutX="151.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+            <effect>
+               <InnerShadow />
+            </effect>
+         </TextField>
+         <TextField fx:id="d2" layoutX="220.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+            <effect>
+               <Glow><input><InnerShadow /></input></Glow>
+            </effect>
+         </TextField>
+         <Label fx:id="res_2" layoutX="308.0" layoutY="62.0" text="20" textFill="#344e41">
+            <font><Font name="System Bold Italic" size="25.0" /></font>
+         </Label>
+
+         <!-- FILA 3 -->
+         <TextField fx:id="a3" layoutX="14.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41; -fx-text-fill: white;">
+            <effect>
+               <Glow level="0.82"><input><InnerShadow /></input></Glow>
+            </effect>
+         </TextField>
+         <TextField fx:id="b3" layoutX="83.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+            <effect><InnerShadow /></effect>
+         </TextField>
+         <TextField fx:id="c3" layoutX="151.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+            <effect><InnerShadow /></effect>
+         </TextField>
+         <TextField fx:id="d3" layoutX="220.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+            <effect>
+               <Glow><input><InnerShadow /></input></Glow>
+            </effect>
+         </TextField>
+         <Label fx:id="res_3" layoutX="308.0" layoutY="104.0" text="20" textFill="#344e41">
+            <font><Font name="System Bold Italic" size="25.0" /></font>
+         </Label>
+
+         <!-- FILA 4 -->
+         <TextField fx:id="a4" layoutX="14.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41; -fx-text-fill: white;">
+            <effect>
+               <Glow level="0.82"><input><InnerShadow /></input></Glow>
+            </effect>
+         </TextField>
+         <TextField fx:id="b4" layoutX="83.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+            <effect><InnerShadow /></effect>
+         </TextField>
+         <TextField fx:id="c4" layoutX="151.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+            <effect><InnerShadow /></effect>
+         </TextField>
+         <TextField fx:id="d4" layoutX="220.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+            <effect>
+               <InnerShadow><input><Glow /></input></InnerShadow>
+            </effect>
+         </TextField>
+         <Label fx:id="res_4" layoutX="307.0" layoutY="146.0" text="20" textFill="#344e41">
+            <font><Font name="System Bold Italic" size="25.0" /></font>
+         </Label>
+
+         <!-- FILA 5 -->
+         <TextField fx:id="a5" layoutX="14.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41; -fx-text-fill: white;">
+            <effect>
+               <Glow level="0.82"><input><InnerShadow /></input></Glow>
+            </effect>
+         </TextField>
+         <TextField fx:id="b5" layoutX="83.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+            <effect><InnerShadow /></effect>
+         </TextField>
+         <TextField fx:id="c5" layoutX="151.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+            <effect><InnerShadow /></effect>
+         </TextField>
+         <TextField fx:id="d5" layoutX="220.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+            <effect>
+               <Glow><input><InnerShadow /></input></Glow>
+            </effect>
+         </TextField>
+         <Label fx:id="res_5" layoutX="308.0" layoutY="190.0" text="20" textFill="#344e41">
+            <font><Font name="System Bold Italic" size="25.0" /></font>
+         </Label>
+
+         <!-- FILA 6 -->
+         <TextField fx:id="a6" layoutX="14.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41; -fx-text-fill: white;">
+            <effect>
+               <Glow level="0.82"><input><InnerShadow /></input></Glow>
+            </effect>
+         </TextField>
+         <TextField fx:id="b6" layoutX="83.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
+            <effect><InnerShadow /></effect>
+         </TextField>
+         <TextField fx:id="c6" layoutX="151.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #A3B18A;">
+            <effect><InnerShadow /></effect>
+         </TextField>
+         <TextField fx:id="d6" layoutX="220.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #588157;">
+            <effect>
+               <Glow><input><InnerShadow /></input></Glow>
+            </effect>
+         </TextField>
+         <Label fx:id="res_6" layoutX="308.0" layoutY="234.0" text="20" textFill="#344e41">
+            <font><Font name="System Bold Italic" size="25.0" /></font>
+         </Label>
+
+         <!-- OPERADORES Y SIGNOS -->
+         <!-- Multiplicación (x) -->
+         <Label layoutX="60.0" layoutY="0.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="60.0" layoutY="51.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="60.0" layoutY="93.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="60.0" layoutY="135.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="60.0" layoutY="179.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="60.0" layoutY="223.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
+
+         <!-- Suma (+) -->
+         <Label layoutX="125.0" layoutY="2.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="125.0" layoutY="51.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="125.0" layoutY="93.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="125.0" layoutY="135.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="125.0" layoutY="179.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="125.0" layoutY="223.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
+
+         <!-- Resta (-) -->
+         <Label layoutX="201.0" layoutY="0.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="201.0" layoutY="51.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="201.0" layoutY="93.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="201.0" layoutY="135.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="201.0" layoutY="179.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="201.0" layoutY="220.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+
+         <!-- Igual (=) -->
+         <Label layoutX="271.0" layoutY="0.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="271.0" layoutY="51.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="271.0" layoutY="93.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="271.0" layoutY="135.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="271.0" layoutY="179.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="271.0" layoutY="220.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
+      </children>
+   </AnchorPane>
       <Button fx:id="BotonLobby" layoutX="45.0" layoutY="39.0" mnemonicParsing="false" onAction="#volverAlLobby">
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
