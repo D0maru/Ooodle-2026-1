@@ -42,7 +42,11 @@
          </children>
       </Pane>
 
+<<<<<<< HEAD
       <Button fx:id="btnPractica" layoutX="66.0" layoutY="222.0" onAction="#abrirJPrac" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #588157; -fx-background-radius: 10;" text=" Practica" textFill="#1b1a1a" AnchorPane.bottomAnchor="138.0" AnchorPane.leftAnchor="66.0">
+=======
+      <Button fx:id="btnPractica" layoutX="66.0" layoutY="222.0" onAction="#abrirJPrac" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: green; -fx-background-radius: 10;" text=" Practica" textFill="#1b1a1a" AnchorPane.bottomAnchor="138.0" AnchorPane.leftAnchor="66.0">
+>>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -51,7 +55,11 @@
          </effect>
       </Button>
 
+<<<<<<< HEAD
       <Button fx:id="btnDiario" layoutX="66.0" layoutY="160.0" onAction="#abrirJdiario" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #588157; -fx-background-radius: 10;" text=" Diario" textFill="#0d0d0d" AnchorPane.bottomAnchor="200.0" AnchorPane.rightAnchor="384.0">
+=======
+      <Button fx:id="btnDiario" layoutX="66.0" layoutY="160.0" onAction="#abrirJdiario" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: green; -fx-background-radius: 10;" text=" Diario" textFill="#111010" AnchorPane.bottomAnchor="200.0" AnchorPane.rightAnchor="384.0">
+>>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -60,7 +68,11 @@
          </effect>
       </Button>
 
+<<<<<<< HEAD
       <Button fx:id="botonReglas" layoutX="66.0" layoutY="284.0" onAction="#traerReglas" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #588157; -fx-background-radius: 10;" text="Reglas" textFill="#1b1a1a" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="384.0">
+=======
+      <Button fx:id="botonReglas" layoutX="66.0" layoutY="284.0" onAction="#traerReglas" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: green; -fx-background-radius: 10;" text="Reglas" textFill="#1b1a1a" AnchorPane.bottomAnchor="76.0" AnchorPane.leftAnchor="66.0" AnchorPane.rightAnchor="384.0">
+>>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -92,11 +104,19 @@
          <font>
             <Font size="20.0" />
          </font></Label>
+<<<<<<< HEAD
       <Label fx:id="Label_Nickname" layoutX="348.0" layoutY="83.0" text="Juan orto-ñez">
          <font>
             <Font size="20.0" />
          </font></Label>
       <Label fx:id="Label_idUsuario" layoutX="358.0" layoutY="123.0" text="id: 12314">
+=======
+      <Label fx:id="Label_Nickname" layoutX="371.0" layoutY="99.0" text="Juan orto-ñez">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label fx:id="Label_idUsuario" layoutX="376.0" layoutY="135.0" text="id: 12314">
+>>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
          <font>
             <Font size="16.0" />
          </font></Label>

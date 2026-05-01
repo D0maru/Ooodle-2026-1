@@ -103,7 +103,11 @@
          </effect></Button>
       <AnchorPane layoutX="22.0" layoutY="94.0" prefHeight="292.0" prefWidth="359.0">
          <children>
+<<<<<<< HEAD
             <TextField fx:id="a1" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+=======
+            <TextField fx:id="a1" layoutX="14.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0">
+>>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
                <effect>
                   <Glow level="0.82">
                      <input>
@@ -111,6 +115,7 @@
                      </input>
                   </Glow>
                </effect></TextField>
+<<<<<<< HEAD
             <TextField fx:id="b1" layoutX="83.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
                <effect>
                   <InnerShadow />
@@ -128,6 +133,15 @@
                   </Glow>
                </effect></TextField>
             <TextField fx:id="a2" layoutX="14.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+=======
+            <TextField fx:id="b1" layoutX="83.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="c1" layoutX="151.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d1" layoutX="220.0" layoutY="14.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="a2" layoutX="14.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0">
+>>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
                <effect>
                   <Glow level="0.82">
                      <input>
@@ -135,7 +149,11 @@
                      </input>
                   </Glow>
                </effect></TextField>
+<<<<<<< HEAD
             <TextField fx:id="a3" layoutX="14.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+=======
+            <TextField fx:id="a3" layoutX="14.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0">
+>>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
                <effect>
                   <Glow level="0.82">
                      <input>
@@ -143,7 +161,11 @@
                      </input>
                   </Glow>
                </effect></TextField>
+<<<<<<< HEAD
             <TextField fx:id="a4" layoutX="14.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+=======
+            <TextField fx:id="a4" layoutX="14.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0">
+>>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
                <effect>
                   <Glow level="0.82">
                      <input>
@@ -151,7 +173,11 @@
                      </input>
                   </Glow>
                </effect></TextField>
+<<<<<<< HEAD
             <TextField fx:id="a5" layoutX="14.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+=======
+            <TextField fx:id="a5" layoutX="14.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0">
+>>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
                <effect>
                   <Glow level="0.82">
                      <input>
@@ -159,7 +185,11 @@
                      </input>
                   </Glow>
                </effect></TextField>
+<<<<<<< HEAD
             <TextField fx:id="a6" layoutX="14.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #344E41;">
+=======
+            <TextField fx:id="a6" layoutX="14.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0">
+>>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
                <effect>
                   <Glow level="0.82">
                      <input>
@@ -167,6 +197,7 @@
                      </input>
                   </Glow>
                </effect></TextField>
+<<<<<<< HEAD
             <TextField fx:id="b2" layoutX="83.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" style="-fx-background-color: #DAD7CD;">
                <effect>
                   <InnerShadow />
@@ -247,6 +278,26 @@
                      </input>
                   </Glow>
                </effect></TextField>
+=======
+            <TextField fx:id="b2" layoutX="83.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0">
+               <effect>
+                  <InnerShadow />
+               </effect></TextField>
+            <TextField fx:id="b3" layoutX="83.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="b4" layoutX="83.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="b5" layoutX="83.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="b6" layoutX="83.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="c2" layoutX="151.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="c3" layoutX="151.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="c4" layoutX="151.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="c5" layoutX="151.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="c6" layoutX="151.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d2" layoutX="220.0" layoutY="62.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d3" layoutX="220.0" layoutY="104.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d4" layoutX="220.0" layoutY="146.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d5" layoutX="220.0" layoutY="190.0" prefHeight="36.0" prefWidth="42.0" />
+            <TextField fx:id="d6" layoutX="220.0" layoutY="234.0" prefHeight="36.0" prefWidth="42.0" />
+>>>>>>> d268ecf7e6a168b7d68c1cc3c2f150c7c8157c7c
             <Label layoutX="125.0" layoutY="2.0" text="+" textFill="#588157">
                <font>
                   <Font size="40.0" />
