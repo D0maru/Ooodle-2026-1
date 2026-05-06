@@ -1,3 +1,9 @@
-esta linea la esta viendo alejandra
-esta otra linea la esta viendo alejandra
-Esta linea es pura practica
+Historia de usuario:
+Como jugador quiero ver una cuenta regresiva para el próximo desafío diario para saber cuándo puedo volver a jugar
+Tareas por hacer:
+1.Investigar sobre algun metodo que permita mostrar una cuenta regresiva del dia hacia la noche para la resolucion de un desafio diario
+2.Buscar un metodo en que el sistema por si solo lleve registro de cuando se debe generar un desafio diario
+Tarea asiganada por:
+Sergio Acero
+Descripción:
+Se investigó e implementó un mecanismo de cuenta regresiva que muestra el tiempo restante para el juego, para esto se utilizó la clase Timeline de JavaFX junto con KeyFrame y Duration, que permiten ejecutar acciones en intervalos de tiempo definidos. El contador se actualiza en tiempo real en la interfaz gráfica, indicando visualmente cuánto tiempo queda antes de que el desafío diario expire.
