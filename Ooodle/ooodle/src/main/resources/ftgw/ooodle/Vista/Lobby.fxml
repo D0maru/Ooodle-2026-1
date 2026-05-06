@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="PanelInterfaz" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.Controladores.CLobby">
+<AnchorPane fx:id="PanelInterfaz" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.Controladores.CLobby">
 
    <children>
       <ImageView fitHeight="359.0" fitWidth="303.0" layoutX="308.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
@@ -31,12 +31,12 @@
          </font>
       </Label>
 
-      <Label fx:id="lblRango" layoutX="50.0" layoutY="110.0" text="DIFFICULTY" textFill="#19750f" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="110.0">
+      <Label fx:id="lblRango" layoutX="43.0" layoutY="111.0" text="Numeros del 1-9" textFill="#19750f" AnchorPane.leftAnchor="43.0" AnchorPane.topAnchor="111.0">
          <font>
             <Font name="Segoe Print" size="15.0" />
          </font></Label>
 
-      <Pane layoutX="174.0" layoutY="113.0" onMouseClicked="#cambiarDificultad" prefHeight="23.0" prefWidth="42.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="174.0" AnchorPane.topAnchor="113.0">
+      <Pane layoutX="189.0" layoutY="114.0" onMouseClicked="#cambiarDificultad" prefHeight="23.0" prefWidth="42.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="114.0">
          <children>
             <Circle fx:id="circuloDificultad" layoutX="9.0" layoutY="12.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
@@ -102,6 +102,15 @@
          <font>
             <Font size="16.0" />
          </font></Label>
+      <Button fx:id="BotonSJugador" layoutX="50.0" layoutY="59.0" mnemonicParsing="false" onAction="#volverUsuario">
+         <graphic>
+            <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../imagenes/ICONO.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
 
    </children>
 </AnchorPane>

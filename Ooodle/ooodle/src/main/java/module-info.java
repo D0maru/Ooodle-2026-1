@@ -9,7 +9,7 @@ module ftgw.ooodle {
     requires io.github.cdimascio.dotenv.java; 
     requires java.sql; 
     
-
+    opens ftgw.ooodle.Vista to javafx.graphics, javafx.fxml;
     // Abrir paquetes para que JavaFX pueda leer los FXML y GSON pueda serializar
     opens ftgw.ooodle to javafx.fxml;
     opens ftgw.ooodle.Controladores to javafx.fxml;
@@ -20,5 +20,6 @@ module ftgw.ooodle {
 
     // Exportar paquetes para que sean visibles
     exports ftgw.ooodle;
+    exports ftgw.ooodle.Vista;
     exports Servicios;
 }

@@ -36,6 +36,7 @@ public class CLobby {
     @FXML private Button botonReglas;
     @FXML private Button btnDiario;
     @FXML private Button btnPractica;
+    @FXML private Button BotonSJugador;
 
     @FXML private AnchorPane PanelInterfaz;
     @FXML private Circle circuloDificultad;
@@ -144,9 +145,16 @@ public class CLobby {
             Parent root = FXMLLoader.load(getClass().getResource(ruta));
             Stage stage = obtenerStage(event);
 
-            stage.setScene(new Scene(root, stage.getScene().getWidth(), stage.getScene().getHeight()));
+            // Al no pasar width ni height, usa el tamaño preferido del FXML
+            Scene scene = new Scene(root);
+            
+            stage.setScene(scene);
             stage.setResizable(false);   
-            stage.setMaximized(false);   
+            stage.setMaximized(false);
+            
+            // Esta línea es clave: ajusta la ventana al nuevo tamaño de la escena
+            stage.sizeToScene(); 
+            
             stage.show();
 
         } catch (IOException e) {
@@ -161,7 +169,7 @@ public class CLobby {
     }
 
     private void actualizarTextoDificultad() {
-        lblRango.setText(modoDificil ? "Numbers 1 to 12" : "Numbers 1 to 9");
+        lblRango.setText(modoDificil ? "Numeros del 1-12" : "Numeros del 1-9");
     }
 
     private void ajustarAnchors(Parent root) {
@@ -178,5 +186,9 @@ public class CLobby {
     private void manejarError(String mensaje, String ruta, Exception e) {
         System.err.println(mensaje + ": " + ruta);
         e.printStackTrace();
+    }
+    @FXML
+    void volverUsuario(ActionEvent event) {
+        cambiarEscenaCompleta(event,"/ftgw/ooodle/Vista/SeleccionarJugador.fxml");
     }
 }
