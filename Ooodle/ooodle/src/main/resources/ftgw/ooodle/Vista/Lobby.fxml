@@ -25,7 +25,7 @@
          </image>
       </ImageView>
 
-      <Label alignment="CENTER" layoutX="174.0" layoutY="6.0" prefHeight="40.0" prefWidth="317.0" text="FILL THE GRID WINNER" textFill="#737272" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="6.0">
+      <Label alignment="CENTER" layoutX="174.0" layoutY="6.0" prefHeight="40.0" prefWidth="317.0" text="FILL THE GRID WINNER" textFill="#588157" AnchorPane.leftAnchor="174.0" AnchorPane.rightAnchor="109.0" AnchorPane.topAnchor="6.0">
          <font>
             <Font name="System Bold Italic" size="28.0" />
          </font>
@@ -79,12 +79,12 @@
             <Font name="System Bold" size="15.0" />
          </font></Label>
       <Label fx:id="Label_RachaMaxima" layoutX="476.0" layoutY="255.0" text="0" />
-      <Label layoutX="382.0" layoutY="202.0" text="Actual:">
+      <Label layoutX="359.0" layoutY="202.0" text="Actual:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
       <Label fx:id="Label_RachaActual" layoutX="476.0" layoutY="204.0" text="0" />
-      <Label layoutX="381.0" layoutY="225.0" text="\% Win: ">
+      <Label layoutX="359.0" layoutY="225.0" text="\% Ganadas: ">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
