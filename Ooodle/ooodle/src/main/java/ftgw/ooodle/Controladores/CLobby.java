@@ -72,7 +72,6 @@ public class CLobby {
         Usuario usuarioActual = SesionUsuario.getInstancia().getUsuarioActual();
         
         // 2. Llamamos al DAO UNA SOLA VEZ. 
-        // Recuerda que tu DAO ya tiene la línea que hace el .setPuedeJugar() internamente.
         ResultadoPartida stats = daoEstadisticas.cargarEstadisticasAlLobby(usuarioActual.getId());
 
         // 3. Seteamos los textos
@@ -89,14 +88,10 @@ public class CLobby {
         }
 
         // 4. USAMOS EL VALOR RECIÉN ACTUALIZADO
-        // Forzamos la lectura del objeto global por si acaso
         boolean puedeJugar = SesionUsuario.getInstancia().getUsuarioActual().isPuedeJugar();
-        
-        System.out.println("DEBUG: ¿Puede jugar según el objeto? " + puedeJugar); // Para que lo veas en consola
-        
+        System.out.println("DEBUG: ¿Puede jugar según el objeto? " + puedeJugar); //Se ve en consola para verificar que funciona
         btnDiario.setDisable(!puedeJugar);
     }
-
     private void iniciarReloj() {
         boolean puedeJugar = SesionUsuario.getInstancia().getUsuarioActual().isPuedeJugar();
         relojDiario = new RelojDiario(Reloj_Daily, btnDiario, puedeJugar);
@@ -106,30 +101,25 @@ public class CLobby {
     void traerReglas(ActionEvent event) {
         cargarVistaEnPanel(RUTA_REGLAS);
     }
-
     @FXML
     void cambiarDificultad(MouseEvent event) {
         modoDificil = !modoDificil;
         animarDificultad();
         actualizarTextoDificultad();
     }
-
     @FXML
     void abrirJPrac(ActionEvent event) {
         abrirJuego(event, PRACTICA_FACIL, PRACTICA_DIFICIL);
     }
-
     @FXML
     void abrirJdiario(ActionEvent event) {
         abrirJuego(event, DIARIO_FACIL, DIARIO_DIFICIL);
     }
-
     private void abrirJuego(ActionEvent event, String rutaFacil, String rutaDificil) {
         relojDiario.detener();
         String ruta = modoDificil ? rutaDificil : rutaFacil;
         cambiarEscenaCompleta(event, ruta);
     }
-
     private void cargarVistaEnPanel(String ruta) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(ruta));
@@ -139,7 +129,6 @@ public class CLobby {
             manejarError("Error cargando vista", ruta, e);
         }
     }
-
     private void cambiarEscenaCompleta(ActionEvent event, String ruta) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(ruta));
@@ -161,28 +150,23 @@ public class CLobby {
             manejarError("No se pudo cargar la vista", ruta, e);
         }
     }
-
     private void animarDificultad() {
         TranslateTransition animation = new TranslateTransition(Duration.millis(200), circuloDificultad);
         animation.setToX(modoDificil ? 22 : 0);
         animation.play();
     }
-
     private void actualizarTextoDificultad() {
         lblRango.setText(modoDificil ? "Numeros del 1-12" : "Numeros del 1-9");
     }
-
     private void ajustarAnchors(Parent root) {
         AnchorPane.setTopAnchor(root, 0.0);
         AnchorPane.setBottomAnchor(root, 0.0);
         AnchorPane.setLeftAnchor(root, 0.0);
         AnchorPane.setRightAnchor(root, 0.0);
     }
-
     private Stage obtenerStage(ActionEvent event) {
         return (Stage) ((Node) event.getSource()).getScene().getWindow();
     }
-
     private void manejarError(String mensaje, String ruta, Exception e) {
         System.err.println(mensaje + ": " + ruta);
         e.printStackTrace();

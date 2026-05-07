@@ -34,15 +34,12 @@ public class App extends Application {
         URL recurso = App.class.getResource(rutaCompleta);
         
         if (recurso == null) {
-            // Este error te dirá exactamente qué ruta falló en la terminal
             throw new IOException("No se encontró el archivo FXML en la ruta: " + rutaCompleta 
                 + ". Verifica que las mayúsculas y minúsculas sean idénticas al archivo real.");
         }
-        
         FXMLLoader fxmlLoader = new FXMLLoader(recurso);
         return fxmlLoader.load();
     }
-
     public static void main(String[] args) {
         launch(args);
     }

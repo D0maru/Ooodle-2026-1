@@ -62,14 +62,17 @@ public class Juego {
     public void EscribirNumero(String num) {
         if (intentoActual > 6) return;
 
-        TextField campo = tablero[intentoActual - 1][columnaActual];
-        if (!campo.isEditable()) return;
-
-        if (campo.getText().isEmpty()) {
-            campo.setText(num);
-            columnaActual++;
-            if (columnaActual > 3) columnaActual = 3;
-        }
+            // Buscamos el primer campo vacío en la fila actual (0 a 3)
+            for (int i = 0; i < 4; i++) {
+                TextField campo = tablero[intentoActual - 1][i];
+                
+                if (campo.getText().isEmpty() && campo.isEditable()) {
+                    campo.setText(num);
+                    columnaActual = i + 1; // Actualizamos la posición al siguiente
+                    if (columnaActual > 3) columnaActual = 3;
+                    return; // Salimos del método una vez que escribimos
+                }
+            }
     }
 
     // ===== BORRAR DÍGITO =====
@@ -178,7 +181,7 @@ public class Juego {
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 4; j++) {
                 tablero[i][j].clear();
-                tablero[i][j].setStyle("");
+                tablero[i][j].setStyle("-fx-background-color: ... ");
             }
 
         BloquearTodo();
