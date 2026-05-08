@@ -16,7 +16,7 @@ public class App extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         // CORRECCIÓN: "SeleccionarJugador" con S mayúscula para que coincida con el archivo real
-        scene = new Scene(loadFXML("Vista/SeleccionarJugador")); 
+        scene = new Scene(loadFXML("interfaces/SeleccionarJugador")); 
         stage.setScene(scene);
         stage.setResizable(false);   
         stage.setMaximized(false);   

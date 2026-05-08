@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="PanelInterfaz" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.Controladores.CLobby">
+<AnchorPane fx:id="PanelInterfaz" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ftgw.ooodle.Controladores.CLobby">
 
    <children>
       <ImageView fitHeight="359.0" fitWidth="303.0" layoutX="308.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
@@ -31,18 +31,18 @@
          </font>
       </Label>
 
-      <Label fx:id="lblRango" layoutX="43.0" layoutY="111.0" text="Numeros del 1-9" textFill="#19750f" AnchorPane.leftAnchor="43.0" AnchorPane.topAnchor="111.0">
+      <Label fx:id="lblRango" layoutX="57.0" layoutY="112.0" text="Números del 1-9" textFill="#19750f" AnchorPane.leftAnchor="57.0" AnchorPane.topAnchor="112.0">
          <font>
-            <Font name="Segoe Print" size="15.0" />
+            <Font name="Segoe Print" size="14.0" />
          </font></Label>
 
-      <Pane layoutX="189.0" layoutY="114.0" onMouseClicked="#cambiarDificultad" prefHeight="23.0" prefWidth="42.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="189.0" AnchorPane.topAnchor="114.0">
+      <Pane layoutX="197.0" layoutY="120.0" onMouseClicked="#cambiarDificultad" prefHeight="17.0" prefWidth="34.0" style="-fx-background-color: gray;" AnchorPane.leftAnchor="197.0" AnchorPane.topAnchor="120.0">
          <children>
-            <Circle fx:id="circuloDificultad" layoutX="9.0" layoutY="12.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Circle fx:id="circuloDificultad" layoutX="7.0" layoutY="9.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" />
          </children>
       </Pane>
 
-      <Button fx:id="btnPractica" layoutX="66.0" layoutY="222.0" onAction="#abrirJPrac" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #588157; -fx-background-radius: 10;" text=" Practica" textFill="#f2f2f2" AnchorPane.bottomAnchor="138.0" AnchorPane.leftAnchor="66.0">
+      <Button fx:id="btnPractica" layoutX="66.0" layoutY="222.0" onAction="#abrirJPrac" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #588157; -fx-background-radius: 10;" text=" Práctica" textFill="#f2f2f2" AnchorPane.bottomAnchor="138.0" AnchorPane.leftAnchor="66.0">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -70,39 +70,39 @@
       </Button>
 
       <Accordion layoutX="314.0" layoutY="183.0" />
-      <Label layoutX="358.0" layoutY="165.0" text="ESTADISTICAS" textFill="#19750f">
+      <Label layoutX="385.0" layoutY="166.0" text="ESTADÍSTICAS" textFill="#19750f">
          <font>
-            <Font size="20.0" />
+            <Font size="19.0" />
          </font></Label>
-      <Label layoutX="365.0" layoutY="253.0" text="Racha Maxima:">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font></Label>
-      <Label fx:id="Label_RachaMaxima" layoutX="476.0" layoutY="255.0" text="0" />
-      <Label layoutX="359.0" layoutY="202.0" text="Actual:">
+      <Label layoutX="372.0" layoutY="252.0" text="Racha Maxima:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Label fx:id="Label_RachaActual" layoutX="476.0" layoutY="204.0" text="0" />
-      <Label layoutX="359.0" layoutY="225.0" text="\% Ganadas: ">
+      <Label fx:id="Label_RachaMaxima" layoutX="491.0" layoutY="254.0" text="0" />
+      <Label layoutX="372.0" layoutY="206.0" text="Racha actual:">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Label>
-      <Label fx:id="Label_PorcentajeVictorias" layoutX="476.0" layoutY="227.0" text="0" />
-      <Label fx:id="Reloj_Daily" layoutX="365.0" layoutY="324.0" text="00:00:00">
+      <Label fx:id="Label_RachaActual" layoutX="491.0" layoutY="208.0" text="0" />
+      <Label layoutX="372.0" layoutY="229.0" text="\% Ganadas: ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Label>
+      <Label fx:id="Label_PorcentajeVictorias" layoutX="491.0" layoutY="231.0" text="0" />
+      <Label fx:id="Reloj_Daily" layoutX="408.0" layoutY="304.0" text="00:00:00">
          <font>
             <Font size="20.0" />
          </font></Label>
 
-      <Label fx:id="Label_Nickname" layoutX="348.0" layoutY="83.0" prefHeight="30.0" prefWidth="118.0" textAlignment="CENTER">
+      <Label fx:id="Label_Nickname" layoutX="386.0" layoutY="122.0" prefHeight="30.0" prefWidth="118.0" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Label fx:id="Label_idUsuario" layoutX="358.0" layoutY="123.0" prefHeight="26.0" prefWidth="81.0" text="id: 12314" textAlignment="CENTER">
+      <Label fx:id="Label_idUsuario" layoutX="413.0" layoutY="334.0" prefHeight="26.0" prefWidth="65.0" text="ID: 12314" textAlignment="CENTER" textFill="#00000081">
          <font>
-            <Font size="16.0" />
+            <Font size="14.0" />
          </font></Label>
-      <Button fx:id="BotonSJugador" layoutX="50.0" layoutY="59.0" mnemonicParsing="false" onAction="#volverUsuario">
+      <Button fx:id="BotonSJugador" layoutX="118.0" layoutY="64.0" mnemonicParsing="false" onAction="#volverUsuario">
          <graphic>
             <ImageView fitHeight="31.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                <image>
