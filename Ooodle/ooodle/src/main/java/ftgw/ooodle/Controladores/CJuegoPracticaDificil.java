@@ -94,7 +94,7 @@ public class CJuegoPracticaDificil {
     private void cambiarEscena(ActionEvent evento, String fxml, boolean modoDificil) {
         try {
             cronometroJuego.DetenerCronometro();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/interfaces/" + fxml));
             Parent root = loader.load();
 
             Object controller = loader.getController();
@@ -117,7 +117,7 @@ public class CJuegoPracticaDificil {
     void volverAlLobby(ActionEvent e) {
         try {
             cronometroJuego.DetenerCronometro();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, ((Node) e.getSource()).getScene().getWidth(), ((Node) e.getSource()).getScene().getHeight()));

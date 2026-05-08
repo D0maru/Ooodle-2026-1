@@ -49,11 +49,11 @@ public class CLobby {
     private RelojDiario relojDiario;
 
     // --- CONSTANTES ---
-    private static final String RUTA_REGLAS = "/ftgw/ooodle/Vista/Reglas.fxml";
-    private static final String PRACTICA_FACIL = "/ftgw/ooodle/Vista/JuegoPracticaFacil.fxml";
-    private static final String PRACTICA_DIFICIL = "/ftgw/ooodle/Vista/JuegoPracticaDificil.fxml";
-    private static final String DIARIO_FACIL = "/ftgw/ooodle/Vista/JuegoDiarioFacil.fxml";
-    private static final String DIARIO_DIFICIL = "/ftgw/ooodle/Vista/JuegoDiarioDificil.fxml";
+    private static final String RUTA_REGLAS = "/ftgw/ooodle/interfaces/Reglas.fxml";
+    private static final String PRACTICA_FACIL = "/ftgw/ooodle/interfaces/JuegoPracticaFacil.fxml";
+    private static final String PRACTICA_DIFICIL = "/ftgw/ooodle/interfaces/JuegoPracticaDificil.fxml";
+    private static final String DIARIO_FACIL = "/ftgw/ooodle/interfaces/JuegoDiarioFacil.fxml";
+    private static final String DIARIO_DIFICIL = "/ftgw/ooodle/interfaces/JuegoDiarioDificil.fxml";
 
     // --- INICIALIZACIÓN ---
     @FXML
@@ -173,6 +173,6 @@ public class CLobby {
     }
     @FXML
     void volverUsuario(ActionEvent event) {
-        cambiarEscenaCompleta(event,"/ftgw/ooodle/Vista/SeleccionarJugador.fxml");
+        cambiarEscenaCompleta(event,"/ftgw/ooodle/interfaces/SeleccionarJugador.fxml");
     }
 }

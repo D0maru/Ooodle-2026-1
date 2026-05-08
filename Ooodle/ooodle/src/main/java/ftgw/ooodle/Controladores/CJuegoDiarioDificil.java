@@ -107,7 +107,7 @@ public class CJuegoDiarioDificil {
     private void cambiarEscena(ActionEvent evento, String fxml) {
         try {
             cronometroJuego.DetenerCronometro();
-            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/interfaces/" + fxml));
             Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -120,7 +120,7 @@ public class CJuegoDiarioDificil {
     void volverAlLobby(ActionEvent e) {
         try {
             cronometroJuego.DetenerCronometro();
-            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

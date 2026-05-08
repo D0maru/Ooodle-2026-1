@@ -108,7 +108,7 @@ public class CSeleccionarJugador {
     private void irAlLobby() {
         try {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
-                getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+                getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
             javafx.scene.Parent root = loader.load();
             javafx.stage.Stage stage = (javafx.stage.Stage) panelJugadores.getScene().getWindow();
             stage.setScene(new javafx.scene.Scene(root));
