@@ -25,11 +25,20 @@ public class Juego {
     private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
     private static final String GRIS     = "-fx-background-color: #616161; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16px;";
 
+    // ===== ESTILOS ORIGINALES (decoración del FXML) =====
+    private String[][] estilosOriginales;
+
     // ===== CONSTRUCTOR =====
     public Juego(boolean modoDificil, TextField[][] tablero, Label[] resultados) {
         this.modoDificil = modoDificil;
         this.tablero     = tablero;
         this.resultados  = resultados;
+
+        // Capturar estilos decorativos del FXML antes de cualquier cambio
+        this.estilosOriginales = new String[6][4];
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 4; j++)
+                estilosOriginales[i][j] = tablero[i][j].getStyle();
     }
 
     // ===== GENERAR NUEVO JUEGO =====
@@ -45,8 +54,7 @@ public class Juego {
         }
 
         if (solucion == null) {
-            // Fallback garantizado: hardcodear un target con solución conocida
-            target = modoDificil ? 100 : 14; // 10*11+2-12=100 / 3*5+1-2=14
+            target = modoDificil ? 100 : 14;
             solucion = Ecuacion.GenerarEcuacion(target, modoDificil);
         }
 
@@ -62,17 +70,16 @@ public class Juego {
     public void EscribirNumero(String num) {
         if (intentoActual > 6) return;
 
-            // Buscamos el primer campo vacío en la fila actual (0 a 3)
-            for (int i = 0; i < 4; i++) {
-                TextField campo = tablero[intentoActual - 1][i];
-                
-                if (campo.getText().isEmpty() && campo.isEditable()) {
-                    campo.setText(num);
-                    columnaActual = i + 1; // Actualizamos la posición al siguiente
-                    if (columnaActual > 3) columnaActual = 3;
-                    return; // Salimos del método una vez que escribimos
-                }
+        for (int i = 0; i < 4; i++) {
+            TextField campo = tablero[intentoActual - 1][i];
+
+            if (campo.getText().isEmpty() && campo.isEditable()) {
+                campo.setText(num);
+                columnaActual = i + 1;
+                if (columnaActual > 3) columnaActual = 3;
+                return;
             }
+        }
     }
 
     // ===== BORRAR DÍGITO =====
@@ -116,7 +123,6 @@ public class Juego {
     }
 
     // ===== VALIDAR FILA =====
-    // Retorna: "GANASTE", "PERDISTE", "CONTINUA", o null si hay error de validación
     public String ValidarFila() {
         try {
             String[] valores = new String[4];
@@ -129,7 +135,7 @@ public class Juego {
                 valores[i] = tablero[intentoActual - 1][i].getText();
 
                 if (valores[i] == null || valores[i].trim().isEmpty()) {
-                    MostrarError(mensajeRango);MostrarError("Debes completar todos los espacios.");
+                    MostrarError(mensajeRango); MostrarError("Debes completar todos los espacios.");
                     return null;
                 }
                 if (!valores[i].matches(regex)) {
@@ -150,7 +156,6 @@ public class Juego {
 
             AplicarColores(intentoActual - 1, new int[]{a, b, c, d});
 
-            // Verificar victoria
             if (solucion != null &&
                 a == solucion[0] && b == solucion[1] &&
                 c == solucion[2] && d == solucion[3]) {
@@ -181,7 +186,7 @@ public class Juego {
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 4; j++) {
                 tablero[i][j].clear();
-                tablero[i][j].setStyle("-fx-background-color: ... ");
+                tablero[i][j].setStyle(estilosOriginales[i][j]);
             }
 
         BloquearTodo();
