@@ -1,9 +1,0 @@
-Historia de usuario:
-Como equipo de desarrollo quiero organizar las interfaces y los controladores de las interfaces en 2 paquetes diferentes para tener organizada la parte que no tenga relacion con la logica del proyecto 
-tarea:
-investigar sobre el estándar de las carpetas
-tarea asignada por:
-Sergio Acero
-Descripción:
-Se incluyo la estructura MVC en el código para mejorar la claridad y el orden en el proyecto
-Identificar los patrones comunes en la organización controlador,modelo y vista
