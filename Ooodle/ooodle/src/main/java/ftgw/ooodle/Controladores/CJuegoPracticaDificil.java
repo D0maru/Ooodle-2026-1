@@ -3,6 +3,8 @@ package ftgw.ooodle.Controladores;
 import java.io.IOException;
 import ftgw.ooodle.Modelo.CronometroJuego;
 import ftgw.ooodle.Modelo.Juego;
+import ftgw.ooodle.Modelo.SesionUsuario;
+import ftgw.ooodle.Modelo.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,7 +49,9 @@ public class CJuegoPracticaDificil {
         };
         Label[] resultados = {res1, res2, res3, res4, res5, res6};
 
-        juego = new Juego(true, tablero, resultados);
+        // Agregación: se instancia Juego pasándole el Usuario desde la sesión
+        Usuario usuario = SesionUsuario.getInstancia().getUsuarioActual();
+        juego = new Juego(true, usuario, tablero, resultados);
         juego.GenerarNuevoJuego();
         juego.BloquearTodo();
         juego.HabilitarFila(0);
@@ -80,7 +84,6 @@ public class CJuegoPracticaDificil {
         String resultado = juego.ValidarFila();
         if (resultado == null) return;
 
-        // FIX: break en cada case para evitar fall-through y el NullPointerException.
         switch (resultado) {
             case "GANASTE":
                 cambiarEscena(e, "VictoriaPractica.fxml", true);

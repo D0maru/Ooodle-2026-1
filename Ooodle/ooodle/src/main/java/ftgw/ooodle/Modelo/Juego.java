@@ -1,6 +1,5 @@
 package ftgw.ooodle.Modelo;
 
-import ftgw.ooodle.Modelo.Usuario;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
@@ -18,7 +17,10 @@ public class Juego {
 
     private TextField[][] tablero;
     private Label[] resultados;
-    public static Usuario usuarioActual;
+
+    // ===== AGREGACIÓN: Usuario y Ecuacion =====
+    private Usuario usuario;
+    private Ecuacion ecuacion;
 
     // ===== COLORES =====
     private static final String VERDE    = "-fx-background-color: #00e676; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
@@ -29,16 +31,24 @@ public class Juego {
     private String[][] estilosOriginales;
 
     // ===== CONSTRUCTOR =====
-    public Juego(boolean modoDificil, TextField[][] tablero, Label[] resultados) {
+    // El diagrama indica agregación: Juego recibe Usuario, TextField[][] y Label[]
+    public Juego(boolean modoDificil, Usuario usuario, TextField[][] tablero, Label[] resultados) {
         this.modoDificil = modoDificil;
+        this.usuario     = usuario;
         this.tablero     = tablero;
         this.resultados  = resultados;
+        this.ecuacion    = new Ecuacion();
 
         // Capturar estilos decorativos del FXML antes de cualquier cambio
         this.estilosOriginales = new String[6][4];
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 4; j++)
                 estilosOriginales[i][j] = tablero[i][j].getStyle();
+    }
+
+    // ===== GETTER USUARIO =====
+    public Usuario getUsuario() {
+        return usuario;
     }
 
     // ===== GENERAR NUEVO JUEGO =====
@@ -50,12 +60,12 @@ public class Juego {
             target = modoDificil
                 ? (int)(Math.random() * 149) - 7
                 : (int)(Math.random() * 83)  - 4;
-            solucion = Ecuacion.GenerarEcuacion(target, modoDificil);
+            solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
 
         if (solucion == null) {
             target = modoDificil ? 100 : 14;
-            solucion = Ecuacion.GenerarEcuacion(target, modoDificil);
+            solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
 
         System.out.printf("SOLUCIÓN: %d * %d + %d - %d = %d%n",

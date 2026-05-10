@@ -6,7 +6,7 @@ import ftgw.ooodle.Modelo.CronometroJuego;
 import ftgw.ooodle.Modelo.Juego;
 import ftgw.ooodle.Modelo.ResultadoPartida;
 import ftgw.ooodle.Modelo.Usuario;
-import ftgw.ooodle.Modelo.SesionUsuario; // IMPORTANTE
+import ftgw.ooodle.Modelo.SesionUsuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -49,7 +49,9 @@ public class CJuegoDiarioDificil {
         };
         Label[] resultados = {res1, res2, res3, res4, res5, res6};
 
-        juego = new Juego(true, tablero, resultados);
+        // Agregación: se instancia Juego pasándole el Usuario desde la sesión
+        Usuario usuario = SesionUsuario.getInstancia().getUsuarioActual();
+        juego = new Juego(true, usuario, tablero, resultados);
         juego.GenerarNuevoJuego();
         juego.BloquearTodo();
         juego.HabilitarFila(0);
@@ -81,25 +83,20 @@ public class CJuegoDiarioDificil {
         String resultadoValidacion = juego.ValidarFila();
         if (resultadoValidacion == null) return;
 
-        // Obtenemos el usuario directamente de la sesión
-        Usuario usuario = SesionUsuario.getInstancia().getUsuarioActual();
-        int id = usuario.getId(); 
+        // Obtenemos el usuario desde el propio objeto juego (via agregación)
+        Usuario usuario = juego.getUsuario();
+        int id = usuario.getId();
 
         if (resultadoValidacion.equals("GANASTE")) {
             ResultadoPartida datos = new ResultadoPartida(id, 1, 1, 1);
-            
-            // Actualizamos la BD y guardamos el nuevo estado del usuario en la Sesión Global
             Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
             SesionUsuario.getInstancia().setUsuarioActual(actualizado);
-            
             cambiarEscena(e, "VictoriaDiario.fxml");
             
         } else if (resultadoValidacion.equals("PERDISTE")) {
             ResultadoPartida datos = new ResultadoPartida(id, -1, 0, 1);
-            
             Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
             SesionUsuario.getInstancia().setUsuarioActual(actualizado);
-            
             cambiarEscena(e, "DerrotaDiario.fxml");
         }
     }
