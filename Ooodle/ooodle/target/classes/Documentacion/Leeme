@@ -1,0 +1,14 @@
+La documentacion hasta esta fecha esta organizada por historia de usuario realizada en 2
+folders clave: Videos e Investigaciones
+
+FORMATO VIDEOS:
+    Dentro de cada folder se encontraran los archivos .txt que contengan los videos que se
+    visualizaron mas una idea principal obtenida fruto de consultar el video para el proyecto.
+    Digamos, suponiendo una H.U S1-101.txt, aqui estaran los links + una idea principal obtenida
+
+FORMATO Investigaciones
+    Este formato es practicamente identico al del folder "Videos"
+    Se crea un archivo .txt con la id de la historia de usuario que tiene esa investigacion,
+    se adjuntan los links que tenga esa investigacion mas el resultado de esa investigacion 
+    en forma de idea principal y conclusion, aqui ya a juicio del integrante del equipo al
+    que le correspondio la historia de usuario
