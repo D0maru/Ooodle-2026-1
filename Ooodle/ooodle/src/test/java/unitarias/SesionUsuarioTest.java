@@ -9,10 +9,7 @@ import ftgw.ooodle.Modelo.SesionUsuario;
 @DisplayName("SesionUsuario: Singleton de sesión activa")
 class SesionUsuarioTest {
 
-    /**
-     * Resetea el Singleton antes de cada prueba para garantizar aislamiento.
-     * SesionUsuario guarda estado estático, así que necesitamos limpiarlo.
-     */
+   
     @BeforeEach
     void resetSingleton() throws Exception {
         Field instanciaField = SesionUsuario.class.getDeclaredField("instancia");

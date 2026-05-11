@@ -1,30 +1,13 @@
 package unitarias;
 
 import org.junit.jupiter.api.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Pruebas unitarias para CronometroJuego y RelojDiario.
- *
- * Ambas clases usan javafx.animation.Timeline y javafx.scene.control.Label,
- * que requieren el toolkit JavaFX inicializado. Para aislar la lógica pura:
- *
- *   - Se prueban las clases stub equivalentes que replican la lógica sin JavaFX.
- *   - Se valida el formateo de tiempo, los límites de una hora y la lógica
- *     del reloj diario (habilitar/deshabilitar botón según puedeJugarInicial).
- *
- * Las pruebas de integración con JavaFX se realizan en una suite separada
- * que inicializa el toolkit (JFXPanel o TestFX).
- */
+
 @DisplayName("CronometroJuego y RelojDiario: lógica de tiempo y acceso diario")
 class CronometroYRelojTest {
 
-    // =========================================================================
-    // Stub de CronometroJuego (lógica pura, sin JavaFX)
-    // =========================================================================
-
+  
     static class CronometroStub {
         private int segundosTranscurridos = 0;
         private String textoActual = "00:00";
@@ -66,10 +49,6 @@ class CronometroYRelojTest {
         public boolean isDetenido()         { return detenido; }
     }
 
-    // =========================================================================
-    // Stub de RelojDiario (lógica pura, sin JavaFX)
-    // =========================================================================
-
     static class RelojDiarioStub {
         private final boolean puedeJugarInicial;
         private boolean botonHabilitado;
@@ -101,10 +80,7 @@ class CronometroYRelojTest {
         public String getTextoReloj()       { return textoReloj; }
     }
 
-    // =========================================================================
-    // BLOQUE 1 – CronometroStub: formateo y comportamiento
-    // =========================================================================
-
+ 
     @Nested
     @DisplayName("CronometroJuego: formateo de tiempo y límites")
     class CronometroTests {
@@ -187,10 +163,6 @@ class CronometroYRelojTest {
                     "Formato inválido: " + crono.getTexto());
         }
     }
-
-    // =========================================================================
-    // BLOQUE 2 – RelojDiario: acceso diario y habilitación del botón
-    // =========================================================================
 
     @Nested
     @DisplayName("RelojDiario: control de acceso al modo diario")

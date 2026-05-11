@@ -18,10 +18,7 @@ class EcuacionTest {
         return (int) m.invoke(new Ecuacion(), a, b, c, d);
     }
 
-    // =========================================================================
-    // BLOQUE 1 – Evaluar: fórmula a×b+c-d
-    // =========================================================================
-
+  
     @Nested
     @DisplayName("Evaluar: correctitud de la fórmula")
     class EvaluarTests {
@@ -48,10 +45,7 @@ class EcuacionTest {
         }
     }
 
-    // =========================================================================
-    // BLOQUE 2 – Estructura del resultado
-    // =========================================================================
-
+ 
     @Nested
     @DisplayName("GenerarEcuacion: estructura y unicidad")
     class EstructuraTests {
@@ -123,10 +117,7 @@ class EcuacionTest {
         }
     }
 
-    // =========================================================================
-    // BLOQUE 4 – Targets alcanzables modo normal
-    // =========================================================================
-
+   
     @Nested
     @DisplayName("Targets alcanzables en modo normal [1-9], rango [-4, 78]")
     class TargetsNormalTests {
@@ -144,10 +135,6 @@ class EcuacionTest {
         @Test @DisplayName("Retorna null para target=-5 (por debajo del mínimo)")
         void demasiadoBajo() { assertNull(new Ecuacion().GenerarEcuacion(-5, false)); }
     }
-
-    // =========================================================================
-    // BLOQUE 5 – Targets alcanzables modo difícil
-    // =========================================================================
 
     @Nested
     @DisplayName("Targets alcanzables en modo difícil [1-12], rango [-7, 141]")
@@ -168,10 +155,7 @@ class EcuacionTest {
         void demasiadoBajo() { assertNull(new Ecuacion().GenerarEcuacion(-8, true)); }
     }
 
-    // =========================================================================
-    // BLOQUE 6 – Fallback del Juego (targets garantizados)
-    // =========================================================================
-
+ 
     @Nested
     @DisplayName("Fallback de Juego: targets hardcodeados con solución garantizada")
     class FallbackTests {

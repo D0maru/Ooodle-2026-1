@@ -12,7 +12,7 @@ import javafx.util.Duration;
 public class RelojDiario {
     private final Label labelReloj;
     private final Button btnDiario;
-    private final boolean puedeJugarInicial; // Nueva variable
+    private final boolean puedeJugarInicial; 
     private Timeline timeline;
 
     // Actualizamos el constructor
@@ -37,8 +37,6 @@ public class RelojDiario {
                 btnDiario.setDisable(false);
                 labelReloj.setText("00:00:00");
             } else {
-                // SOLO si el usuario NO puede jugar (ya gastó su partida), 
-                // el reloj mantiene el botón bloqueado.
                 if (!puedeJugarInicial) {
                     btnDiario.setDisable(true);
                 }

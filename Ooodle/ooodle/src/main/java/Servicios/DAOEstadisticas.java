@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.sql.Date;
 
 import ftgw.ooodle.Modelo.ResultadoPartida;
 import ftgw.ooodle.Modelo.SesionUsuario;

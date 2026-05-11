@@ -1,7 +1,6 @@
 package integracion;
 
 import ftgw.ooodle.Modelo.ResultadoPartida;
-import ftgw.ooodle.Modelo.Usuario;
 import org.junit.jupiter.api.*;
 
 import java.sql.*;
@@ -9,20 +8,6 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Pruebas de integración para DAOUsuario y DAOEstadisticas.
- *
- * Usa una base de datos H2 en memoria que replica el esquema MySQL del juego.
- * No requiere conexión a la BD real ni archivo .env.
- *
- * Para ejecutar, añade esta dependencia al pom.xml (scope test):
- *   <dependency>
- *     <groupId>com.h2database</groupId>
- *     <artifactId>h2</artifactId>
- *     <version>2.2.224</version>
- *     <scope>test</scope>
- *   </dependency>
- */
 @DisplayName("Integración: DAOUsuario + DAOEstadisticas (H2 in-memory)")
 class DAOIntegrationTest {
 
@@ -69,7 +54,6 @@ class DAOIntegrationTest {
         }
     }
 
-    // ─── Helpers ─────────────────────────────────────────────────────────────
 
     /** Inserta un usuario con UltimoJuego = fecha dada (null para "nunca jugó"). */
     private int insertarUsuario(String nick, Date ultimoJuego) throws SQLException {
@@ -114,10 +98,7 @@ class DAOIntegrationTest {
         return ps.executeQuery();
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // 1. Inserción de usuarios
-    // ─────────────────────────────────────────────────────────────────────────
-
+ 
     @Test
     @DisplayName("Insertar usuario: crea fila en Usuario y Estadisticas")
     void insertarUsuario_creaFilasEnAmbasTablas() throws SQLException {
@@ -147,10 +128,6 @@ class DAOIntegrationTest {
         assertNotEquals(id1, id2, "Los IDs deben ser distintos");
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // 2. Eliminación de usuarios (CASCADE)
-    // ─────────────────────────────────────────────────────────────────────────
-
     @Test
     @DisplayName("Eliminar usuario: borra en cascada la fila de Estadisticas")
     void eliminarUsuario_borraCascadaEstadisticas() throws SQLException {
@@ -165,10 +142,6 @@ class DAOIntegrationTest {
         ResultSet rs = leerEstadisticas(id);
         assertFalse(rs.next(), "Estadísticas deben eliminarse en cascada al borrar el usuario");
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // 3. Actualización de estadísticas (lógica de DAOEstadisticas)
-    // ─────────────────────────────────────────────────────────────────────────
 
     @Test
     @DisplayName("Victoria: racha_actual sube, ganadas sube, jugadas sube")
@@ -240,10 +213,6 @@ class DAOIntegrationTest {
         assertEquals(6, rs.getInt("Racha_Max"));
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // 4. evaluarPermisoJuego (lógica extraída)
-    // ─────────────────────────────────────────────────────────────────────────
-
     /** Replica la lógica privada de DAOEstadisticas.evaluarPermisoJuego */
     private boolean evaluarPermisoJuego(Date fechaDB) {
         if (fechaDB == null) return true;
@@ -279,10 +248,6 @@ class DAOIntegrationTest {
         assertTrue(evaluarPermisoJuego(semanaAntes));
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // 5. Integridad referencial
-    // ─────────────────────────────────────────────────────────────────────────
-
     @Test
     @DisplayName("Estadisticas sin usuario referenciado → fallo de FK")
     void estadisticas_sinUsuario_fallaFK() {
@@ -295,10 +260,7 @@ class DAOIntegrationTest {
         }, "Debe lanzar SQLException por violación de clave foránea");
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // 6. Consistencia transaccional (commit / rollback)
-    // ─────────────────────────────────────────────────────────────────────────
-
+  
     @Test
     @DisplayName("Transacción rollback: los datos no persisten si hay error")
     void transaccion_rollback_noGuardaCambios() throws SQLException {

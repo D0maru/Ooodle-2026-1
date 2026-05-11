@@ -41,14 +41,11 @@ public class CLobby {
     @FXML private AnchorPane PanelInterfaz;
     @FXML private Circle circuloDificultad;
 
-    // --- ESTADO ---
     private boolean modoDificil = false;
 
-    // --- SERVICIOS ---
     private final DAOEstadisticas daoEstadisticas = new DAOEstadisticas();
     private RelojDiario relojDiario;
 
-    // --- CONSTANTES ---
     private static final String RUTA_REGLAS = "/ftgw/ooodle/interfaces/Reglas.fxml";
     private static final String PRACTICA_FACIL = "/ftgw/ooodle/interfaces/JuegoPracticaFacil.fxml";
     private static final String PRACTICA_DIFICIL = "/ftgw/ooodle/interfaces/JuegoPracticaDificil.fxml";
@@ -68,13 +65,10 @@ public class CLobby {
     }
 
     private void cargarEstadisticas() {
-        // 1. Obtenemos la referencia limpia del usuario
         Usuario usuarioActual = SesionUsuario.getInstancia().getUsuarioActual();
         
-        // 2. Llamamos al DAO UNA SOLA VEZ. 
         ResultadoPartida stats = daoEstadisticas.cargarEstadisticasAlLobby(usuarioActual.getId());
 
-        // 3. Seteamos los textos
         Label_Nickname.setText(usuarioActual.getNickname());
         Label_idUsuario.setText("ID: " + usuarioActual.getId());
         Label_RachaMaxima.setText(String.valueOf(stats.rachaMax));

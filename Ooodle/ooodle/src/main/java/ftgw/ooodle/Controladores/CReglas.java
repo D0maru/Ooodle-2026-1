@@ -9,20 +9,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-//import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class CReglas {
 
-    @FXML
-    private Pane PanelBase;
-
-    @FXML
-    private Button botonVolver;
-
-    @FXML
-    private Label labeltitulo;
+    @FXML private Pane PanelBase;
+    @FXML private Button botonVolver;
+    @FXML private Label labeltitulo;
 
     @FXML
     void volverLobby(ActionEvent event) {
