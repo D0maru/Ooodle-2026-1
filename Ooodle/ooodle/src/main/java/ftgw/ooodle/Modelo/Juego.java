@@ -1,6 +1,5 @@
 package ftgw.ooodle.Modelo;
 
-import ftgw.ooodle.Modelo.Usuario;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
@@ -18,18 +17,38 @@ public class Juego {
 
     private TextField[][] tablero;
     private Label[] resultados;
-    public static Usuario usuarioActual;
+
+    // ===== AGREGACIÓN: Usuario y Ecuacion =====
+    private Usuario usuario;
+    private Ecuacion ecuacion;
 
     // ===== COLORES =====
     private static final String VERDE    = "-fx-background-color: #00e676; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
     private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
     private static final String GRIS     = "-fx-background-color: #616161; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16px;";
 
+    // ===== ESTILOS ORIGINALES (decoración del FXML) =====
+    private String[][] estilosOriginales;
+
     // ===== CONSTRUCTOR =====
-    public Juego(boolean modoDificil, TextField[][] tablero, Label[] resultados) {
+    // El diagrama indica agregación: Juego recibe Usuario, TextField[][] y Label[]
+    public Juego(boolean modoDificil, Usuario usuario, TextField[][] tablero, Label[] resultados) {
         this.modoDificil = modoDificil;
+        this.usuario     = usuario;
         this.tablero     = tablero;
         this.resultados  = resultados;
+        this.ecuacion    = new Ecuacion();
+
+        // Capturar estilos decorativos del FXML antes de cualquier cambio
+        this.estilosOriginales = new String[6][4];
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 4; j++)
+                estilosOriginales[i][j] = tablero[i][j].getStyle();
+    }
+
+    // ===== GETTER USUARIO =====
+    public Usuario getUsuario() {
+        return usuario;
     }
 
     // ===== GENERAR NUEVO JUEGO =====
@@ -41,13 +60,12 @@ public class Juego {
             target = modoDificil
                 ? (int)(Math.random() * 149) - 7
                 : (int)(Math.random() * 83)  - 4;
-            solucion = Ecuacion.GenerarEcuacion(target, modoDificil);
+            solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
 
         if (solucion == null) {
-            // Fallback garantizado: hardcodear un target con solución conocida
-            target = modoDificil ? 100 : 14; // 10*11+2-12=100 / 3*5+1-2=14
-            solucion = Ecuacion.GenerarEcuacion(target, modoDificil);
+            target = modoDificil ? 100 : 14;
+            solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
 
         System.out.printf("SOLUCIÓN: %d * %d + %d - %d = %d%n",
@@ -62,13 +80,15 @@ public class Juego {
     public void EscribirNumero(String num) {
         if (intentoActual > 6) return;
 
-        TextField campo = tablero[intentoActual - 1][columnaActual];
-        if (!campo.isEditable()) return;
+        for (int i = 0; i < 4; i++) {
+            TextField campo = tablero[intentoActual - 1][i];
 
-        if (campo.getText().isEmpty()) {
-            campo.setText(num);
-            columnaActual++;
-            if (columnaActual > 3) columnaActual = 3;
+            if (campo.getText().isEmpty() && campo.isEditable()) {
+                campo.setText(num);
+                columnaActual = i + 1;
+                if (columnaActual > 3) columnaActual = 3;
+                return;
+            }
         }
     }
 
@@ -113,7 +133,6 @@ public class Juego {
     }
 
     // ===== VALIDAR FILA =====
-    // Retorna: "GANASTE", "PERDISTE", "CONTINUA", o null si hay error de validación
     public String ValidarFila() {
         try {
             String[] valores = new String[4];
@@ -126,7 +145,7 @@ public class Juego {
                 valores[i] = tablero[intentoActual - 1][i].getText();
 
                 if (valores[i] == null || valores[i].trim().isEmpty()) {
-                    MostrarError(mensajeRango);MostrarError("Debes completar todos los espacios.");
+                    MostrarError(mensajeRango); MostrarError("Debes completar todos los espacios.");
                     return null;
                 }
                 if (!valores[i].matches(regex)) {
@@ -147,7 +166,6 @@ public class Juego {
 
             AplicarColores(intentoActual - 1, new int[]{a, b, c, d});
 
-            // Verificar victoria
             if (solucion != null &&
                 a == solucion[0] && b == solucion[1] &&
                 c == solucion[2] && d == solucion[3]) {
@@ -178,7 +196,7 @@ public class Juego {
         for (int i = 0; i < 6; i++)
             for (int j = 0; j < 4; j++) {
                 tablero[i][j].clear();
-                tablero[i][j].setStyle("");
+                tablero[i][j].setStyle(estilosOriginales[i][j]);
             }
 
         BloquearTodo();

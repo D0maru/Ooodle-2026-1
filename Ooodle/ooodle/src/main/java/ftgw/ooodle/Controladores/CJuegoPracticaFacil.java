@@ -3,6 +3,8 @@ package ftgw.ooodle.Controladores;
 import java.io.IOException;
 import ftgw.ooodle.Modelo.CronometroJuego;
 import ftgw.ooodle.Modelo.Juego;
+import ftgw.ooodle.Modelo.SesionUsuario;
+import ftgw.ooodle.Modelo.Usuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +44,9 @@ public class CJuegoPracticaFacil {
         };
         Label[] resultados = {res_1, res_2, res_3, res_4, res_5, res_6};
 
-        juego = new Juego(false, tablero, resultados);
+        // Agregación: se instancia Juego pasándole el Usuario desde la sesión
+        Usuario usuario = SesionUsuario.getInstancia().getUsuarioActual();
+        juego = new Juego(false, usuario, tablero, resultados);
         juego.GenerarNuevoJuego();
         juego.BloquearTodo();
         juego.HabilitarFila(0);
@@ -58,8 +62,8 @@ public class CJuegoPracticaFacil {
     @FXML void Click8(ActionEvent e) { juego.EscribirNumero("8"); }
     @FXML void Click9(ActionEvent e) { juego.EscribirNumero("9"); }
 
-    @FXML void ClickDel(ActionEvent e)      { juego.BorrarDigito(); }
-    @FXML void ClickRestart(ActionEvent e)  {
+    @FXML void ClickDel(ActionEvent e)     { juego.BorrarDigito(); }
+    @FXML void ClickRestart(ActionEvent e) {
         cronometroJuego.ReiniciarCronometro();
         juego.ReiniciarJuego();
     }
@@ -69,7 +73,6 @@ public class CJuegoPracticaFacil {
         String resultado = juego.ValidarFila();
         if (resultado == null) return;
 
-        // FIX: break en cada case para evitar fall-through y el NullPointerException.
         switch (resultado) {
             case "GANASTE":
                 cambiarEscena(e, "VictoriaPractica.fxml", false);
@@ -83,7 +86,7 @@ public class CJuegoPracticaFacil {
     private void cambiarEscena(ActionEvent evento, String fxml, boolean modoDificil) {
         try {
             cronometroJuego.DetenerCronometro();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/interfaces/" + fxml));
             Parent root = loader.load();
 
             Object controller = loader.getController();
@@ -106,7 +109,7 @@ public class CJuegoPracticaFacil {
     void volverAlLobby(ActionEvent e) {
         try {
             cronometroJuego.DetenerCronometro();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root, ((Node) e.getSource()).getScene().getWidth(), ((Node) e.getSource()).getScene().getHeight()));

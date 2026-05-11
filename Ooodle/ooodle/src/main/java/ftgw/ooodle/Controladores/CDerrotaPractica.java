@@ -40,7 +40,7 @@ public class CDerrotaPractica {
     @FXML
     void Volver_Inicio(ActionEvent event) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, ((Node) event.getSource()).getScene().getWidth(), ((Node) event.getSource()).getScene().getHeight()));
         stage.setResizable(false);   
@@ -58,7 +58,7 @@ public class CDerrotaPractica {
                 ? "JuegoPracticaDificil.fxml"
                 : "JuegoPracticaFacil.fxml";
 
-            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/interfaces/" + fxml));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(new Scene(root, ((Node) event.getSource()).getScene().getWidth(), ((Node) event.getSource()).getScene().getHeight()));
         stage.setResizable(false);   

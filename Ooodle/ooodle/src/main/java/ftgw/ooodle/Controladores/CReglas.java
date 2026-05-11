@@ -27,7 +27,7 @@ public class CReglas {
     @FXML
     void volverLobby(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) botonVolver.getScene().getWindow();
              Scene scene = new Scene(root, botonVolver.getScene().getWidth(), botonVolver.getScene().getHeight());

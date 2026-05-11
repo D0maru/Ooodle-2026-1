@@ -6,7 +6,7 @@ import ftgw.ooodle.Modelo.CronometroJuego;
 import ftgw.ooodle.Modelo.Juego;
 import ftgw.ooodle.Modelo.ResultadoPartida;
 import ftgw.ooodle.Modelo.Usuario;
-import ftgw.ooodle.Modelo.SesionUsuario; // Importante
+import ftgw.ooodle.Modelo.SesionUsuario;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,9 +39,6 @@ public class CJuegoDiarioFacil {
     private CronometroJuego cronometroJuego;
     private DAOEstadisticas daoEstadisticas = new DAOEstadisticas();
 
-    // NOTA: Ya no necesitamos setUsuario ni el atributo privado usuarioActual
-    // porque usaremos SesionUsuario.getInstancia() directamente.
-
     @FXML
     public void initialize() {
         cronometroJuego = new CronometroJuego(cronometro);
@@ -54,7 +51,9 @@ public class CJuegoDiarioFacil {
         };
         Label[] resultados = {res1, res2, res3, res4, res5, res6};
 
-        juego = new Juego(false, tablero, resultados);
+        // Agregación: se instancia Juego pasándole el Usuario desde la sesión
+        Usuario usuario = SesionUsuario.getInstancia().getUsuarioActual();
+        juego = new Juego(false, usuario, tablero, resultados);
         juego.GenerarNuevoJuego();
         juego.BloquearTodo();
         juego.HabilitarFila(0);
@@ -83,25 +82,20 @@ public class CJuegoDiarioFacil {
         String resultadoValidacion = juego.ValidarFila();
         if (resultadoValidacion == null) return;
 
-        // Obtenemos el usuario de la sesión global
-        Usuario usuario = SesionUsuario.getInstancia().getUsuarioActual();
-        int id = usuario.getId(); 
+        // Obtenemos el usuario desde el propio objeto juego (via agregación)
+        Usuario usuario = juego.getUsuario();
+        int id = usuario.getId();
 
         if (resultadoValidacion.equals("GANASTE")) {
             ResultadoPartida datos = new ResultadoPartida(id, 1, 1, 1);
-            
-            // Actualizamos en BD y actualizamos la Sesión Global
             Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
             SesionUsuario.getInstancia().setUsuarioActual(actualizado);
-            
             cambiarEscena(e, "VictoriaDiario.fxml");
             
         } else if (resultadoValidacion.equals("PERDISTE")) {
             ResultadoPartida datos = new ResultadoPartida(id, -1, 0, 1);
-            
             Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
             SesionUsuario.getInstancia().setUsuarioActual(actualizado);
-            
             cambiarEscena(e, "DerrotaDiario.fxml");
         }
     }
@@ -109,8 +103,7 @@ public class CJuegoDiarioFacil {
     private void cambiarEscena(ActionEvent evento, String fxml) {
         try {
             cronometroJuego.DetenerCronometro();
-            // Ya no pasamos el usuario manualmente por el loader
-            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/" + fxml));
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/interfaces/" + fxml));
             Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -123,7 +116,7 @@ public class CJuegoDiarioFacil {
     void volverAlLobby(ActionEvent e) {
         try {
             cronometroJuego.DetenerCronometro();
-            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/Vista/Lobby.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();

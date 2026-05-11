@@ -1,12 +1,12 @@
 package ftgw.ooodle.Modelo;
 
-
 public class Ecuacion {
 
-    private static int Evaluar(int a, int b, int c, int d) {
+    private int Evaluar(int a, int b, int c, int d) {
         return (a * b) + c - d;
     }
-    public static int[] GenerarEcuacion(int target, boolean modoDificil) { //retorna un arreglo [a,b,c,d]
+
+    public int[] GenerarEcuacion(int target, boolean modoDificil) {
         int min = 1;
         int max;
         if (modoDificil) {
@@ -33,37 +33,32 @@ public class Ecuacion {
         }
         return null;
     }
+
     public static void main(String[] args) {
-        int target = 11;
-        boolean modoDificil = false; // false = 1-9, true = 1-12
-        if(modoDificil){
+        int target;
+        boolean modoDificil = false;
+        if (modoDificil) {
             target = (int)(Math.random() * 149) - 7;
-        }else{
+        } else {
             target = (int)(Math.random() * 83) - 4;
         }
-        int[] eq = GenerarEcuacion(target, modoDificil);
+        Ecuacion eq = new Ecuacion();
+        int[] resultado = eq.GenerarEcuacion(target, modoDificil);
         System.out.print("Respuesta ingresada:" + target + " || Dificultad: ");
         if (modoDificil) {
             System.out.println("1 - 12");
-        }else{
+        } else {
             System.out.println("1 - 9");
         }
 
-
-        for (int i = 0; i < eq.length; i++) {
+        for (int i = 0; i < resultado.length; i++) {
             switch (i) {
-                case 1:
-                    System.out.print(" x ");
-                    break;
-                case 2:
-                    System.out.print(" + ");
-                    break;
-                case 3:
-                    System.out.print(" - ");
-                    break;
+                case 1: System.out.print(" x "); break;
+                case 2: System.out.print(" + "); break;
+                case 3: System.out.print(" - "); break;
             }
-            System.out.print(eq[i]);
+            System.out.print(resultado[i]);
         }
-        System.out.print(" = "+target);
+        System.out.print(" = " + target);
     }
 }
