@@ -10,15 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-/**
- * Pruebas de integración: Ecuacion <-> Juego (lógica pura, sin JavaFX).
- *
- * Valida que:
- *  - Ecuacion genera soluciones correctas para los rangos de cada dificultad.
- *  - ResultadoPartida calcula correctamente los deltas de racha y partidas.
- *  - SesionUsuario mantiene correctamente al usuario en sesión.
- *  - La fórmula del juego (a*b + c - d = target) siempre se satisface.
- */
+
 @DisplayName("Integración: Ecuacion + Lógica de Juego")
 class EcuacionJuegoIntegrationTest {
 
@@ -28,10 +20,6 @@ class EcuacionJuegoIntegrationTest {
     void setUp() {
         ecuacion = new Ecuacion();
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // 1. GenerarEcuacion – modo fácil (1–9)
-    // ─────────────────────────────────────────────────────────────────────────
 
     @Test
     @DisplayName("GenerarEcuacion (fácil): retorna exactamente 4 valores")
@@ -83,10 +71,6 @@ class EcuacionJuegoIntegrationTest {
             "Los 4 dígitos no deben repetirse");
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // 2. GenerarEcuacion – modo difícil (1–12)
-    // ─────────────────────────────────────────────────────────────────────────
-
     @Test
     @DisplayName("GenerarEcuacion (difícil): la fórmula a*b+c-d == target")
     void generarEcuacion_dificil_formulaCorrecta() {
@@ -124,10 +108,7 @@ class EcuacionJuegoIntegrationTest {
         assertNull(r, "Debe retornar null si el target no tiene solución");
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // 3. ResultadoPartida – cálculo de deltas
-    // ─────────────────────────────────────────────────────────────────────────
-
+   
     @Test
     @DisplayName("ResultadoPartida: victoria incrementa racha y ganadas")
     void resultadoPartida_victoria_deltasCorrecto() {
@@ -192,10 +173,7 @@ class EcuacionJuegoIntegrationTest {
         assertEquals(6, rachaMax,  "Racha máxima no debe disminuir tras derrota");
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // 4. SesionUsuario (Singleton)
-    // ─────────────────────────────────────────────────────────────────────────
-
+   
     @Test
     @DisplayName("SesionUsuario: siempre retorna la misma instancia (Singleton)")
     void sesionUsuario_esSingleton() {
@@ -226,10 +204,6 @@ class EcuacionJuegoIntegrationTest {
         assertTrue(SesionUsuario.getInstancia().getUsuarioActual().isPuedeJugar());
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // 5. Usuario
-    // ─────────────────────────────────────────────────────────────────────────
-
     @Test
     @DisplayName("Usuario: constructor y getters básicos")
     void usuario_constructorYGetters() {
@@ -255,10 +229,6 @@ class EcuacionJuegoIntegrationTest {
         u.setPuedeJugar(false);
         assertFalse(u.isPuedeJugar());
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // 6. Integración Ecuacion → Juego (flujo completo sin UI)
-    // ─────────────────────────────────────────────────────────────────────────
 
     @Test
     @DisplayName("Flujo completo: generar ecuación y verificar que la solución es correcta")

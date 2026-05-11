@@ -2,7 +2,7 @@ package ftgw.ooodle.Modelo;
 
 public class SesionUsuario {
     private static SesionUsuario instancia;
-    private Usuario usuarioActual; // Aquí se guarda el elegido
+    private Usuario usuarioActual; 
 
 
     public static SesionUsuario getInstancia() {
@@ -12,7 +12,6 @@ public class SesionUsuario {
         return instancia;
     }
 
-    // El "Setter" para cuando eligen perfil
     public Usuario getUsuarioActual(){
         return usuarioActual;
     }

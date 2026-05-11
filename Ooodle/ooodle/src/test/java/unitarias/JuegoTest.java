@@ -1,37 +1,17 @@
 package unitarias;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import ftgw.ooodle.Modelo.Ecuacion;
 
-/**
- * Pruebas unitarias para Juego.java.
- *
- * Juego depende de javafx.scene.control.TextField y Label para renderizar el tablero.
- * Para evitar inicializar el toolkit JavaFX en pruebas unitarias, usamos subclases
- * stub ligeras que sobreescriben solo los métodos usados por Juego, y accedemos
- * a la lógica interna vía reflexión cuando es necesario.
- *
- * Patrón utilizado: TestableJuego — subclase que neutraliza llamadas a UI (Alert)
- * y expone la solución generada para poder construir intentos correctos.
- */
+
 @DisplayName("Juego: lógica principal de Fill the Grid")
 class JuegoTest {
 
-    // =========================================================================
-    // Infraestructura de prueba: stubs de TextField y Label
-    // =========================================================================
-
-    /**
-     * TextField mínimo para pruebas: solo texto, editable y disable.
-     */
+   
     static class StubTextField {
         private String text = "";
         private boolean editable = false;
@@ -47,23 +27,13 @@ class JuegoTest {
         public void setStyle(String s) { /* no-op en tests */ }
     }
 
-    /**
-     * Label mínimo para pruebas.
-     */
+    
     static class StubLabel {
         private String text = "";
         public void setText(String t) { this.text = t; }
         public String getText() { return text; }
     }
 
-    // =========================================================================
-    // JuegoTestable: subclase que reemplaza la dependencia de JavaFX
-    // =========================================================================
-
-    /**
-     * Versión testeable de Juego. Reemplaza TextField[][] y Label[] con los stubs.
-     * Usamos reflexión para inyectar los stubs en los campos privados de Juego.
-     */
     static class JuegoTestable {
         private final boolean modoDificil;
         private int intentoActual = 1;
@@ -213,10 +183,7 @@ class JuegoTest {
         StubLabel[] getResultados()      { return resultados; }
     }
 
-    // =========================================================================
-    // Fixture compartido
-    // =========================================================================
-
+ 
     private JuegoTestable juegoNormal;
     private JuegoTestable juegoDificil;
 
@@ -266,10 +233,6 @@ class JuegoTest {
         };
     }
 
-    // =========================================================================
-    // BLOQUE 1 – GenerarNuevoJuego
-    // =========================================================================
-
     @Nested
     @DisplayName("GenerarNuevoJuego: inicialización del puzzle")
     class GenerarNuevoJuegoTests {
@@ -314,9 +277,6 @@ class JuegoTest {
         }
     }
 
-    // =========================================================================
-    // BLOQUE 2 – EscribirNumero
-    // =========================================================================
 
     @Nested
     @DisplayName("EscribirNumero: entrada del jugador en el tablero")
@@ -361,10 +321,6 @@ class JuegoTest {
         }
     }
 
-    // =========================================================================
-    // BLOQUE 3 – BorrarDigito
-    // =========================================================================
-
     @Nested
     @DisplayName("BorrarDigito: corrección de entrada del jugador")
     class BorrarDigitoTests {
@@ -398,10 +354,7 @@ class JuegoTest {
         }
     }
 
-    // =========================================================================
-    // BLOQUE 4 – ValidarFila: resultado de los intentos
-    // =========================================================================
-
+  
     @Nested
     @DisplayName("ValidarFila: resultados GANASTE / PERDISTE / CONTINUA / null")
     class ValidarFilaTests {
@@ -487,10 +440,7 @@ class JuegoTest {
         }
     }
 
-    // =========================================================================
-    // BLOQUE 5 – ReiniciarJuego
-    // =========================================================================
-
+ 
     @Nested
     @DisplayName("ReiniciarJuego: reset completo del estado")
     class ReiniciarTests {
@@ -537,10 +487,6 @@ class JuegoTest {
         }
     }
 
-    // =========================================================================
-    // BLOQUE 6 – HabilitarFila / DeshabilitarFila / BloquearTodo
-    // =========================================================================
-
     @Nested
     @DisplayName("Manejo de filas: habilitar, deshabilitar, bloquear todo")
     class ManejoFilasTests {
@@ -574,9 +520,6 @@ class JuegoTest {
         }
     }
 
-    // =========================================================================
-    // BLOQUE 7 – Integridad del flujo completo de partida
-    // =========================================================================
 
     @Nested
     @DisplayName("Flujo completo de partida")

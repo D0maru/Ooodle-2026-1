@@ -11,8 +11,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class CVictoriaDiario {
-    @FXML
-    private Button botonRegresoLobby;
+    
+    @FXML private Button botonRegresoLobby;
 
     @FXML
     void Volver(ActionEvent event) {

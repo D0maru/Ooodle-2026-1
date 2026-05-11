@@ -9,10 +9,6 @@ import ftgw.ooodle.Modelo.ResultadoPartida;
 @DisplayName("ResultadoPartida: registro de estadísticas de una partida")
 class ResultadoPartidaTest {
 
-    // =========================================================================
-    // BLOQUE 1 – Constructor
-    // =========================================================================
-
     @Nested
     @DisplayName("Constructor: asignación de campos iniciales")
     class ConstructorTests {
@@ -40,10 +36,7 @@ class ResultadoPartidaTest {
         }
     }
 
-    // =========================================================================
-    // BLOQUE 2 – Setters de totales desde BD
-    // =========================================================================
-
+  
     @Nested
     @DisplayName("Setters: totales cargados desde la base de datos")
     class SettersTests {
@@ -98,10 +91,7 @@ class ResultadoPartidaTest {
         }
     }
 
-    // =========================================================================
-    // BLOQUE 3 – Escenarios del juego
-    // =========================================================================
-
+   
     @Nested
     @DisplayName("Escenarios del juego Fill the Grid")
     class EscenariosJuegoTests {

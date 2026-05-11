@@ -33,32 +33,4 @@ public class Ecuacion {
         }
         return null;
     }
-
-    public static void main(String[] args) {
-        int target;
-        boolean modoDificil = false;
-        if (modoDificil) {
-            target = (int)(Math.random() * 149) - 7;
-        } else {
-            target = (int)(Math.random() * 83) - 4;
-        }
-        Ecuacion eq = new Ecuacion();
-        int[] resultado = eq.GenerarEcuacion(target, modoDificil);
-        System.out.print("Respuesta ingresada:" + target + " || Dificultad: ");
-        if (modoDificil) {
-            System.out.println("1 - 12");
-        } else {
-            System.out.println("1 - 9");
-        }
-
-        for (int i = 0; i < resultado.length; i++) {
-            switch (i) {
-                case 1: System.out.print(" x "); break;
-                case 2: System.out.print(" + "); break;
-                case 3: System.out.print(" - "); break;
-            }
-            System.out.print(resultado[i]);
-        }
-        System.out.print(" = " + target);
-    }
 }

@@ -6,10 +6,8 @@ import javafx.scene.control.Alert;
 
 public class Juego {
 
-    // ===== CONFIGURACIÓN =====
     private final boolean modoDificil;
 
-    // ===== VARIABLES DEL JUEGO =====
     private int target;
     private int intentoActual = 1;
     private int columnaActual = 0;
@@ -18,20 +16,15 @@ public class Juego {
     private TextField[][] tablero;
     private Label[] resultados;
 
-    // ===== AGREGACIÓN: Usuario y Ecuacion =====
     private Usuario usuario;
     private Ecuacion ecuacion;
 
-    // ===== COLORES =====
     private static final String VERDE    = "-fx-background-color: #00e676; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
     private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
     private static final String GRIS     = "-fx-background-color: #616161; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16px;";
 
-    // ===== ESTILOS ORIGINALES (decoración del FXML) =====
     private String[][] estilosOriginales;
 
-    // ===== CONSTRUCTOR =====
-    // El diagrama indica agregación: Juego recibe Usuario, TextField[][] y Label[]
     public Juego(boolean modoDificil, Usuario usuario, TextField[][] tablero, Label[] resultados) {
         this.modoDificil = modoDificil;
         this.usuario     = usuario;
@@ -46,12 +39,10 @@ public class Juego {
                 estilosOriginales[i][j] = tablero[i][j].getStyle();
     }
 
-    // ===== GETTER USUARIO =====
     public Usuario getUsuario() {
         return usuario;
     }
 
-    // ===== GENERAR NUEVO JUEGO =====
     public void GenerarNuevoJuego() {
         int maxIntentos = 100;
         solucion = null;
@@ -76,7 +67,6 @@ public class Juego {
         }
     }
 
-    // ===== ESCRIBIR NÚMERO =====
     public void EscribirNumero(String num) {
         if (intentoActual > 6) return;
 
@@ -92,7 +82,6 @@ public class Juego {
         }
     }
 
-    // ===== BORRAR DÍGITO =====
     public void BorrarDigito() {
         if (intentoActual > 6) return;
         if (!tablero[intentoActual - 1][0].isEditable()) return;
@@ -103,7 +92,6 @@ public class Juego {
         tablero[intentoActual - 1][columnaActual].clear();
     }
 
-    // ===== MOSTRAR ERROR =====
     private void MostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -112,7 +100,6 @@ public class Juego {
         alert.showAndWait();
     }
 
-    // ===== APLICAR COLORES =====
     private void AplicarColores(int fila, int[] intento) {
         for (int j = 0; j < 4; j++) {
             TextField celda = tablero[fila][j];
@@ -132,7 +119,6 @@ public class Juego {
         }
     }
 
-    // ===== VALIDAR FILA =====
     public String ValidarFila() {
         try {
             String[] valores = new String[4];
@@ -188,7 +174,6 @@ public class Juego {
         }
     }
 
-    // ===== REINICIAR =====
     public void ReiniciarJuego() {
         intentoActual = 1;
         columnaActual = 0;
@@ -204,10 +189,8 @@ public class Juego {
         GenerarNuevoJuego();
     }
 
-    // ===== GETTERS ÚTILES =====
     public int GetIntentoActual() { return intentoActual; }
 
-    // ===== MANEJO DE FILAS =====
     public void BloquearTodo() {
         for (int i = 0; i < 6; i++) DeshabilitarFila(i);
     }
