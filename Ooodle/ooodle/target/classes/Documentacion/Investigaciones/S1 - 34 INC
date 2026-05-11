@@ -1,0 +1,12 @@
+Historia de usuario:
+Como jugador quiero un botón sin efectos donde pueda usar números del 1-9 o del 1-12 para ajustar la dificultad según mi preferencia en un futuro
+Tareas por hacer:
+1.ver videos de como crear un boton tipo toggleswitch
+2.Ver video sobre JavaFx y Scene Builder
+3.Documentarse desde la pagina de JafaFx para entender como usarlo en el proyecto
+Tarea asignada por:
+Sergio Acero
+Descripcion:
+https://www.youtube.com/watch?v=n1G90HK4gLc
+Pude terminar con conceptos básicos esta historia de usuario guiandome de videos cortos sobre SceneBuilder, ademas lo complemente con informacion JavaFx
+https://openjfx.io/
