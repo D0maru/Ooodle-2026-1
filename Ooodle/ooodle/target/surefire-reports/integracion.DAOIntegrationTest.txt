@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: unitarias.EcuacionTest
+Test set: integracion.DAOIntegrationTest
 -------------------------------------------------------------------------------
-Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.185 s -- in unitarias.EcuacionTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.760 s -- in integracion.DAOIntegrationTest
