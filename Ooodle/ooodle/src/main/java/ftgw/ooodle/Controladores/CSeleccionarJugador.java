@@ -1,6 +1,6 @@
 package ftgw.ooodle.Controladores;
 
-import Servicios.DAOUsuario;
+import ftgw.ooodle.Servicios.DAOUsuario;
 import ftgw.ooodle.Modelo.SesionUsuario;
 import ftgw.ooodle.Modelo.Usuario;
 import javafx.event.ActionEvent;

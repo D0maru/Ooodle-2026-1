@@ -9,9 +9,9 @@ module ftgw.ooodle {
     opens ftgw.ooodle.interfaces to javafx.graphics, javafx.fxml;
     opens ftgw.ooodle to javafx.fxml;
     opens ftgw.ooodle.Controladores to javafx.fxml;
-    opens Servicios to com.google.gson, javafx.fxml;
+    opens ftgw.ooodle.Servicios to com.google.gson, javafx.fxml;
 
     exports ftgw.ooodle;
     exports ftgw.ooodle.Vista;
-    exports Servicios;
+    exports ftgw.ooodle.Servicios;
 }

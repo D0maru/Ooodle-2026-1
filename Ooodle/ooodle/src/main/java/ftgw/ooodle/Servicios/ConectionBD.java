@@ -1,4 +1,4 @@
-package Servicios;
+package ftgw.ooodle.Servicios;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;

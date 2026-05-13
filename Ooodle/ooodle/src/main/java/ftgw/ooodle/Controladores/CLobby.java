@@ -14,7 +14,7 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import Servicios.DAOEstadisticas;
+import ftgw.ooodle.Servicios.DAOEstadisticas;
 import ftgw.ooodle.Modelo.ResultadoPartida;
 import ftgw.ooodle.Modelo.SesionUsuario;
 import ftgw.ooodle.Modelo.Usuario;

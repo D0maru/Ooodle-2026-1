@@ -1,12 +1,14 @@
 package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
-import Servicios.DAOEstadisticas;
+import ftgw.ooodle.Servicios.DAOEstadisticas;
 import ftgw.ooodle.Modelo.CronometroJuego;
 import ftgw.ooodle.Modelo.Juego;
 import ftgw.ooodle.Modelo.ResultadoPartida;
 import ftgw.ooodle.Modelo.Usuario;
 import ftgw.ooodle.Modelo.SesionUsuario;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +20,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class CJuegoDiarioFacil {
 
@@ -36,13 +39,23 @@ public class CJuegoDiarioFacil {
     @FXML private Label cronometro;
 
     private Juego juego;
-    private CronometroJuego cronometroJuego;
+    private CronometroJuego modeloCronometro;
+    private Timeline timeline;
     private DAOEstadisticas daoEstadisticas = new DAOEstadisticas();
 
     @FXML
     public void initialize() {
-        cronometroJuego = new CronometroJuego(cronometro);
-        cronometroJuego.initialize();
+        modeloCronometro = new CronometroJuego();
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            String tiempoTexto = modeloCronometro.incrementoSegundos();
+            cronometro.setText(tiempoTexto);
+            
+            if (modeloCronometro.esTiempoMaximo()) {
+                detenerSistemas();
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
         TextField[][] tablero = {
             {a1, b1, c1, d1}, {a2, b2, c2, d2},
@@ -72,8 +85,14 @@ public class CJuegoDiarioFacil {
 
     @FXML void ClickDel(ActionEvent e) { juego.BorrarDigito(); }
     
+    private String detenerSistemas() {
+        if (timeline != null) timeline.stop();
+        return "Tiempo detenido";
+    }
     @FXML void ClickRestart(ActionEvent e) {
-        cronometroJuego.ReiniciarCronometro();
+        detenerSistemas();
+        cronometro.setText(modeloCronometro.reiniciar());
+        timeline.playFromStart();
         juego.ReiniciarJuego();
     }
 
@@ -102,7 +121,7 @@ public class CJuegoDiarioFacil {
 
     private void cambiarEscena(ActionEvent evento, String fxml) {
         try {
-            cronometroJuego.DetenerCronometro();
+            detenerSistemas();
             Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/interfaces/" + fxml));
             Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
@@ -115,7 +134,7 @@ public class CJuegoDiarioFacil {
     @FXML
     void volverAlLobby(ActionEvent e) {
         try {
-            cronometroJuego.DetenerCronometro();
+            detenerSistemas();
             Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));

@@ -5,6 +5,8 @@ import ftgw.ooodle.Modelo.CronometroJuego;
 import ftgw.ooodle.Modelo.Juego;
 import ftgw.ooodle.Modelo.SesionUsuario;
 import ftgw.ooodle.Modelo.Usuario;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class CJuegoPracticaFacil {
 
@@ -30,12 +33,21 @@ public class CJuegoPracticaFacil {
     @FXML private Label cronometro;
 
     private Juego juego;
-    private CronometroJuego cronometroJuego;
-
+    private CronometroJuego modeloCronometro;    
+    private Timeline timeline;
     @FXML
-    public void initialize() {
-        cronometroJuego = new CronometroJuego(cronometro);
-        cronometroJuego.initialize();
+    public void initialize() {  
+        modeloCronometro = new CronometroJuego();
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            String tiempoActual = modeloCronometro.incrementoSegundos();
+            cronometro.setText(tiempoActual);
+            
+            if (modeloCronometro.esTiempoMaximo()) {
+                detenerSistemas();
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
 
         TextField[][] tablero = {
             {a1, b1, c1, d1}, {a2, b2, c2, d2},
@@ -51,6 +63,10 @@ public class CJuegoPracticaFacil {
         juego.BloquearTodo();
         juego.HabilitarFila(0);
     }
+    private String detenerSistemas() {
+        if (timeline != null) timeline.stop();
+        return "Cronómetro pausado";
+    }
 
     @FXML void Click1(ActionEvent e) { juego.EscribirNumero("1"); }
     @FXML void Click2(ActionEvent e) { juego.EscribirNumero("2"); }
@@ -64,7 +80,9 @@ public class CJuegoPracticaFacil {
 
     @FXML void ClickDel(ActionEvent e)     { juego.BorrarDigito(); }
     @FXML void ClickRestart(ActionEvent e) {
-        cronometroJuego.ReiniciarCronometro();
+        detenerSistemas();
+        cronometro.setText(modeloCronometro.reiniciar());
+        timeline.playFromStart();
         juego.ReiniciarJuego();
     }
 
@@ -85,7 +103,7 @@ public class CJuegoPracticaFacil {
 
     private void cambiarEscena(ActionEvent evento, String fxml, boolean modoDificil) {
         try {
-            cronometroJuego.DetenerCronometro();
+            detenerSistemas();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/interfaces/" + fxml));
             Parent root = loader.load();
 
@@ -108,7 +126,7 @@ public class CJuegoPracticaFacil {
     @FXML
     void volverAlLobby(ActionEvent e) {
         try {
-            cronometroJuego.DetenerCronometro();
+            detenerSistemas();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();

@@ -1,4 +1,4 @@
-package Servicios;
+package ftgw.ooodle.Servicios;
 
 import ftgw.ooodle.Modelo.Usuario;
 import io.github.cdimascio.dotenv.Dotenv;

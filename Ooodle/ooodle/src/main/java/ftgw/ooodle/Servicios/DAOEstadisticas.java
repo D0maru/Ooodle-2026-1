@@ -1,4 +1,4 @@
-package Servicios;
+package ftgw.ooodle.Servicios;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
