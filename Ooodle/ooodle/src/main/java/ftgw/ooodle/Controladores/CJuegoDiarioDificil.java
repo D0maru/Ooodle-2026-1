@@ -94,7 +94,7 @@ public class CJuegoDiarioDificil {
         timeline.playFromStart();
         juego.ReiniciarJuego();
     }
-
+//comentario de prueba
     @FXML
     void ClickCheck(ActionEvent e) {
         String resultadoValidacion = juego.ValidarFila();
