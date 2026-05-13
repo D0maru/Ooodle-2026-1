@@ -2,6 +2,8 @@ package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,6 +47,7 @@ public class CLobby {
 
     private final DAOEstadisticas daoEstadisticas = new DAOEstadisticas();
     private RelojDiario relojDiario;
+    private Timeline timelineReloj;
 
     private static final String RUTA_REGLAS = "/ftgw/ooodle/interfaces/Reglas.fxml";
     private static final String PRACTICA_FACIL = "/ftgw/ooodle/interfaces/JuegoPracticaFacil.fxml";
@@ -88,8 +91,14 @@ public class CLobby {
     }
     private void iniciarReloj() {
         boolean puedeJugar = SesionUsuario.getInstancia().getUsuarioActual().isPuedeJugar();
-        relojDiario = new RelojDiario(Reloj_Daily, btnDiario, puedeJugar);
-        relojDiario.iniciar();
+        relojDiario = new RelojDiario(puedeJugar);
+
+        timelineReloj = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
+            Reloj_Daily.setText(relojDiario.getTiempoRestante());
+            btnDiario.setDisable(!relojDiario.puedeJugar());
+        }));
+        timelineReloj.setCycleCount(Timeline.INDEFINITE);
+        timelineReloj.play();
     }
     @FXML
     void traerReglas(ActionEvent event) {
@@ -110,7 +119,7 @@ public class CLobby {
         abrirJuego(event, DIARIO_FACIL, DIARIO_DIFICIL);
     }
     private void abrirJuego(ActionEvent event, String rutaFacil, String rutaDificil) {
-        relojDiario.detener();
+        if (timelineReloj != null) timelineReloj.stop();
         String ruta = modoDificil ? rutaDificil : rutaFacil;
         cambiarEscenaCompleta(event, ruta);
     }
