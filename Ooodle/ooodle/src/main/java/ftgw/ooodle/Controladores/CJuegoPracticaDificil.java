@@ -14,29 +14,31 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import java.io.IOException;
 
 public class CJuegoPracticaDificil {
 
     @FXML private TextField a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3, a4, b4, c4, d4, a5, b5, c5, d5, a6, b6, c6, d6;
     @FXML private Label res1, res2, res3, res4, res5, res6, cronometro;
 
-    private Juego juego;
-    private CronometroJuego modeloCronometro;
-    private Timeline timeline;
-    
-    private TextField[][] matrizTablero;
-    private Label[] listaResultados;
-    private int columnaSeleccionada = 0;
-
-    // --- VARIABLES DEL BUFFER (IGUAL QUE EN DIARIO) ---
-    private String bufferTeclado = "";
-    private Timeline timerBuffer;
+    // Estilos originales por columna (Igual que en Fácil)
+    private static final String COLOR_COL_A = "-fx-background-color: #344E41; -fx-text-fill: white;"; 
+    private static final String COLOR_COL_B = "-fx-background-color: #DAD7CD; -fx-text-fill: black;"; 
+    private static final String COLOR_COL_C = "-fx-background-color: #A3B18A; -fx-text-fill: black;"; 
+    private static final String COLOR_COL_D = "-fx-background-color: #588157; -fx-text-fill: white;"; 
 
     private static final String VERDE = "-fx-background-color: #00e676; -fx-text-fill: black; -fx-font-weight: bold;";
     private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: black; -fx-font-weight: bold;";
     private static final String GRIS = "-fx-background-color: #616161; -fx-text-fill: white; -fx-font-weight: bold;";
-    private static final String NORMAL = "-fx-background-color: white; -fx-text-fill: black; -fx-border-color: #ccc;";
+
+    private Juego juego;
+    private CronometroJuego modeloCronometro;
+    private Timeline timeline;
+    private TextField[][] matrizTablero;
+    private Label[] listaResultados;
+    private int columnaSeleccionada = 0;
+
+    private String bufferTeclado = "";
+    private Timeline timerBuffer;
 
     @FXML
     public void initialize() {
@@ -49,9 +51,8 @@ public class CJuegoPracticaDificil {
         configurarEventosTablero();
         iniciarNuevoJuego();
         configurarCronometro();
-        
-        // --- INICIALIZACIÓN DEL TECLADO ---
         configurarTecladoFisico();
+        
         timerBuffer = new Timeline(new KeyFrame(Duration.millis(300), e -> procesarBuffer()));
     }
 
@@ -63,9 +64,10 @@ public class CJuegoPracticaDificil {
                     javafx.scene.input.KeyCode code = event.getCode();
 
                     if (code.isDigitKey() || (code.ordinal() >= 25 && code.ordinal() <= 34)) { 
-                        String digit = code.toString().substring(code.toString().length() - 1);
+                        String tecla = code.toString();
+                        String digit = tecla.substring(tecla.length() - 1);
                         manejarEntradaTeclado(digit);
-                        event.consume();
+                        event.consume(); // <--- EVITA EL DUPLICADO
                     } 
                     else if (code == javafx.scene.input.KeyCode.BACK_SPACE) {
                         ClickDel();
@@ -93,25 +95,27 @@ public class CJuegoPracticaDificil {
 
     private void procesarBuffer() {
         if (bufferTeclado.isEmpty()) return;
-        
-        int valor = Integer.parseInt(bufferTeclado);
-        
-        if (valor > 12) {
-            int primerDigito = Character.getNumericValue(bufferTeclado.charAt(0));
-            procesarEntrada(primerDigito);
-            bufferTeclado = bufferTeclado.substring(1);
-            procesarBuffer(); 
-        } else {
-            procesarEntrada(valor);
-            bufferTeclado = "";
-        }
+        try {
+            int valor = Integer.parseInt(bufferTeclado);
+            if (valor > 12) {
+                // Si escriben algo como "95", procesamos el 9 y dejamos el 5 para el siguiente
+                int primerDigito = Character.getNumericValue(bufferTeclado.charAt(0));
+                procesarEntrada(primerDigito);
+                bufferTeclado = bufferTeclado.substring(1);
+                procesarBuffer(); 
+            } else {
+                procesarEntrada(valor);
+                bufferTeclado = "";
+            }
+        } catch (NumberFormatException e) { bufferTeclado = ""; }
     }
 
     private void procesarEntrada(int numero) {
         if (juego.getIntentoActual() >= 6) return;
         
+        int fila = juego.getIntentoActual();
         juego.setNumeroEnCelda(columnaSeleccionada, numero);
-        matrizTablero[juego.getIntentoActual()][columnaSeleccionada].setText(String.valueOf(numero));
+        matrizTablero[fila][columnaSeleccionada].setText(String.valueOf(numero));
         
         if (columnaSeleccionada < 3) columnaSeleccionada++;
     }
@@ -141,26 +145,37 @@ public class CJuegoPracticaDificil {
         }
     }
 
-    // Botones numéricos vinculados a procesarEntrada
-    @FXML void Click1() { procesarEntrada(1); }
-    @FXML void Click2() { procesarEntrada(2); }
-    @FXML void Click3() { procesarEntrada(3); }
-    @FXML void Click4() { procesarEntrada(4); }
-    @FXML void Click5() { procesarEntrada(5); }
-    @FXML void Click6() { procesarEntrada(6); }
-    @FXML void Click7() { procesarEntrada(7); }
-    @FXML void Click8() { procesarEntrada(8); }
-    @FXML void Click9() { procesarEntrada(9); }
-    @FXML void Click10() { procesarEntrada(10); }
-    @FXML void Click11() { procesarEntrada(11); }
-    @FXML void Click12() { procesarEntrada(12); }
-
     @FXML void ClickDel() {
         bufferTeclado = ""; 
+        int fila = juego.getIntentoActual();
+        
+        // Lógica de retroceso inteligente
+        if (matrizTablero[fila][columnaSeleccionada].getText().isEmpty() && columnaSeleccionada > 0) {
+            columnaSeleccionada--;
+        }
+
         juego.borrarCelda(columnaSeleccionada);
-        matrizTablero[juego.getIntentoActual()][columnaSeleccionada].clear();
-        // En Práctica mantenemos tu lógica de retroceder columna si es necesario
-        if (columnaSeleccionada > 0) columnaSeleccionada--;
+        matrizTablero[fila][columnaSeleccionada].clear();
+    }
+
+    @FXML void ClickRestart(ActionEvent e) {
+        bufferTeclado = "";
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                TextField tf = matrizTablero[i][j];
+                tf.clear();
+                // Restaurar colores originales por columna
+                if (j == 0) tf.setStyle(COLOR_COL_A);
+                else if (j == 1) tf.setStyle(COLOR_COL_B);
+                else if (j == 2) tf.setStyle(COLOR_COL_C);
+                else tf.setStyle(COLOR_COL_D);
+            }
+        }
+        
+        if (modeloCronometro != null) cronometro.setText(modeloCronometro.reiniciar());
+        if (timeline != null) timeline.playFromStart();
+        
+        iniciarNuevoJuego();
     }
 
     private void iniciarNuevoJuego() {
@@ -180,18 +195,38 @@ public class CJuegoPracticaDificil {
         columnaSeleccionada = 0;
     }
 
-    @FXML void ClickRestart(ActionEvent e) {
-        detenerSistemas();
-        bufferTeclado = "";
-        cronometro.setText(modeloCronometro.reiniciar());
-        timeline.playFromStart();
-        for(TextField[] fila : matrizTablero) {
-            for(TextField tf : fila) {
-                tf.clear();
-                tf.setStyle(NORMAL);
+    private void configurarEventosTablero() {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                TextField tf = matrizTablero[i][j];
+                final int f = i; final int c = j;
+                
+                tf.setOnMouseClicked(e -> {
+                    if (f == juego.getIntentoActual()) columnaSeleccionada = c;
+                });
+
+                tf.setEditable(false);         // BLOQUEA ESCRITURA DIRECTA
+                tf.setFocusTraversable(false); // QUITA EL CURSOR FANTASMA
             }
         }
-        iniciarNuevoJuego();
+    }
+
+    // Botones de la UI
+    @FXML void Click1() { procesarEntrada(1); }
+    @FXML void Click2() { procesarEntrada(2); }
+    @FXML void Click3() { procesarEntrada(3); }
+    @FXML void Click4() { procesarEntrada(4); }
+    @FXML void Click5() { procesarEntrada(5); }
+    @FXML void Click6() { procesarEntrada(6); }
+    @FXML void Click7() { procesarEntrada(7); }
+    @FXML void Click8() { procesarEntrada(8); }
+    @FXML void Click9() { procesarEntrada(9); }
+    @FXML void Click10() { procesarEntrada(10); }
+    @FXML void Click11() { procesarEntrada(11); }
+    @FXML void Click12() { procesarEntrada(12); }
+
+    @FXML void volverAlLobby(ActionEvent e) {
+        cambiarEscena(e, "Lobby.fxml", false);
     }
 
     private void cambiarEscena(ActionEvent evento, String fxml, boolean modoDificil) {
@@ -206,33 +241,10 @@ public class CJuegoPracticaDificil {
             else if (controller instanceof CDerrotaPractica)
                 ((CDerrotaPractica) controller).setModoDificil(modoDificil);
 
-            // Obtención segura del Stage
-            Stage stage;
-            if (evento != null && evento.getSource() instanceof Node) {
-                stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
-            } else {
-                stage = (Stage) cronometro.getScene().getWindow();
-            }
-            
+            Stage stage = (Stage) cronometro.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception ex) { ex.printStackTrace(); }
-    }
-
-    private void configurarEventosTablero() {
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 4; j++) {
-                final int fila = i; final int col = j;
-                matrizTablero[i][j].setOnMouseClicked(e -> {
-                    if (fila == juego.getIntentoActual()) columnaSeleccionada = col;
-                });
-                matrizTablero[i][j].setEditable(false);
-            }
-        }
-    }
-
-    @FXML void volverAlLobby(ActionEvent e) {
-        cambiarEscena(e, "Lobby.fxml", false);
     }
 
     private void configurarCronometro() {

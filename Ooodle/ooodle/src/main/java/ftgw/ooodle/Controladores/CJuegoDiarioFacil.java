@@ -22,6 +22,11 @@ public class CJuegoDiarioFacil {
     @FXML private TextField a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3, a4, b4, c4, d4, a5, b5, c5, d5, a6, b6, c6, d6;
     @FXML private Label res1, res2, res3, res4, res5, res6, cronometro;
 
+    private static final String COLOR_COL_A = "-fx-background-color: #344E41; -fx-text-fill: white;"; 
+    private static final String COLOR_COL_B = "-fx-background-color: #DAD7CD; -fx-text-fill: black;"; 
+    private static final String COLOR_COL_C = "-fx-background-color: #A3B18A; -fx-text-fill: black;"; 
+    private static final String COLOR_COL_D = "-fx-background-color: #588157; -fx-text-fill: white;";
+
     private Juego juego;
     private Usuario usuarioActual;
     private CronometroJuego modeloCronometro;
@@ -166,14 +171,22 @@ public class CJuegoDiarioFacil {
     @FXML void Click9() { procesarEntrada(9); }
     @FXML void ClickCheck(ActionEvent e) { ejecutarValidacion(); }
     
-    @FXML void ClickRestart(ActionEvent e) {
+  @FXML 
+  void ClickRestart(ActionEvent e) {
         detenerSistemas();
-        cronometro.setText(modeloCronometro.reiniciar());
-        timeline.playFromStart();
-        for(TextField[] fila : matrizTablero) {
-            for(TextField tf : fila) {
+        if (modeloCronometro != null) cronometro.setText(modeloCronometro.reiniciar());
+        if (timeline != null) timeline.playFromStart();
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                TextField tf = matrizTablero[i][j];
                 tf.clear();
-                tf.setStyle(NORMAL);
+                
+                // --- RESTAURAR COLORES SEGÚN COLUMNA ---
+                if (j == 0) tf.setStyle(COLOR_COL_A);
+                else if (j == 1) tf.setStyle(COLOR_COL_B);
+                else if (j == 2) tf.setStyle(COLOR_COL_C);
+                else tf.setStyle(COLOR_COL_D);
             }
         }
         iniciarNuevoJuego();
@@ -183,10 +196,20 @@ public class CJuegoDiarioFacil {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 4; j++) {
                 final int fila = i; final int col = j;
-                matrizTablero[i][j].setOnMouseClicked(e -> {
+                TextField tf = matrizTablero[i][j];
+                
+                tf.setOnMouseClicked(e -> {
                     if (fila == juego.getIntentoActual()) columnaSeleccionada = col;
                 });
-                matrizTablero[i][j].setEditable(false);
+                
+                tf.setEditable(false);
+                tf.setFocusTraversable(false); // <--- EVITA EL FOCO VISUAL AZUL/CURSOR
+
+                // Aplicar estilo inicial al arrancar
+                if (j == 0) tf.setStyle(COLOR_COL_A);
+                else if (j == 1) tf.setStyle(COLOR_COL_B);
+                else if (j == 2) tf.setStyle(COLOR_COL_C);
+                else tf.setStyle(COLOR_COL_D);
             }
         }
     }
