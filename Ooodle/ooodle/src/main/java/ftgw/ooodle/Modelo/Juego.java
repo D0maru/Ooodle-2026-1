@@ -47,7 +47,7 @@ public class Juego {
             solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
 
-        System.out.println("Solución generada: " + Arrays.toString(solucion) + " = " + target);
+        //System.out.println("Solución generada: " + Arrays.toString(solucion) + " = " + target);
         return target;
     }
 

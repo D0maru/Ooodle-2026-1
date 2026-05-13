@@ -6,7 +6,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -245,7 +244,7 @@ public class CJuegoPracticaDificil {
             Stage stage = (Stage) cronometro.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) { mostrarAlerta("Error de navegación", "No se pudo cambiar de pantalla: " + ex.getMessage()); }
     }
 
     private void configurarCronometro() {

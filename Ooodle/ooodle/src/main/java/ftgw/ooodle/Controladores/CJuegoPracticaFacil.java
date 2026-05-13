@@ -221,7 +221,7 @@ public class CJuegoPracticaFacil {
             Stage stage = (Stage) cronometro.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) { mostrarAlerta("Error de navegación", "No se pudo cambiar de pantalla: " + ex.getMessage()); }
     }
     @FXML
     private void volverAlLobby(ActionEvent event) {

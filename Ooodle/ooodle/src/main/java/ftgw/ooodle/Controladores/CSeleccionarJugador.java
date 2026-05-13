@@ -36,7 +36,13 @@ public class CSeleccionarJugador {
 
     private void cargarJugadoresDesdeBD() {
         listaJugadores.getChildren().clear();
-        List<Usuario> usuarios = daoUsuario.cargarUsuarios();
+        List<Usuario> usuarios;
+        try {
+            usuarios = daoUsuario.cargarUsuarios();
+        } catch (RuntimeException e) {
+            mostrarError("Algo salió mal al cargar los jugadores.");
+            return;
+        }
         for (Usuario usuario : usuarios) {
             agregarFilaJugador(usuario);
         }
@@ -44,10 +50,9 @@ public class CSeleccionarJugador {
 
     private void agregarFilaJugador(Usuario usuario) {
         Label lblNombre = new Label(usuario.getNickname());
-        lblNombre.setStyle("-fx-font-size: 13px; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-padding: 0 0 0 4; -fx-background-color: #588157; -fx-background-radius: 6; -fx-padding: 4 10 4 10;");
+        lblNombre.setStyle("-fx-font-size: 13px; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-color: #588157; -fx-background-radius: 6; -fx-padding: 4 10 4 10;");
         HBox.setHgrow(lblNombre, Priority.ALWAYS);
         lblNombre.setOnMouseClicked(e -> {
-            System.out.println("Seleccionado: " + usuario.getNickname());
             SesionUsuario.getInstancia().setUsuarioActual(usuario);
             irAlLobby();
         });
@@ -66,9 +71,7 @@ public class CSeleccionarJugador {
                         exito.show();
                         cargarJugadoresDesdeBD();
                     } else {
-                        Alert error = new Alert(Alert.AlertType.ERROR,
-                            "Error al eliminar el usuario: " + resultado);
-                        error.show();
+                        mostrarError("Algo salió mal al eliminar el usuario.");
                     }
                 }
             });
@@ -86,7 +89,6 @@ public class CSeleccionarJugador {
         dialogo.setHeaderText("Ingresa el nombre del jugador");
         dialogo.setContentText("Nombre:");
 
-        // Limitar a 10 caracteres directamente en el campo de texto
         TextField campoTexto = dialogo.getEditor();
         campoTexto.setTextFormatter(new TextFormatter<>(change -> {
             if (change.getControlNewText().length() > 10) return null;
@@ -100,8 +102,11 @@ public class CSeleccionarJugador {
                 return;
             }
             String respuesta = daoUsuario.agregarUsuario(nombre.trim());
-            System.out.println(respuesta);
-            cargarJugadoresDesdeBD();
+            if (respuesta.startsWith("Error")) {
+                mostrarError("Algo salió mal al agregar el jugador.");
+            } else {
+                cargarJugadoresDesdeBD();
+            }
         });
     }
 
@@ -114,7 +119,15 @@ public class CSeleccionarJugador {
             stage.setScene(new javafx.scene.Scene(root));
             stage.show();
         } catch (java.io.IOException e) {
-            e.printStackTrace();
+            mostrarError("Algo salió mal al cargar el Lobby.");
         }
+    }
+
+    private void mostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 }

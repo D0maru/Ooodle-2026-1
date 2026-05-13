@@ -18,7 +18,7 @@ public class DAOUsuario {
         this.user = dotenv.get("DB_USER");
         this.pass = dotenv.get("DB_PASSWORD");
     }
- // poner aque compare la fecha de el id con la fecha actual 
+
     public List<Usuario> cargarUsuarios() {
         List<Usuario> lista = new ArrayList<>();
         String sql = "SELECT Id, Nickname, Ultimojuego FROM Usuario";
@@ -36,7 +36,7 @@ public class DAOUsuario {
                 lista.add(u);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error al cargar los jugadores desde la base de datos: " + e.getMessage(), e);
         }
         return lista;
     }
@@ -60,13 +60,12 @@ public class DAOUsuario {
             return "Usuario " + nickname + " agregado correctamente.";
             
         } catch (SQLException e) {
-            e.printStackTrace();
             return "Error al guardar el usuario: " + e.getMessage();
         }
     }
 
     public String eliminarUsuario(int id) {
-    String sql = "DELETE FROM Usuario WHERE Id = ?";
+        String sql = "DELETE FROM Usuario WHERE Id = ?";
 
         try (Connection con = DriverManager.getConnection(url, user, pass);
             PreparedStatement ps = con.prepareStatement(sql)) {
@@ -81,15 +80,13 @@ public class DAOUsuario {
             }
             
         } catch (SQLException e) {
-            e.printStackTrace();
             return "Error al eliminar: " + e.getMessage();
         }
     }
 
-    
     public boolean compararFechas(Date fechaBd) {
-        if(fechaBd == null)return true; 
+        if (fechaBd == null) return true; 
         Date fechaActual = new Date(System.currentTimeMillis());
         return fechaBd.before(fechaActual) && !fechaBd.toString().equals(fechaActual.toString());
     }
-} 
+}

@@ -7,7 +7,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -15,14 +14,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import java.io.IOException;
 
 public class CJuegoDiarioDificil {
 
     @FXML private TextField a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3, a4, b4, c4, d4, a5, b5, c5, d5, a6, b6, c6, d6;
     @FXML private Label res1, res2, res3, res4, res5, res6, cronometro;
 
-    // --- ESTILOS ORIGINALES POR COLUMNA ---
     private static final String COLOR_COL_A = "-fx-background-color: #344E41; -fx-text-fill: white;"; 
     private static final String COLOR_COL_B = "-fx-background-color: #DAD7CD; -fx-text-fill: black;"; 
     private static final String COLOR_COL_C = "-fx-background-color: #A3B18A; -fx-text-fill: black;"; 
@@ -139,7 +136,6 @@ public class CJuegoDiarioDificil {
             for (int j = 0; j < 4; j++) {
                 TextField tf = matrizTablero[i][j];
                 tf.clear();
-                // Restaurar colores de las columnas
                 if (j == 0) tf.setStyle(COLOR_COL_A);
                 else if (j == 1) tf.setStyle(COLOR_COL_B);
                 else if (j == 2) tf.setStyle(COLOR_COL_C);
@@ -160,7 +156,6 @@ public class CJuegoDiarioDificil {
                 tf.setEditable(false);
                 tf.setFocusTraversable(false);
                 
-                // Estilo inicial
                 if (j == 0) tf.setStyle(COLOR_COL_A);
                 else if (j == 1) tf.setStyle(COLOR_COL_B);
                 else if (j == 2) tf.setStyle(COLOR_COL_C);
@@ -191,8 +186,12 @@ public class CJuegoDiarioDificil {
         if (usuarioActual != null) {
             int id = usuarioActual.getId();
             ResultadoPartida datos = gano ? new ResultadoPartida(id, 1, 1, 1) : new ResultadoPartida(id, -1, 0, 1);
-            Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
-            SesionUsuario.getInstancia().setUsuarioActual(actualizado);
+            try {
+                Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
+                SesionUsuario.getInstancia().setUsuarioActual(actualizado);
+            } catch (RuntimeException ex) {
+                mostrarAlerta("Error al guardar partida", ex.getMessage());
+            }
         }
         cambiarEscena(gano ? "VictoriaDiario.fxml" : "DerrotaDiario.fxml");
     }
@@ -222,7 +221,9 @@ public class CJuegoDiarioDificil {
             Stage stage = (Stage) cronometro.getScene().getWindow(); 
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (Exception ex) { ex.printStackTrace(); }
+        } catch (Exception ex) {
+            mostrarAlerta("Error de navegación", "No se pudo cambiar de pantalla: " + ex.getMessage());
+        }
     }
 
     @FXML void volverAlLobby(ActionEvent event) { cambiarEscena("Lobby.fxml"); }

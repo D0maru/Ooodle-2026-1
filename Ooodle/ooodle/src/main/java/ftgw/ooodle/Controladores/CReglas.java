@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -24,14 +25,21 @@ public class CReglas {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
             Parent root = loader.load();
             Stage stage = (Stage) botonVolver.getScene().getWindow();
-             Scene scene = new Scene(root, botonVolver.getScene().getWidth(), botonVolver.getScene().getHeight());
+            Scene scene = new Scene(root, botonVolver.getScene().getWidth(), botonVolver.getScene().getHeight());
             stage.setScene(scene);
             stage.setResizable(false);   
             stage.setMaximized(false);   
             stage.show();
         } catch (IOException e) {
-            System.err.println("Error al cargar el lobby: " + e.getMessage());
-            e.printStackTrace();
+            mostrarError("No se pudo volver al Lobby. Intenta reiniciar la aplicación.\n\nDetalle: " + e.getMessage());
         }
+    }
+
+    private void mostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error de navegación");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 }
