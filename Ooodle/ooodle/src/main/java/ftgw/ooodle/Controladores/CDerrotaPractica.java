@@ -33,10 +33,6 @@ public class CDerrotaPractica {
 
     private boolean modoDificil;
 
-    public boolean isModoDificil() {
-        return modoDificil;
-    }
-
     public void setModoDificil(boolean modoDificil) {
         this.modoDificil = modoDificil;
     }

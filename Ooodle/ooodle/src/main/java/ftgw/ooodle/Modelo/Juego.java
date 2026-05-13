@@ -1,225 +1,111 @@
 package ftgw.ooodle.Modelo;
- 
-/**
- * Modelo puro del juego Ooodle.
- * No tiene ninguna dependencia de JavaFX: trabaja exclusivamente con
- * tipos primitivos y String. Toda la logica de UI (TextField, Label,
- * Alert, estilos CSS) es responsabilidad de los controladores.
- */
-public class Juego {
- 
-    // ── Claves semánticas de color devueltas al controlador ───────────────
-    // Los estilos CSS concretos son responsabilidad de cada controlador.
-    public static final String COLOR_VERDE    = "VERDE";
-    public static final String COLOR_AMARILLO = "AMARILLO";
-    public static final String COLOR_GRIS     = "GRIS";
- 
-    // ── Estado interno ────────────────────────────────────────────────────
-    private final boolean modoDificil;
- 
-    private int    target;
-    private int    intentoActual = 1;
-    private int    columnaActual = 0;
-    private int[]  solucion;
- 
-    /** Valores escritos por el jugador en cada celda (6 filas x 4 columnas). */
-    private final String[][]  celdas   = new String[6][4];
- 
-    /** true = la celda esta habilitada para edicion. */
-    private final boolean[][] editable = new boolean[6][4];
- 
-    private final Usuario  usuario;
-    private final Ecuacion ecuacion;
- 
-    // ── Constructor ───────────────────────────────────────────────────────
 
-    /**
-     * @param modoDificil true = modo dificil (numeros 1-12), false = facil (1-9).
-     * @param usuario     jugador activo.
-     * @param ecuacion    instancia de Ecuacion ya creada por el controlador,
-     *                    acorde a la dificultad que se este jugando.
-     */
-    public Juego(boolean modoDificil, Usuario usuario, Ecuacion ecuacion) {
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert;
+
+public class Juego {
+
+    private final boolean modoDificil;
+
+    private int target;
+    private int intentoActual = 1;
+    private int columnaActual = 0;
+    private int[] solucion;
+
+    private TextField[][] tablero;
+    private Label[] resultados;
+
+    private Usuario usuario;
+    private Ecuacion ecuacion;
+
+    private static final String VERDE    = "-fx-background-color: #00e676; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
+    private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
+    private static final String GRIS     = "-fx-background-color: #616161; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16px;";
+
+    private String[][] estilosOriginales;
+
+    public Juego(boolean modoDificil, Usuario usuario, TextField[][] tablero, Label[] resultados) {
         this.modoDificil = modoDificil;
         this.usuario     = usuario;
-        this.ecuacion    = ecuacion;
+        this.tablero     = tablero;
+        this.resultados  = resultados;
+        this.ecuacion    = new Ecuacion();
 
+        // Capturar estilos decorativos del FXML antes de cualquier cambio
+        this.estilosOriginales = new String[6][4];
         for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++) {
-                celdas[i][j]   = "";
-                editable[i][j] = false;
-            }
+            for (int j = 0; j < 4; j++)
+                estilosOriginales[i][j] = tablero[i][j].getStyle();
     }
- 
-    // ── API publica ───────────────────────────────────────────────────────
- 
+
     public Usuario getUsuario() {
         return usuario;
     }
- 
-    /**
-     * Genera una nueva ecuacion y devuelve el target para que el controlador
-     * lo muestre en los Labels de resultado.
-     */
-    public int GenerarNuevoJuego() {
+
+    public void GenerarNuevoJuego() {
         int maxIntentos = 100;
         solucion = null;
- 
+
         for (int i = 0; i < maxIntentos && solucion == null; i++) {
             target = modoDificil
                 ? (int)(Math.random() * 149) - 7
                 : (int)(Math.random() * 83)  - 4;
             solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
- 
+
         if (solucion == null) {
-            target   = modoDificil ? 100 : 14;
+            target = modoDificil ? 100 : 14;
             solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
- 
-        return target;
+
+        System.out.printf("SOLUCIÓN: %d * %d + %d - %d = %d%n",
+            solucion[0], solucion[1], solucion[2], solucion[3], target);
+
+        for (Label l : resultados) {
+            l.setText(String.valueOf(target));
+        }
     }
- 
-    /**
-     * Escribe un numero en la primera celda vacia y editable de la fila actual.
-     * Devuelve int[]{fila, columna} de la celda modificada, o null si no se pudo escribir.
-     */
-    public int[] EscribirNumero(String num) {
-        if (intentoActual > 6) return null;
- 
+
+    public void EscribirNumero(String num) {
+        if (intentoActual > 6) return;
+
         for (int i = 0; i < 4; i++) {
-            if (celdas[intentoActual - 1][i].isEmpty() && editable[intentoActual - 1][i]) {
-                celdas[intentoActual - 1][i] = num;
-                columnaActual = Math.min(i + 1, 3);
-                return new int[]{intentoActual - 1, i};
+            TextField campo = tablero[intentoActual - 1][i];
+
+            if (campo.getText().isEmpty() && campo.isEditable()) {
+                campo.setText(num);
+                columnaActual = i + 1;
+                if (columnaActual > 3) columnaActual = 3;
+                return;
             }
         }
-        return null;
     }
- 
-    /**
-     * Borra el digito en la columna actual de la fila activa.
-     * Devuelve int[]{fila, columna} de la celda borrada, o null si no aplico.
-     */
-    public int[] BorrarDigito() {
-        if (intentoActual > 6) return null;
-        if (!editable[intentoActual - 1][0]) return null;
- 
-        if (columnaActual > 0 && celdas[intentoActual - 1][columnaActual].isEmpty()) {
+
+    public void BorrarDigito() {
+        if (intentoActual > 6) return;
+        if (!tablero[intentoActual - 1][0].isEditable()) return;
+
+        if (columnaActual > 0 && tablero[intentoActual - 1][columnaActual].getText().isEmpty()) {
             columnaActual--;
         }
-        celdas[intentoActual - 1][columnaActual] = "";
-        return new int[]{intentoActual - 1, columnaActual};
+        tablero[intentoActual - 1][columnaActual].clear();
     }
- 
-    /**
-     * Valida la fila actual y avanza el estado del juego.
-     * Devuelve un ResultadoFila con el estado y los estilos a aplicar.
-     */
-    public ResultadoFila ValidarFila() {
-        try {
-            String regex        = modoDificil ? "([1-9]|1[0-2])" : "[1-9]";
-            String mensajeRango = modoDificil
-                ? "Solo se permiten numeros del 1 al 12."
-                : "Solo se permiten numeros del 1 al 9.";
- 
-            String[] valores = celdas[intentoActual - 1].clone();
- 
-            for (int i = 0; i < 4; i++) {
-                if (valores[i] == null || valores[i].trim().isEmpty()) {
-                    return new ResultadoFila("Debes completar todos los espacios.");
-                }
-                if (!valores[i].matches(regex)) {
-                    return new ResultadoFila(mensajeRango);
-                }
-            }
- 
-            int a = Integer.parseInt(valores[0]);
-            int b = Integer.parseInt(valores[1]);
-            int c = Integer.parseInt(valores[2]);
-            int d = Integer.parseInt(valores[3]);
- 
-            if (a == b || a == c || a == d || b == c || b == d || c == d) {
-                return new ResultadoFila("No puedes usar numeros repetidos.");
-            }
- 
-            int filaValidada = intentoActual - 1;
-            String[] estilos = calcularEstilos(new int[]{a, b, c, d});
- 
-            if (solucion != null &&
-                a == solucion[0] && b == solucion[1] &&
-                c == solucion[2] && d == solucion[3]) {
-                return new ResultadoFila("GANASTE", estilos, filaValidada);
-            }
- 
-            DeshabilitarFila(intentoActual - 1);
-            intentoActual++;
-            columnaActual = 0;
- 
-            if (intentoActual > 6) {
-                return new ResultadoFila("PERDISTE", estilos, filaValidada);
-            }
- 
-            HabilitarFila(intentoActual - 1);
-            return new ResultadoFila("CONTINUA", estilos, filaValidada);
- 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResultadoFila("Ocurrio un error inesperado.");
-        }
-    }
- 
-    /**
-     * Reinicia el estado interno y genera una nueva ecuacion.
-     * Devuelve el nuevo target para que el controlador actualice los Labels.
-     */
-    public int ReiniciarJuego() {
-        intentoActual = 1;
-        columnaActual = 0;
- 
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++) {
-                celdas[i][j]   = "";
-                editable[i][j] = false;
-            }
- 
-        HabilitarFila(0);
-        return GenerarNuevoJuego();
-    }
- 
-    public int GetIntentoActual() {
-        return intentoActual;
-    }
- 
-    public void BloquearTodo() {
-        for (int i = 0; i < 6; i++) DeshabilitarFila(i);
-    }
- 
-    public void HabilitarFila(int fila) {
-        for (int j = 0; j < 4; j++) editable[fila][j] = true;
-    }
- 
-    public void DeshabilitarFila(int fila) {
-        for (int j = 0; j < 4; j++) editable[fila][j] = false;
-    }
- 
-    /** Devuelve el valor actual de la celda [fila][col]. */
-    public String getValorCelda(int fila, int col) {
-        return celdas[fila][col];
-    }
- 
-    /** Indica si la celda [fila][col] esta habilitada para edicion. */
-    public boolean isEditable(int fila, int col) {
-        return editable[fila][col];
-    }
- 
-    // ── Logica interna ────────────────────────────────────────────────────
 
-    private String[] calcularEstilos(int[] intento) {
-        String[] estilos = new String[4];
+    private void MostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
+    private void AplicarColores(int fila, int[] intento) {
         for (int j = 0; j < 4; j++) {
+            TextField celda = tablero[fila][j];
+
             if (intento[j] == solucion[j]) {
-                estilos[j] = COLOR_VERDE;
+                celda.setStyle(VERDE);
             } else {
                 boolean estaEnSolucion = false;
                 for (int s = 0; s < 4; s++) {
@@ -228,9 +114,98 @@ public class Juego {
                         break;
                     }
                 }
-                estilos[j] = estaEnSolucion ? COLOR_AMARILLO : COLOR_GRIS;
+                celda.setStyle(estaEnSolucion ? AMARILLO : GRIS);
             }
         }
-        return estilos;
+    }
+
+    public String ValidarFila() {
+        try {
+            String[] valores = new String[4];
+            String regex = modoDificil ? "([1-9]|1[0-2])" : "[1-9]";
+            String mensajeRango = modoDificil
+                ? "Solo se permiten números del 1 al 12."
+                : "Solo se permiten números del 1 al 9.";
+
+            for (int i = 0; i < 4; i++) {
+                valores[i] = tablero[intentoActual - 1][i].getText();
+
+                if (valores[i] == null || valores[i].trim().isEmpty()) {
+                    MostrarError(mensajeRango); MostrarError("Debes completar todos los espacios.");
+                    return null;
+                }
+                if (!valores[i].matches(regex)) {
+                    MostrarError(mensajeRango);
+                    return null;
+                }
+            }
+
+            int a = Integer.parseInt(valores[0]);
+            int b = Integer.parseInt(valores[1]);
+            int c = Integer.parseInt(valores[2]);
+            int d = Integer.parseInt(valores[3]);
+
+            if (a == b || a == c || a == d || b == c || b == d || c == d) {
+                MostrarError("No puedes usar números repetidos.");
+                return null;
+            }
+
+            AplicarColores(intentoActual - 1, new int[]{a, b, c, d});
+
+            if (solucion != null &&
+                a == solucion[0] && b == solucion[1] &&
+                c == solucion[2] && d == solucion[3]) {
+                return "GANASTE";
+            }
+
+            DeshabilitarFila(intentoActual - 1);
+            intentoActual++;
+            columnaActual = 0;
+
+            if (intentoActual > 6) return "PERDISTE";
+
+            HabilitarFila(intentoActual - 1);
+            return "CONTINUA";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            MostrarError("Ocurrió un error inesperado.");
+            return null;
+        }
+    }
+
+    public void ReiniciarJuego() {
+        intentoActual = 1;
+        columnaActual = 0;
+
+        for (int i = 0; i < 6; i++)
+            for (int j = 0; j < 4; j++) {
+                tablero[i][j].clear();
+                tablero[i][j].setStyle(estilosOriginales[i][j]);
+            }
+
+        BloquearTodo();
+        HabilitarFila(0);
+        GenerarNuevoJuego();
+    }
+
+    public int GetIntentoActual() { return intentoActual; }
+
+    public void BloquearTodo() {
+        for (int i = 0; i < 6; i++) DeshabilitarFila(i);
+    }
+
+    public void HabilitarFila(int fila) {
+        for (int j = 0; j < 4; j++) {
+            tablero[fila][j].setEditable(true);
+            tablero[fila][j].setDisable(false);
+        }
+    }
+
+    public void DeshabilitarFila(int fila) {
+        for (int j = 0; j < 4; j++) {
+            tablero[fila][j].setEditable(false);
+            tablero[fila][j].setDisable(true);
+        }
     }
 }
