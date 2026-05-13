@@ -2,8 +2,7 @@ package ftgw.ooodle.Modelo;
 
 public class SesionUsuario {
     private static SesionUsuario instancia;
-    private Usuario usuarioActual; 
-
+    private Usuario usuarioActual;
 
     public static SesionUsuario getInstancia() {
         if (instancia == null) {
@@ -12,10 +11,19 @@ public class SesionUsuario {
         return instancia;
     }
 
-    public Usuario getUsuarioActual(){
+    public static boolean resetInstancia() {
+        if (instancia == null) return false;
+        instancia = null;
+        return true;
+    }
+
+    public Usuario getUsuarioActual() {
         return usuarioActual;
     }
-    public void setUsuarioActual(Usuario usuario) {
-        this.usuarioActual=usuario;
+
+    /** Retorna this para encadenamiento */
+    public SesionUsuario setUsuarioActual(Usuario usuario) {
+        this.usuarioActual = usuario;
+        return this;
     }
 }

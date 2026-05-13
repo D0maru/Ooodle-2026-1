@@ -16,8 +16,9 @@ public class Usuario {
     public int getId(){
         return id;
     }
-    public void setPuedeJugar(boolean puedeJugar) {
+    public boolean setPuedeJugar(boolean puedeJugar) {
         this.puedeJugar = puedeJugar;
+        return this.puedeJugar;
     }
     //Getter para permiso de jugar
     public boolean isPuedeJugar() {

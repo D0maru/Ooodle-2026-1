@@ -17,8 +17,23 @@ public class ResultadoPartida {
         this.cambioJugadas = cambioJugadas;
     }
 
-    public void setRachaActual(int rachaActual) { this.rachaActual = rachaActual; }
-    public void setRachaMax(int rachaMax) { this.rachaMax = rachaMax; }
-    public void setPartidasJugadas(int partidasJugadas) { this.partidasJugadas = partidasJugadas; }
-    public void setPartidasGanadas(int partidasGanadas) { this.partidasGanadas = partidasGanadas; }
+    public ResultadoPartida setRachaActual(int rachaActual) { 
+        this.rachaActual = rachaActual; 
+        return this; 
+    }
+
+    public ResultadoPartida setRachaMax(int rachaMax) { 
+        this.rachaMax = rachaMax; 
+        return this; 
+    }
+
+    public ResultadoPartida setPartidasJugadas(int partidasJugadas) { 
+        this.partidasJugadas = partidasJugadas; 
+        return this; 
+    }
+
+    public ResultadoPartida setPartidasGanadas(int partidasGanadas) { 
+        this.partidasGanadas = partidasGanadas; 
+        return this; 
+    }
 }
