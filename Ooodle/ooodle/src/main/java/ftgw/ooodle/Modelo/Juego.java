@@ -1,56 +1,38 @@
 package ftgw.ooodle.Modelo;
 
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
+import java.util.Arrays;
 
 public class Juego {
 
     private final boolean modoDificil;
-
     private int target;
-    private int intentoActual = 1;
-    private int columnaActual = 0;
+    private int intentoActual = 0; // Usamos base 0 para arrays: 0 a 5
     private int[] solucion;
-
-    private TextField[][] tablero;
-    private Label[] resultados;
-
-    private Usuario usuario;
     private Ecuacion ecuacion;
 
-    private static final String VERDE    = "-fx-background-color: #00e676; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
-    private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
-    private static final String GRIS     = "-fx-background-color: #616161; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16px;";
+    // Matriz de datos puros. -1 significa celda vacía.
+    private int[][] tableroDatos = new int[6][4];
 
-    private String[][] estilosOriginales;
-
-    public Juego(boolean modoDificil, Usuario usuario, TextField[][] tablero, Label[] resultados) {
+    public Juego(boolean modoDificil) {
         this.modoDificil = modoDificil;
-        this.usuario     = usuario;
-        this.tablero     = tablero;
-        this.resultados  = resultados;
-        this.ecuacion    = new Ecuacion();
-
-        // Capturar estilos decorativos del FXML antes de cualquier cambio
-        this.estilosOriginales = new String[6][4];
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++)
-                estilosOriginales[i][j] = tablero[i][j].getStyle();
+        this.ecuacion = new Ecuacion();
+        reiniciarMatriz();
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    private void reiniciarMatriz() {
+        for (int i = 0; i < 6; i++) {
+            Arrays.fill(tableroDatos[i], -1);
+        }
     }
 
-    public void GenerarNuevoJuego() {
+    public void generarNuevoJuego() {
         int maxIntentos = 100;
         solucion = null;
+        intentoActual = 0;
+        reiniciarMatriz();
 
         for (int i = 0; i < maxIntentos && solucion == null; i++) {
-            target = modoDificil
-                ? (int)(Math.random() * 149) - 7
-                : (int)(Math.random() * 83)  - 4;
+            target = modoDificil ? (int)(Math.random() * 149) - 7 : (int)(Math.random() * 83) - 4;
             solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
 
@@ -58,154 +40,73 @@ public class Juego {
             target = modoDificil ? 100 : 14;
             solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
+        
+        System.out.println("Solución generada: " + Arrays.toString(solucion) + " = " + target);
+    }
 
-        System.out.printf("SOLUCIÓN: %d * %d + %d - %d = %d%n",
-            solucion[0], solucion[1], solucion[2], solucion[3], target);
-
-        for (Label l : resultados) {
-            l.setText(String.valueOf(target));
+    // LÓGICA DE EDICIÓN: El modelo recibe coordenadas y valores
+    
+    public void setNumeroEnCelda(int columna, int valor) {
+        if (intentoActual < 6 && columna >= 0 && columna < 4) {
+            tableroDatos[intentoActual][columna] = valor;
         }
     }
 
-    public void EscribirNumero(String num) {
-        if (intentoActual > 6) return;
+    public void borrarCelda(int columna) {
+        if (intentoActual < 6 && columna >= 0 && columna < 4) {
+            tableroDatos[intentoActual][columna] = -1;
+        }
+    }
 
+    /**
+     * Valida la fila actual y devuelve un array de estados.
+     * @return Array de 4 enteros: 2 (Verde), 1 (Amarillo), 0 (Gris). 
+     *         Null si la fila está incompleta o tiene errores de regla.
+     */
+    public int[] validarIntento() {
+        int[] fila = tableroDatos[intentoActual];
+
+        // 1. Validar que no haya vacíos
+        for (int num : fila) if (num == -1) return null;
+
+        // 2. Validar que no haya repetidos
+        if (tieneRepetidos(fila)) return null;
+
+        // 3. Comparar con la solución
+        int[] resultadoColores = new int[4]; 
         for (int i = 0; i < 4; i++) {
-            TextField campo = tablero[intentoActual - 1][i];
-
-            if (campo.getText().isEmpty() && campo.isEditable()) {
-                campo.setText(num);
-                columnaActual = i + 1;
-                if (columnaActual > 3) columnaActual = 3;
-                return;
-            }
-        }
-    }
-
-    public void BorrarDigito() {
-        if (intentoActual > 6) return;
-        if (!tablero[intentoActual - 1][0].isEditable()) return;
-
-        if (columnaActual > 0 && tablero[intentoActual - 1][columnaActual].getText().isEmpty()) {
-            columnaActual--;
-        }
-        tablero[intentoActual - 1][columnaActual].clear();
-    }
-
-    private void MostrarError(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
-
-    private void AplicarColores(int fila, int[] intento) {
-        for (int j = 0; j < 4; j++) {
-            TextField celda = tablero[fila][j];
-
-            if (intento[j] == solucion[j]) {
-                celda.setStyle(VERDE);
+            if (fila[i] == solucion[i]) {
+                resultadoColores[i] = 2; // Representa VERDE
+            } else if (estaEnSolucion(fila[i])) {
+                resultadoColores[i] = 1; // Representa AMARILLO
             } else {
-                boolean estaEnSolucion = false;
-                for (int s = 0; s < 4; s++) {
-                    if (intento[j] == solucion[s]) {
-                        estaEnSolucion = true;
-                        break;
-                    }
-                }
-                celda.setStyle(estaEnSolucion ? AMARILLO : GRIS);
+                resultadoColores[i] = 0; // Representa GRIS
             }
         }
+
+        intentoActual++; // Avanzamos de fila solo si la validación fue exitosa
+        return resultadoColores;
     }
 
-    public String ValidarFila() {
-        try {
-            String[] valores = new String[4];
-            String regex = modoDificil ? "([1-9]|1[0-2])" : "[1-9]";
-            String mensajeRango = modoDificil
-                ? "Solo se permiten números del 1 al 12."
-                : "Solo se permiten números del 1 al 9.";
-
-            for (int i = 0; i < 4; i++) {
-                valores[i] = tablero[intentoActual - 1][i].getText();
-
-                if (valores[i] == null || valores[i].trim().isEmpty()) {
-                    MostrarError(mensajeRango); MostrarError("Debes completar todos los espacios.");
-                    return null;
-                }
-                if (!valores[i].matches(regex)) {
-                    MostrarError(mensajeRango);
-                    return null;
-                }
+    private boolean tieneRepetidos(int[] fila) {
+        for (int i = 0; i < fila.length; i++) {
+            for (int j = i + 1; j < fila.length; j++) {
+                if (fila[i] == fila[j]) return true;
             }
-
-            int a = Integer.parseInt(valores[0]);
-            int b = Integer.parseInt(valores[1]);
-            int c = Integer.parseInt(valores[2]);
-            int d = Integer.parseInt(valores[3]);
-
-            if (a == b || a == c || a == d || b == c || b == d || c == d) {
-                MostrarError("No puedes usar números repetidos.");
-                return null;
-            }
-
-            AplicarColores(intentoActual - 1, new int[]{a, b, c, d});
-
-            if (solucion != null &&
-                a == solucion[0] && b == solucion[1] &&
-                c == solucion[2] && d == solucion[3]) {
-                return "GANASTE";
-            }
-
-            DeshabilitarFila(intentoActual - 1);
-            intentoActual++;
-            columnaActual = 0;
-
-            if (intentoActual > 6) return "PERDISTE";
-
-            HabilitarFila(intentoActual - 1);
-            return "CONTINUA";
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            MostrarError("Ocurrió un error inesperado.");
-            return null;
         }
+        return false;
     }
 
-    public void ReiniciarJuego() {
-        intentoActual = 1;
-        columnaActual = 0;
-
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++) {
-                tablero[i][j].clear();
-                tablero[i][j].setStyle(estilosOriginales[i][j]);
-            }
-
-        BloquearTodo();
-        HabilitarFila(0);
-        GenerarNuevoJuego();
+    private boolean estaEnSolucion(int n) {
+        for (int s : solucion) if (s == n) return true;
+        return false;
     }
 
-    public int GetIntentoActual() { return intentoActual; }
-
-    public void BloquearTodo() {
-        for (int i = 0; i < 6; i++) DeshabilitarFila(i);
-    }
-
-    public void HabilitarFila(int fila) {
-        for (int j = 0; j < 4; j++) {
-            tablero[fila][j].setEditable(true);
-            tablero[fila][j].setDisable(false);
-        }
-    }
-
-    public void DeshabilitarFila(int fila) {
-        for (int j = 0; j < 4; j++) {
-            tablero[fila][j].setEditable(false);
-            tablero[fila][j].setDisable(true);
-        }
+    // GETTERS PARA EL CONTROLADOR
+    public int getTarget() { return target; }
+    public int getIntentoActual() { return intentoActual; }
+    public boolean esGanador() {
+        if (intentoActual == 0) return false;
+        return Arrays.equals(tableroDatos[intentoActual - 1], solucion);
     }
 }

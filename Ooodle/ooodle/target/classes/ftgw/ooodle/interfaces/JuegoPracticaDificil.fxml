@@ -14,7 +14,7 @@
    <children>
       <AnchorPane layoutX="377.0" layoutY="86.0" prefHeight="273.0" prefWidth="207.0">
          <children>
-            <Button fx:id="Bcheck" layoutX="16.0" layoutY="25.0" mnemonicParsing="false" onAction="#VerificarValor" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: GREEN; -fx-background-radius: 10;" text="Check" textFill="#1b1a1a">
+            <Button fx:id="Bcheck" layoutX="16.0" layoutY="25.0" mnemonicParsing="false" onAction="#ClickCheck" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: GREEN; -fx-background-radius: 10;" text="Check" textFill="#1b1a1a">
                <font>
                   <Font name="System Bold Italic" size="16.0" />
                </font>
@@ -22,7 +22,7 @@
                   <InnerShadow />
                </effect>
             </Button>
-            <Button fx:id="BDel" layoutX="124.0" layoutY="25.0" mnemonicParsing="false" onAction="#EliminarValor" prefHeight="46.0" prefWidth="74.0" style="-fx-background-color: RED; -fx-background-radius: 10;" text="Del" textFill="#1e1d1d">
+            <Button fx:id="BDel" layoutX="124.0" layoutY="25.0" mnemonicParsing="false" onAction="#ClickDel" prefHeight="46.0" prefWidth="74.0" style="-fx-background-color: RED; -fx-background-radius: 10;" text="Del" textFill="#1e1d1d">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

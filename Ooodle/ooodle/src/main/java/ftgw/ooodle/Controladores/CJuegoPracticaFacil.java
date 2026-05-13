@@ -1,10 +1,6 @@
 package ftgw.ooodle.Controladores;
 
-import java.io.IOException;
-import ftgw.ooodle.Modelo.CronometroJuego;
-import ftgw.ooodle.Modelo.Juego;
-import ftgw.ooodle.Modelo.SesionUsuario;
-import ftgw.ooodle.Modelo.Usuario;
+import ftgw.ooodle.Modelo.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -13,91 +9,161 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import java.io.IOException;
 
 public class CJuegoPracticaFacil {
 
-    @FXML private Button B1, B2, B3, B4, B5, B6, B7, B8, B9;
-    @FXML private Button BCheck, BDel, BTRestart, BotonLobby;
-
-    @FXML private TextField a1, a2, a3, a4, a5, a6;
-    @FXML private TextField b1, b2, b3, b4, b5, b6;
-    @FXML private TextField c1, c2, c3, c4, c5, c6;
-    @FXML private TextField d1, d2, d3, d4, d5, d6;
-
-    @FXML private Label res_1, res_2, res_3, res_4, res_5, res_6;
-    @FXML private Label cronometro;
+    @FXML private TextField a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3, a4, b4, c4, d4, a5, b5, c5, d5, a6, b6, c6, d6;
+    @FXML private Label res_1, res_2, res_3, res_4, res_5, res_6, cronometro;
 
     private Juego juego;
     private CronometroJuego modeloCronometro;    
     private Timeline timeline;
+    
+    private TextField[][] matrizTablero;
+    private Label[] listaResultados;
+    private int columnaSeleccionada = 0;
+
+    private static final String VERDE = "-fx-background-color: #00e676; -fx-text-fill: black; -fx-font-weight: bold;";
+    private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: black; -fx-font-weight: bold;";
+    private static final String GRIS = "-fx-background-color: #616161; -fx-text-fill: white; -fx-font-weight: bold;";
+    private static final String NORMAL = "-fx-background-color: white; -fx-text-fill: black; -fx-border-color: #ccc;";
+
     @FXML
     public void initialize() {  
-        modeloCronometro = new CronometroJuego();
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            String tiempoActual = modeloCronometro.incrementoSegundos();
-            cronometro.setText(tiempoActual);
-            
-            if (modeloCronometro.esTiempoMaximo()) {
-                detenerSistemas();
-            }
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-
-        TextField[][] tablero = {
-            {a1, b1, c1, d1}, {a2, b2, c2, d2},
-            {a3, b3, c3, d3}, {a4, b4, c4, d4},
-            {a5, b5, c5, d5}, {a6, b6, c6, d6}
+        matrizTablero = new TextField[][]{
+            {a1, b1, c1, d1}, {a2, b2, c2, d2}, {a3, b3, c3, d3},
+            {a4, b4, c4, d4}, {a5, b5, c5, d5}, {a6, b6, c6, d6}
         };
-        Label[] resultados = {res_1, res_2, res_3, res_4, res_5, res_6};
+        listaResultados = new Label[]{res_1, res_2, res_3, res_4, res_5, res_6};
 
-        // Agregación: se instancia Juego pasándole el Usuario desde la sesión
-        Usuario usuario = SesionUsuario.getInstancia().getUsuarioActual();
-        juego = new Juego(false, usuario, tablero, resultados);
-        juego.GenerarNuevoJuego();
-        juego.BloquearTodo();
-        juego.HabilitarFila(0);
-    }
-    private String detenerSistemas() {
-        if (timeline != null) timeline.stop();
-        return "Cronómetro pausado";
+        configurarEventosTablero();
+        iniciarNuevoJuego();
+        configurarCronometro();
+        // Registro del teclado físico
+        configurarTecladoFisico();
     }
 
-    @FXML void Click1(ActionEvent e) { juego.EscribirNumero("1"); }
-    @FXML void Click2(ActionEvent e) { juego.EscribirNumero("2"); }
-    @FXML void Click3(ActionEvent e) { juego.EscribirNumero("3"); }
-    @FXML void Click4(ActionEvent e) { juego.EscribirNumero("4"); }
-    @FXML void Click5(ActionEvent e) { juego.EscribirNumero("5"); }
-    @FXML void Click6(ActionEvent e) { juego.EscribirNumero("6"); }
-    @FXML void Click7(ActionEvent e) { juego.EscribirNumero("7"); }
-    @FXML void Click8(ActionEvent e) { juego.EscribirNumero("8"); }
-    @FXML void Click9(ActionEvent e) { juego.EscribirNumero("9"); }
+    private void configurarTecladoFisico() {
+        javafx.application.Platform.runLater(() -> {
+            Scene scene = cronometro.getScene();
+            if (scene != null) {
+                scene.addEventFilter(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+                    javafx.scene.input.KeyCode code = event.getCode();
 
-    @FXML void ClickDel(ActionEvent e)     { juego.BorrarDigito(); }
-    @FXML void ClickRestart(ActionEvent e) {
-        detenerSistemas();
-        cronometro.setText(modeloCronometro.reiniciar());
-        timeline.playFromStart();
-        juego.ReiniciarJuego();
+                    // Números 1-9 (Superior y Numpad)
+                    if (code.isDigitKey() && code != javafx.scene.input.KeyCode.DIGIT0 && code != javafx.scene.input.KeyCode.NUMPAD0) {
+                        String tecla = code.toString();
+                        String digit = tecla.substring(tecla.length() - 1);
+                        procesarEntrada(Integer.parseInt(digit));
+                        event.consume();
+                    } 
+                    else if (code == javafx.scene.input.KeyCode.BACK_SPACE) {
+                        ClickDel(null);
+                        event.consume();
+                    }
+                    else if (code == javafx.scene.input.KeyCode.ENTER) {
+                        ClickCheck(new ActionEvent(event.getSource(), null));
+                        event.consume();
+                    }
+                });
+            }
+        });
+    }
+
+    private void iniciarNuevoJuego() {
+        juego = new Juego(false);
+        juego.generarNuevoJuego();
+        for (Label l : listaResultados) l.setText(String.valueOf(juego.getTarget()));
+        actualizarEstadoFilas();
+    }
+
+    private void procesarEntrada(int numero) {
+        if (juego.getIntentoActual() >= 6) return;
+        juego.setNumeroEnCelda(columnaSeleccionada, numero);
+        matrizTablero[juego.getIntentoActual()][columnaSeleccionada].setText(String.valueOf(numero));
+        if (columnaSeleccionada < 3) columnaSeleccionada++;
     }
 
     @FXML
     void ClickCheck(ActionEvent e) {
-        String resultado = juego.ValidarFila();
-        if (resultado == null) return;
+        int filaActual = juego.getIntentoActual();
+        int[] colores = juego.validarIntento();
+        
+        if (colores == null) {
+            mostrarAlerta("Atención", "Completa la fila sin repetir números.");
+            return;
+        }
 
-        switch (resultado) {
-            case "GANASTE":
-                cambiarEscena(e, "VictoriaPractica.fxml", false);
-                break;
-            case "PERDISTE":
-                cambiarEscena(e, "DerrotaPractica.fxml", false);
-                break;
+        for (int j = 0; j < 4; j++) {
+            if (colores[j] == 2) matrizTablero[filaActual][j].setStyle(VERDE);
+            else if (colores[j] == 1) matrizTablero[filaActual][j].setStyle(AMARILLO);
+            else matrizTablero[filaActual][j].setStyle(GRIS);
+        }
+
+        if (juego.esGanador()) {
+            cambiarEscena(e, "VictoriaPractica.fxml", false);
+        } else if (juego.getIntentoActual() >= 6) {
+            cambiarEscena(e, "DerrotaPractica.fxml", false);
+        } else {
+            actualizarEstadoFilas();
+        }
+    }
+
+    private void actualizarEstadoFilas() {
+        int filaActiva = juego.getIntentoActual();
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                matrizTablero[i][j].setDisable(i != filaActiva);
+            }
+        }
+        columnaSeleccionada = 0;
+    }
+
+    // Botones UI vinculados a la lógica central
+    @FXML void Click1(ActionEvent e) { procesarEntrada(1); }
+    @FXML void Click2(ActionEvent e) { procesarEntrada(2); }
+    @FXML void Click3(ActionEvent e) { procesarEntrada(3); }
+    @FXML void Click4(ActionEvent e) { procesarEntrada(4); }
+    @FXML void Click5(ActionEvent e) { procesarEntrada(5); }
+    @FXML void Click6(ActionEvent e) { procesarEntrada(6); }
+    @FXML void Click7(ActionEvent e) { procesarEntrada(7); }
+    @FXML void Click8(ActionEvent e) { procesarEntrada(8); }
+    @FXML void Click9(ActionEvent e) { procesarEntrada(9); }
+
+    @FXML void ClickDel(ActionEvent e) {
+        juego.borrarCelda(columnaSeleccionada);
+        matrizTablero[juego.getIntentoActual()][columnaSeleccionada].clear();
+        if (columnaSeleccionada > 0) columnaSeleccionada--;
+    }
+
+    @FXML void ClickRestart(ActionEvent e) {
+        detenerSistemas();
+        cronometro.setText(modeloCronometro.reiniciar());
+        timeline.playFromStart();
+        for(TextField[] fila : matrizTablero) {
+            for(TextField tf : fila) {
+                tf.clear();
+                tf.setStyle(NORMAL);
+            }
+        }
+        iniciarNuevoJuego();
+    }
+
+    private void configurarEventosTablero() {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                final int f = i; final int c = j;
+                matrizTablero[i][j].setOnMouseClicked(event -> {
+                    if (f == juego.getIntentoActual()) columnaSeleccionada = c;
+                });
+                matrizTablero[i][j].setDisable(true); // Se habilitan por actualizarEstadoFilas
+            }
         }
     }
 
@@ -113,29 +179,40 @@ public class CJuegoPracticaFacil {
             else if (controller instanceof CDerrotaPractica)
                 ((CDerrotaPractica) controller).setModoDificil(modoDificil);
 
-            Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, ((Node) evento.getSource()).getScene().getWidth(), ((Node) evento.getSource()).getScene().getHeight()));
-            stage.setResizable(false);   
-            stage.setMaximized(false);   
+            // Obtención robusta del Stage
+            Stage stage;
+            if (evento != null && evento.getSource() instanceof Node) {
+                stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
+            } else {
+                stage = (Stage) cronometro.getScene().getWindow();
+            }
+            
+            stage.setScene(new Scene(root));
             stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception ex) { ex.printStackTrace(); }
     }
 
-    @FXML
-    void volverAlLobby(ActionEvent e) {
-        try {
-            detenerSistemas();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root, ((Node) e.getSource()).getScene().getWidth(), ((Node) e.getSource()).getScene().getHeight()));
-            stage.setResizable(false);   
-            stage.setMaximized(false);   
-            stage.show();
-        } catch (IOException e2) {
-            e2.printStackTrace();
-        }
+    @FXML void volverAlLobby(ActionEvent e) {
+        cambiarEscena(e, "Lobby.fxml", false);
+    }
+
+    private void configurarCronometro() {
+        modeloCronometro = new CronometroJuego();
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            cronometro.setText(modeloCronometro.incrementoSegundos());
+            if (modeloCronometro.esTiempoMaximo()) detenerSistemas();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+    }
+
+    private void detenerSistemas() { if (timeline != null) timeline.stop(); }
+
+    private void mostrarAlerta(String titulo, String msg) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(msg);
+        alert.showAndWait();
     }
 }
