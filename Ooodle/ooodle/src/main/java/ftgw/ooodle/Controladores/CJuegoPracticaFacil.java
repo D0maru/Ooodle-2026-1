@@ -187,7 +187,8 @@ public class CJuegoPracticaFacil {
     @FXML void Click9(ActionEvent e) { procesarEntrada(9); }
 
     private void iniciarNuevoJuego() {
-        juego = new Juego(false);
+        Ecuacion ecuacion = new Ecuacion();
+        juego = new Juego(false, ecuacion);
         juego.generarNuevoJuego();
         for (Label l : listaResultados) l.setText(String.valueOf(juego.getTarget()));
         actualizarEstadoFilas();

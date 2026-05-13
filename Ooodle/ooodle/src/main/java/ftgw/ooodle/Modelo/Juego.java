@@ -13,9 +13,9 @@ public class Juego {
     // Matriz de datos puros. -1 significa celda vacía.
     private int[][] tableroDatos = new int[6][4];
 
-    public Juego(boolean modoDificil) {
+    public Juego(boolean modoDificil, Ecuacion ecuacion) {
         this.modoDificil = modoDificil;
-        this.ecuacion = new Ecuacion();
+        this.ecuacion = ecuacion;
         reiniciarMatriz();
     }
 

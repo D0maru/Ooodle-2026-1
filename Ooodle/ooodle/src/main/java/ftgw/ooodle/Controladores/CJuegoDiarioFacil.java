@@ -133,7 +133,8 @@ public class CJuegoDiarioFacil {
     }
 
     private void iniciarNuevoJuego() {
-        juego = new Juego(false);
+        Ecuacion ecuacion = new Ecuacion();
+        juego = new Juego(false, ecuacion);
         juego.generarNuevoJuego();
         for (Label l : listaResultados) l.setText(String.valueOf(juego.getTarget()));
         actualizarEstadoFilas();
