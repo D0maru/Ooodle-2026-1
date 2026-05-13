@@ -19,13 +19,19 @@ public class Juego {
         reiniciarMatriz();
     }
 
-    private void reiniciarMatriz() {
+    private boolean reiniciarMatriz() {
         for (int i = 0; i < 6; i++) {
             Arrays.fill(tableroDatos[i], -1);
         }
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < tableroDatos[i].length; j++) {
+                if (tableroDatos[i][j] != -1) return false;
+            }
+        }
+        return true;
     }
 
-    public void generarNuevoJuego() {
+    public int generarNuevoJuego() {
         int maxIntentos = 100;
         solucion = null;
         intentoActual = 0;
@@ -40,22 +46,27 @@ public class Juego {
             target = modoDificil ? 100 : 14;
             solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
-        
+
         System.out.println("Solución generada: " + Arrays.toString(solucion) + " = " + target);
+        return target;
     }
 
     // LÓGICA DE EDICIÓN: El modelo recibe coordenadas y valores
     
-    public void setNumeroEnCelda(int columna, int valor) {
+    public boolean setNumeroEnCelda(int columna, int valor) {
         if (intentoActual < 6 && columna >= 0 && columna < 4) {
             tableroDatos[intentoActual][columna] = valor;
+            return tableroDatos[intentoActual][columna] == valor;
         }
+        return false;
     }
 
-    public void borrarCelda(int columna) {
+    public boolean borrarCelda(int columna) {
         if (intentoActual < 6 && columna >= 0 && columna < 4) {
             tableroDatos[intentoActual][columna] = -1;
+            return tableroDatos[intentoActual][columna] == -1;
         }
+        return false;
     }
 
     /**
@@ -104,9 +115,9 @@ public class Juego {
 
     // GETTERS PARA EL CONTROLADOR
     public int getTarget() { return target; }
-    public int getIntentoActual() { return intentoActual; }
-    public boolean esGanador() {
-        if (intentoActual == 0) return false;
-        return Arrays.equals(tableroDatos[intentoActual - 1], solucion);
-    }
+        public int getIntentoActual() { return intentoActual; }
+        public boolean esGanador() {
+            if (intentoActual == 0) return false;
+            return Arrays.equals(tableroDatos[intentoActual - 1], solucion);
+        }
 }
