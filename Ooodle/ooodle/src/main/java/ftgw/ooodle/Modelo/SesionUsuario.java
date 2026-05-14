@@ -29,16 +29,25 @@ public class SesionUsuario {
         return instancia;
     }
 
+    /** 
+     * @return boolean
+     */
     public static boolean resetInstancia() {
         if (instancia == null) return false;
         instancia = null;
         return true;
     }
 
+    /** 
+     * @return boolean
+     */
     public static boolean haySesionActiva() {
         return instancia != null;
     }
 
+    /** 
+     * @return Usuario
+     */
     public Usuario getUsuarioActual() {
         return usuarioActual;
     }

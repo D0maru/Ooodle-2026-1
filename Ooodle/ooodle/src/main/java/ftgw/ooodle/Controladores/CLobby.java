@@ -100,11 +100,17 @@ public class CLobby {
         timelineReloj.play();
     }
 
+    /** 
+     * @param event
+     */
     @FXML
     void traerReglas(ActionEvent event) {
         cargarVistaEnPanel(RUTA_REGLAS);
     }
 
+    /** 
+     * @param event
+     */
     @FXML
     void cambiarDificultad(MouseEvent event) {
         modoDificil = !modoDificil;
@@ -112,22 +118,36 @@ public class CLobby {
         actualizarTextoDificultad();
     }
 
+    /** 
+     * @param event
+     */
     @FXML
     void abrirJPrac(ActionEvent event) {
         abrirJuego(event, PRACTICA_FACIL, PRACTICA_DIFICIL);
     }
 
+    /** 
+     * @param event
+     */
     @FXML
     void abrirJdiario(ActionEvent event) {
         abrirJuego(event, DIARIO_FACIL, DIARIO_DIFICIL);
     }
 
+    /** 
+     * @param event
+     * @param rutaFacil
+     * @param rutaDificil
+     */
     private void abrirJuego(ActionEvent event, String rutaFacil, String rutaDificil) {
         if (timelineReloj != null) timelineReloj.stop();
         String ruta = modoDificil ? rutaDificil : rutaFacil;
         cambiarEscenaCompleta(event, ruta);
     }
 
+    /** 
+     * @param ruta
+     */
     private void cargarVistaEnPanel(String ruta) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(ruta));
@@ -138,6 +158,10 @@ public class CLobby {
         }
     }
 
+    /** 
+     * @param event
+     * @param ruta
+     */
     private void cambiarEscenaCompleta(ActionEvent event, String ruta) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource(ruta));
@@ -163,6 +187,9 @@ public class CLobby {
         lblRango.setText(modoDificil ? "Numeros del 1-12" : "Numeros del 1-9");
     }
 
+    /** 
+     * @param root
+     */
     private void ajustarAnchors(Parent root) {
         AnchorPane.setTopAnchor(root, 0.0);
         AnchorPane.setBottomAnchor(root, 0.0);
@@ -170,10 +197,17 @@ public class CLobby {
         AnchorPane.setRightAnchor(root, 0.0);
     }
 
+    /** 
+     * @param event
+     * @return Stage
+     */
     private Stage obtenerStage(ActionEvent event) {
         return (Stage) ((Node) event.getSource()).getScene().getWindow();
     }
 
+    /** 
+     * @param mensaje
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
@@ -182,6 +216,9 @@ public class CLobby {
         alert.showAndWait();
     }
 
+    /** 
+     * @param event
+     */
     @FXML
     void volverUsuario(ActionEvent event) {
         cambiarEscenaCompleta(event, "/ftgw/ooodle/interfaces/SeleccionarJugador.fxml");

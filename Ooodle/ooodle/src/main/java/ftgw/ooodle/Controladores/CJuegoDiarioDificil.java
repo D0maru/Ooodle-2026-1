@@ -82,6 +82,9 @@ public class CJuegoDiarioDificil {
         });
     }
 
+    /** 
+     * @param digito
+     */
     private void manejarEntradaTeclado(String digito) {
         timerBuffer.stop();
         bufferTeclado += digito;
@@ -108,6 +111,9 @@ public class CJuegoDiarioDificil {
         } catch (NumberFormatException e) { bufferTeclado = ""; }
     }
 
+    /** 
+     * @param numero
+     */
     private void procesarEntrada(int numero) {
         if (juego.getIntentoActual() >= 6) return;
         int fila = juego.getIntentoActual();
@@ -181,6 +187,9 @@ public class CJuegoDiarioDificil {
         else actualizarEstadoFilas();
     }
 
+    /** 
+     * @param gano
+     */
     private void finalizarPartida(boolean gano) {
         detenerSistemas();
         if (usuarioActual != null) {
@@ -214,6 +223,9 @@ public class CJuegoDiarioDificil {
         columnaSeleccionada = 0; 
     }
 
+    /** 
+     * @param fxml
+     */
     private void cambiarEscena(String fxml) {
         try {
             detenerSistemas();
@@ -243,6 +255,10 @@ public class CJuegoDiarioDificil {
         if (timerBuffer != null) timerBuffer.stop();
     }
 
+    /** 
+     * @param titulo
+     * @param msg
+     */
     private void mostrarAlerta(String titulo, String msg) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(titulo);

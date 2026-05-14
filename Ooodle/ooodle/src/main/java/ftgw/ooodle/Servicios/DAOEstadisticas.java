@@ -123,6 +123,10 @@ public class DAOEstadisticas {
         return resultado;
     }
 
+    /** 
+     * @param fechaDB
+     * @return boolean
+     */
     private boolean evaluarPermisoJuego(java.sql.Date fechaDB) {
         if (fechaDB == null) return true;
         LocalDate fechaUltimoJuego = fechaDB.toLocalDate();

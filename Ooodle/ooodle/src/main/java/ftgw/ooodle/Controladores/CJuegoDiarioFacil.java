@@ -82,6 +82,9 @@ public class CJuegoDiarioFacil {
         });
     }
 
+    /** 
+     * @param numero
+     */
     private void procesarEntrada(int numero) {
         if (juego.getIntentoActual() >= 6) return;
         
@@ -117,6 +120,9 @@ public class CJuegoDiarioFacil {
         else actualizarEstadoFilas();
     }
 
+    /** 
+     * @param gano
+     */
     private void finalizarPartida(boolean gano) {
         detenerSistemas();
         if (usuarioActual != null) {
@@ -150,6 +156,9 @@ public class CJuegoDiarioFacil {
         columnaSeleccionada = 0;
     }
 
+    /** 
+     * @param fxml
+     */
     private void cambiarEscena(String fxml) {
         try {
             detenerSistemas();
@@ -160,6 +169,9 @@ public class CJuegoDiarioFacil {
         } catch (Exception ex) { mostrarAlerta("Error de navegación", "No se pudo cambiar de pantalla: " + ex.getMessage()); }
     }
 
+    /** 
+     * @param e
+     */
     // Botones UI
     @FXML void Click1() { procesarEntrada(1); }
     @FXML void Click2() { procesarEntrada(2); }
@@ -172,6 +184,9 @@ public class CJuegoDiarioFacil {
     @FXML void Click9() { procesarEntrada(9); }
     @FXML void ClickCheck(ActionEvent e) { ejecutarValidacion(); }
     
+  /** 
+   * @param e
+   */
   @FXML 
   void ClickRestart(ActionEvent e) {
         detenerSistemas();
@@ -229,6 +244,10 @@ public class CJuegoDiarioFacil {
 
     private void detenerSistemas() { if (timeline != null) timeline.stop(); }
 
+    /** 
+     * @param titulo
+     * @param msg
+     */
     private void mostrarAlerta(String titulo, String msg) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(titulo);

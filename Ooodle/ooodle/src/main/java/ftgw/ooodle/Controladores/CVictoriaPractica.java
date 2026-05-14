@@ -19,10 +19,16 @@ public class CVictoriaPractica {
 
     private boolean modoDificil;
 
+    /** 
+     * @param modoDificil
+     */
     public void setModoDificil(boolean modoDificil) {
         this.modoDificil = modoDificil;
     }
 
+    /** 
+     * @param event
+     */
     @FXML
     void Volver_Inicio(ActionEvent event) {
         try {
@@ -37,6 +43,9 @@ public class CVictoriaPractica {
         }
     }
 
+    /** 
+     * @param event
+     */
     @FXML
     void Volver_a_Jugar(ActionEvent event) {
         try {
@@ -53,6 +62,9 @@ public class CVictoriaPractica {
         }
     }
 
+    /** 
+     * @param mensaje
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error de navegación");

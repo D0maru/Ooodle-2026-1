@@ -15,6 +15,9 @@ public class CVictoriaDiario {
     
     @FXML private Button botonRegresoLobby;
 
+    /** 
+     * @param event
+     */
     @FXML
     void Volver(ActionEvent event) {
         try {
@@ -30,6 +33,9 @@ public class CVictoriaDiario {
         }
     }
 
+    /** 
+     * @param mensaje
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error de navegación");

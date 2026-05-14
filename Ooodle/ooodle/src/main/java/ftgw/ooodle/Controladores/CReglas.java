@@ -19,6 +19,9 @@ public class CReglas {
     @FXML private Button botonVolver;
     @FXML private Label labeltitulo;
 
+    /** 
+     * @param event
+     */
     @FXML
     void volverLobby(ActionEvent event) {
         try {
@@ -35,6 +38,9 @@ public class CReglas {
         }
     }
 
+    /** 
+     * @param mensaje
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error de navegación");

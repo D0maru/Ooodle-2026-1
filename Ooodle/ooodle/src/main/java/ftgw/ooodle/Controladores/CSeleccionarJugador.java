@@ -48,6 +48,9 @@ public class CSeleccionarJugador {
         }
     }
 
+    /** 
+     * @param usuario
+     */
     private void agregarFilaJugador(Usuario usuario) {
         Label lblNombre = new Label(usuario.getNickname());
         lblNombre.setStyle("-fx-font-size: 13px; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-color: #588157; -fx-background-radius: 6; -fx-padding: 4 10 4 10;");
@@ -82,6 +85,9 @@ public class CSeleccionarJugador {
         listaJugadores.getChildren().add(fila);
     }
 
+    /** 
+     * @param event
+     */
     @FXML
     void agregarJugador(ActionEvent event) {
         TextInputDialog dialogo = new TextInputDialog();
@@ -123,6 +129,9 @@ public class CSeleccionarJugador {
         }
     }
 
+    /** 
+     * @param mensaje
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

@@ -77,6 +77,9 @@ public class CJuegoPracticaFacil {
         });
     }
 
+    /** 
+     * @param numero
+     */
     private void procesarEntrada(int numero) {
         if (juego.getIntentoActual() >= 6) return;
         
@@ -92,6 +95,9 @@ public class CJuegoPracticaFacil {
         }
     }
 
+    /** 
+     * @param e
+     */
     @FXML 
     void ClickDel(ActionEvent e) {
         int fila = juego.getIntentoActual();
@@ -105,6 +111,9 @@ public class CJuegoPracticaFacil {
         matrizTablero[fila][columnaSeleccionada].clear();
     }
 
+    /** 
+     * @param e
+     */
     @FXML
     void ClickCheck(ActionEvent e) {
         int filaActual = juego.getIntentoActual();
@@ -157,6 +166,9 @@ public class CJuegoPracticaFacil {
         }
     }
 
+    /** 
+     * @param e
+     */
     @FXML 
     void ClickRestart(ActionEvent e) {
         for (int i = 0; i < 6; i++) {
@@ -203,6 +215,10 @@ public class CJuegoPracticaFacil {
 
     private void detenerSistemas() { if (timeline != null) timeline.stop(); }
 
+    /** 
+     * @param titulo
+     * @param msg
+     */
     private void mostrarAlerta(String titulo, String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
@@ -211,6 +227,11 @@ public class CJuegoPracticaFacil {
         alert.showAndWait();
     }
 
+    /** 
+     * @param evento
+     * @param fxml
+     * @param modoDificil
+     */
     private void cambiarEscena(ActionEvent evento, String fxml, boolean modoDificil) {
         try {
             detenerSistemas();
@@ -221,6 +242,9 @@ public class CJuegoPracticaFacil {
             stage.show();
         } catch (Exception ex) { mostrarAlerta("Error de navegación", "No se pudo cambiar de pantalla: " + ex.getMessage()); }
     }
+    /** 
+     * @param event
+     */
     @FXML
     private void volverAlLobby(ActionEvent event) {
         cambiarEscena(event, "Lobby.fxml", false);

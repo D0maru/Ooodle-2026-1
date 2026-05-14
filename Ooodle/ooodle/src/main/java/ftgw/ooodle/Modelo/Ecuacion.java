@@ -2,10 +2,22 @@ package ftgw.ooodle.Modelo;
 
 public class Ecuacion {
 
+    /** 
+     * @param a
+     * @param b
+     * @param c
+     * @param d
+     * @return int
+     */
     private int Evaluar(int a, int b, int c, int d) {
         return (a * b) + c - d;
     }
 
+    /** 
+     * @param target
+     * @param modoDificil
+     * @return int[]
+     */
     public int[] GenerarEcuacion(int target, boolean modoDificil) {
         int min = 1;
         int max;

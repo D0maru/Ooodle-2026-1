@@ -13,6 +13,10 @@ public class App extends Application {
 
     private static Scene scene;
 
+    /** 
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         // CORRECCIÓN: "SeleccionarJugador" con S mayúscula para que coincida con el archivo real
@@ -23,10 +27,19 @@ public class App extends Application {
         stage.show();
     }
 
+    /** 
+     * @param fxml
+     * @throws IOException
+     */
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
     }
 
+    /** 
+     * @param fxml
+     * @return Parent
+     * @throws IOException
+     */
     private static Parent loadFXML(String fxml) throws IOException {
         // Construimos la ruta absoluta dentro del JAR
         String rutaCompleta = "/ftgw/ooodle/" + fxml + ".fxml";
@@ -40,6 +53,9 @@ public class App extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(recurso);
         return fxmlLoader.load();
     }
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }

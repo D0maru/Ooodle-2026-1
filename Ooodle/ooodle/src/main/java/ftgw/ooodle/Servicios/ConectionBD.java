@@ -16,6 +16,9 @@ public class ConectionBD {
     // ─── Dotenv ──────────────────────────────────────────────────────────────
     private static final Dotenv dotenv = cargarDotenv();
 
+    /** 
+     * @return Dotenv
+     */
     private static Dotenv cargarDotenv() {
         // 1. Intentar desde el classpath (src/main/resources/.env)
         try {
@@ -55,6 +58,10 @@ public class ConectionBD {
     // ─── Constructor ─────────────────────────────────────────────────────────
     private ConectionBD() {}
 
+    /** 
+     * @return Connection
+     * @throws SQLException
+     */
     // ─── Métodos ─────────────────────────────────────────────────────────────
     public static Connection getConexion() throws SQLException {
         if (conexion == null || conexion.isClosed()) {

@@ -14,28 +14,49 @@ public class Juego {
     // Matriz de datos puros. -1 significa celda vacía.
     private int[][] tableroDatos = new int[6][4];
 
+    /** 
+     * @return int[]
+     */
     public int[] getSolucion() {
         return solucion;
     }
 
+    /** 
+     * @param solucion
+     * @return boolean
+     */
     public boolean setSolucion(int[] solucion) {
         this.solucion = solucion;
         return this.solucion == solucion;
     }
 
+    /** 
+     * @return Ecuacion
+     */
     public Ecuacion getEcuacion() {
         return ecuacion;
     }
 
+    /** 
+     * @param ecuacion
+     * @return boolean
+     */
     public boolean setEcuacion(Ecuacion ecuacion) {
         this.ecuacion = ecuacion;
         return this.ecuacion == ecuacion;
     }
 
+    /** 
+     * @return int[][]
+     */
     public int[][] getTableroDatos() {
         return tableroDatos;
     }
 
+    /** 
+     * @param tableroDatos
+     * @return boolean
+     */
     public boolean setTableroDatos(int[][] tableroDatos) {
         this.tableroDatos = tableroDatos;
         return this.tableroDatos == tableroDatos;
@@ -50,6 +71,9 @@ public class Juego {
 
     public Usuario getUsuario() { return usuario; }
 
+    /** 
+     * @return boolean
+     */
     private boolean reiniciarMatriz() {
         for (int i = 0; i < 6; i++) {
             Arrays.fill(tableroDatos[i], -1);
@@ -62,6 +86,9 @@ public class Juego {
         return true;
     }
 
+    /** 
+     * @return int
+     */
     public int generarNuevoJuego() {
         int maxIntentos = 100;
         solucion = null;
@@ -80,6 +107,11 @@ public class Juego {
         return target;
     }
 
+    /** 
+     * @param columna
+     * @param valor
+     * @return boolean
+     */
     // LÓGICA DE EDICIÓN: El modelo recibe coordenadas y valores
     
     public boolean setNumeroEnCelda(int columna, int valor) {
@@ -90,6 +122,10 @@ public class Juego {
         return false;
     }
 
+    /** 
+     * @param columna
+     * @return boolean
+     */
     public boolean borrarCelda(int columna) {
         if (intentoActual < 6 && columna >= 0 && columna < 4) {
             tableroDatos[intentoActual][columna] = -1;
@@ -128,6 +164,10 @@ public class Juego {
         return resultadoColores;
     }
 
+    /** 
+     * @param fila
+     * @return boolean
+     */
     private boolean tieneRepetidos(int[] fila) {
         for (int i = 0; i < fila.length; i++) {
             for (int j = i + 1; j < fila.length; j++) {
@@ -137,14 +177,25 @@ public class Juego {
         return false;
     }
 
+    /** 
+     * @param n
+     * @return boolean
+     */
     private boolean estaEnSolucion(int n) {
         for (int s : solucion) if (s == n) return true;
         return false;
     }
 
+    /** 
+     * @param esGanador(
+     * @return int
+     */
     // GETTERS PARA EL CONTROLADOR
     public int getTarget() { return target; }
     public int getIntentoActual() { return intentoActual; }
+    /** 
+     * @return boolean
+     */
     public boolean esGanador() {
         if (intentoActual == 0) return false;
         return Arrays.equals(tableroDatos[intentoActual - 1], solucion);

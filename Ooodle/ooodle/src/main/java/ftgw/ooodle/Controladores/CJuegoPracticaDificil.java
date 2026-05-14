@@ -81,6 +81,9 @@ public class CJuegoPracticaDificil {
         });
     }
 
+    /** 
+     * @param digito
+     */
     private void manejarEntradaTeclado(String digito) {
         timerBuffer.stop(); 
         bufferTeclado += digito;
@@ -109,6 +112,9 @@ public class CJuegoPracticaDificil {
         } catch (NumberFormatException e) { bufferTeclado = ""; }
     }
 
+    /** 
+     * @param numero
+     */
     private void procesarEntrada(int numero) {
         if (juego.getIntentoActual() >= 6) return;
         
@@ -119,6 +125,9 @@ public class CJuegoPracticaDificil {
         if (columnaSeleccionada < 3) columnaSeleccionada++;
     }
 
+    /** 
+     * @param e
+     */
     @FXML
     void ClickCheck(ActionEvent e) {
         int filaAValidar = juego.getIntentoActual();
@@ -228,6 +237,11 @@ public class CJuegoPracticaDificil {
         cambiarEscena(e, "Lobby.fxml", false);
     }
 
+    /** 
+     * @param evento
+     * @param fxml
+     * @param modoDificil
+     */
     private void cambiarEscena(ActionEvent evento, String fxml, boolean modoDificil) {
         try {
             detenerSistemas();
@@ -261,6 +275,10 @@ public class CJuegoPracticaDificil {
         if (timerBuffer != null) timerBuffer.stop();
     }
 
+    /** 
+     * @param titulo
+     * @param msg
+     */
     private void mostrarAlerta(String titulo, String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);

@@ -16,6 +16,9 @@ public class CDerrotaDiario {
     @FXML
     private Button BotonRegreso;
 
+    /** 
+     * @param event
+     */
     @FXML
     void Volver(ActionEvent event) {
         try {
@@ -31,6 +34,9 @@ public class CDerrotaDiario {
         }
     }
 
+    /** 
+     * @param mensaje
+     */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error de navegación");

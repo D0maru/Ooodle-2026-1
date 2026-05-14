@@ -19,6 +19,9 @@ public class DAOUsuario {
         this.pass = dotenv.get("DB_PASSWORD");
     }
 
+    /** 
+     * @return List<Usuario>
+     */
     public List<Usuario> cargarUsuarios() {
         List<Usuario> lista = new ArrayList<>();
         String sql = "SELECT Id, Nickname, Ultimojuego FROM Usuario";
@@ -41,6 +44,10 @@ public class DAOUsuario {
         return lista;
     }
 
+    /** 
+     * @param nickname
+     * @return String
+     */
     public String agregarUsuario(String nickname) {       
         String sql = "INSERT INTO Usuario (Nickname, UltimoJuego) VALUES (?, '1970-01-01')";
         String sqlEst = "INSERT INTO Estadisticas (idUsuario) VALUES (?)";
@@ -64,6 +71,10 @@ public class DAOUsuario {
         }
     }
 
+    /** 
+     * @param id
+     * @return String
+     */
     public String eliminarUsuario(int id) {
         String sql = "DELETE FROM Usuario WHERE Id = ?";
 
@@ -84,6 +95,10 @@ public class DAOUsuario {
         }
     }
 
+    /** 
+     * @param fechaBd
+     * @return boolean
+     */
     public boolean compararFechas(Date fechaBd) {
         if (fechaBd == null) return true; 
         Date fechaActual = new Date(System.currentTimeMillis());
