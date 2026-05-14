@@ -6,7 +6,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -188,8 +187,7 @@ public class CJuegoPracticaFacil {
 
     private void iniciarNuevoJuego() {
         Ecuacion ecuacion = new Ecuacion();
-        juego = new Juego(false, ecuacion);
-        juego.generarNuevoJuego();
+        juego = new Juego(false, ecuacion, SesionUsuario.getInstancia().getUsuarioActual());        juego.generarNuevoJuego();
         for (Label l : listaResultados) l.setText(String.valueOf(juego.getTarget()));
         actualizarEstadoFilas();
     }

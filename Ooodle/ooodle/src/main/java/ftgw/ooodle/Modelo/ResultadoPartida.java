@@ -17,6 +17,44 @@ public class ResultadoPartida {
         this.cambioJugadas = cambioJugadas;
     }
 
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public boolean setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+        return this.idUsuario == idUsuario;
+    }
+
+    public int getCambioRacha() {
+        return cambioRacha;
+    }
+
+    public boolean setCambioRacha(int cambioRacha) {
+        this.cambioRacha = cambioRacha;
+        return this.cambioRacha == cambioRacha;
+    }
+
+    public int getCambioGanadas() {
+        return cambioGanadas;
+    }
+
+    public boolean setCambioGanadas(int cambioGanadas) {
+        this.cambioGanadas = cambioGanadas;
+        return this.cambioGanadas == cambioGanadas;
+    }
+
+    public int getCambioJugadas() {
+        return cambioJugadas;
+    }
+
+    public boolean setCambioJugadas(int cambioJugadas) {
+        this.cambioJugadas = cambioJugadas;
+        return this.cambioJugadas == cambioJugadas;
+    }
+
+    
+
     public ResultadoPartida setRachaActual(int rachaActual) { 
         this.rachaActual = rachaActual; 
         return this; 

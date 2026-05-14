@@ -5,6 +5,13 @@ public class Usuario {
     private boolean juegoDiario;
     private boolean puedeJugar;
     
+    public boolean isJuegoDiario() {
+        return juegoDiario;
+    }
+    public boolean setJuegoDiario(boolean juegoDiario) {
+        this.juegoDiario = juegoDiario;
+        return this.juegoDiario == juegoDiario;
+    }
     public Usuario(int id, String nickname, Boolean juegoDiario) {
         this.id = id;
         this.nickname = nickname;

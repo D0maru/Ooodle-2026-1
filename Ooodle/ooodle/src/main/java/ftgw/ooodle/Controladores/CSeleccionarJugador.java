@@ -53,7 +53,7 @@ public class CSeleccionarJugador {
         lblNombre.setStyle("-fx-font-size: 13px; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand; -fx-background-color: #588157; -fx-background-radius: 6; -fx-padding: 4 10 4 10;");
         HBox.setHgrow(lblNombre, Priority.ALWAYS);
         lblNombre.setOnMouseClicked(e -> {
-            SesionUsuario.getInstancia().setUsuarioActual(usuario);
+            SesionUsuario.iniciarSesion(usuario);
             irAlLobby();
         });
 

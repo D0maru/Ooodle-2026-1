@@ -179,8 +179,7 @@ public class CJuegoPracticaDificil {
 
     private void iniciarNuevoJuego() {
         Ecuacion ecuacion = new Ecuacion();
-        juego = new Juego(true, ecuacion);
-        juego.generarNuevoJuego();
+        juego = new Juego(true, ecuacion, SesionUsuario.getInstancia().getUsuarioActual());        juego.generarNuevoJuego();
         for (Label l : listaResultados) l.setText(String.valueOf(juego.getTarget()));
         actualizarEstadoFilas();
     }

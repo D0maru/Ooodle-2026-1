@@ -54,7 +54,7 @@ public class CLobby {
 
     @FXML
     public void initialize() {
-        if (SesionUsuario.getInstancia().getUsuarioActual() != null) {
+        if (SesionUsuario.haySesionActiva()) {
             cargarEstadisticas();
             iniciarReloj();
         } else {

@@ -7,6 +7,10 @@ public class RelojDiario {
 
     private final boolean puedeJugarInicial;
 
+    public boolean isPuedeJugarInicial() {
+        return puedeJugarInicial;
+    }
+
     public RelojDiario(boolean puedeJugarInicial) {
         this.puedeJugarInicial = puedeJugarInicial;
     }

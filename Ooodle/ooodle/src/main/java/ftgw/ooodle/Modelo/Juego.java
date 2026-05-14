@@ -9,15 +9,46 @@ public class Juego {
     private int intentoActual = 0; // Usamos base 0 para arrays: 0 a 5
     private int[] solucion;
     private Ecuacion ecuacion;
+    private Usuario usuario;
 
     // Matriz de datos puros. -1 significa celda vacía.
     private int[][] tableroDatos = new int[6][4];
 
-    public Juego(boolean modoDificil, Ecuacion ecuacion) {
+    public int[] getSolucion() {
+        return solucion;
+    }
+
+    public boolean setSolucion(int[] solucion) {
+        this.solucion = solucion;
+        return this.solucion == solucion;
+    }
+
+    public Ecuacion getEcuacion() {
+        return ecuacion;
+    }
+
+    public boolean setEcuacion(Ecuacion ecuacion) {
+        this.ecuacion = ecuacion;
+        return this.ecuacion == ecuacion;
+    }
+
+    public int[][] getTableroDatos() {
+        return tableroDatos;
+    }
+
+    public boolean setTableroDatos(int[][] tableroDatos) {
+        this.tableroDatos = tableroDatos;
+        return this.tableroDatos == tableroDatos;
+    }
+
+    public Juego(boolean modoDificil, Ecuacion ecuacion, Usuario usuario) {
         this.modoDificil = modoDificil;
         this.ecuacion = ecuacion;
+        this.usuario = usuario;
         reiniciarMatriz();
     }
+
+    public Usuario getUsuario() { return usuario; }
 
     private boolean reiniciarMatriz() {
         for (int i = 0; i < 6; i++) {
@@ -46,8 +77,6 @@ public class Juego {
             target = modoDificil ? 100 : 14;
             solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
-
-        //System.out.println("Solución generada: " + Arrays.toString(solucion) + " = " + target);
         return target;
     }
 
@@ -115,9 +144,9 @@ public class Juego {
 
     // GETTERS PARA EL CONTROLADOR
     public int getTarget() { return target; }
-        public int getIntentoActual() { return intentoActual; }
-        public boolean esGanador() {
-            if (intentoActual == 0) return false;
-            return Arrays.equals(tableroDatos[intentoActual - 1], solucion);
-        }
+    public int getIntentoActual() { return intentoActual; }
+    public boolean esGanador() {
+        if (intentoActual == 0) return false;
+        return Arrays.equals(tableroDatos[intentoActual - 1], solucion);
+    }
 }

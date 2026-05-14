@@ -1,17 +1,19 @@
 package ftgw.ooodle.Servicios;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
 
 public class ConectionBD {
+
+    // ─── Conexión ────────────────────────────────────────────────────────────
     private static Connection conexion = null;
 
-    // Cargamos el archivo .env buscándolo en múltiples ubicaciones
+    // ─── Dotenv ──────────────────────────────────────────────────────────────
     private static final Dotenv dotenv = cargarDotenv();
 
     private static Dotenv cargarDotenv() {
@@ -24,8 +26,8 @@ public class ConectionBD {
 
         // 2. Intentar desde el directorio del .jar / working directory actual
         String[] candidatos = {
-            ".",                          // working dir actual
-            "Ooodle-2026-1",              // un nivel arriba si se lanza desde Repositorio Ooodle/
+            ".",                           // working dir actual
+            "Ooodle-2026-1",               // un nivel arriba si se lanza desde Repositorio Ooodle/
             "../Ooodle-2026-1",
             System.getProperty("user.dir") // por si acaso
         };
@@ -45,12 +47,15 @@ public class ConectionBD {
         return Dotenv.configure().ignoreIfMissing().systemProperties().load();
     }
 
+    // ─── Credenciales ────────────────────────────────────────────────────────
     private static final String URL      = dotenv.get("DB_URL",      System.getenv("DB_URL"));
     private static final String USER     = dotenv.get("DB_USER",     System.getenv("DB_USER"));
     private static final String PASSWORD = dotenv.get("DB_PASSWORD", System.getenv("DB_PASSWORD"));
 
+    // ─── Constructor ─────────────────────────────────────────────────────────
     private ConectionBD() {}
 
+    // ─── Métodos ─────────────────────────────────────────────────────────────
     public static Connection getConexion() throws SQLException {
         if (conexion == null || conexion.isClosed()) {
             if (URL == null || USER == null || PASSWORD == null) {
