@@ -1,78 +1,95 @@
 package ftgw.ooodle.Modelo;
-
 import java.util.Arrays;
-
+/**
+ * Clase principal que representa una partida del juego.
+ * Gestiona el tablero, la solución, los intentos del usuario
+ * y la lógica de validación de cada fila ingresada.
+ */
 public class Juego {
-
+    /** Indica si la partida se juega en modo difícil. */
     private final boolean modoDificil;
+    /** Valor objetivo que la ecuación debe producir. */
     private int target;
-    private int intentoActual = 0; // Usamos base 0 para arrays: 0 a 5
+    /** Índice de la fila actual en el tablero (0 a 5). */
+    private int intentoActual = 0; 
+    /** Arreglo con los cuatro valores que resuelven la ecuación objetivo. */
     private int[] solucion;
+    /** Instancia encargada de generar y evaluar ecuaciones matemáticas. */
     private Ecuacion ecuacion;
+    /** Usuario asociado a la partida actual. */
     private Usuario usuario;
 
-    // Matriz de datos puros. -1 significa celda vacía.
+    /** Matriz 6x4 con los valores ingresados por el usuario. -1 representa una celda vacía. */
     private int[][] tableroDatos = new int[6][4];
 
-    /** 
-     * @return int[]
+    /**
+     * Obtiene la solución actual de la partida.
+     * @return Arreglo con los cuatro valores de la solución.
      */
     public int[] getSolucion() {
         return solucion;
     }
-
-    /** 
-     * @param solucion
-     * @return boolean
+    /**
+     * Establece la solución de la partida.
+     * @param solucion Arreglo con los cuatro valores solución.
+     * @return true si la asignación fue exitosa.
      */
     public boolean setSolucion(int[] solucion) {
         this.solucion = solucion;
         return this.solucion == solucion;
     }
-
-    /** 
-     * @return Ecuacion
+    /**
+     * Obtiene la instancia de Ecuacion asociada al juego.
+     * @return Objeto Ecuacion actual.
      */
     public Ecuacion getEcuacion() {
         return ecuacion;
     }
-
-    /** 
-     * @param ecuacion
-     * @return boolean
+    /**
+     * Establece la instancia de Ecuacion a usar en la partida.
+     * @param ecuacion Objeto Ecuacion a asignar.
+     * @return true si la asignación fue exitosa.
      */
     public boolean setEcuacion(Ecuacion ecuacion) {
         this.ecuacion = ecuacion;
         return this.ecuacion == ecuacion;
     }
-
-    /** 
-     * @return int[][]
+    /**
+     * Obtiene la matriz de datos del tablero.
+     * @return Matriz 6x4 con los valores ingresados; -1 indica celda vacía.
      */
     public int[][] getTableroDatos() {
         return tableroDatos;
     }
-
-    /** 
-     * @param tableroDatos
-     * @return boolean
+    /**
+     * Reemplaza la matriz del tablero con una nueva.
+     * @param tableroDatos Nueva matriz 6x4 a asignar.
+     * @return true si la asignación fue exitosa.
      */
     public boolean setTableroDatos(int[][] tableroDatos) {
         this.tableroDatos = tableroDatos;
         return this.tableroDatos == tableroDatos;
     }
-
+    /**
+     * Crea una nueva partida inicializando el tablero y los componentes necesarios.
+     * @param modoDificil true para activar el modo difícil.
+     * @param ecuacion Instancia de Ecuacion para generar la solución.
+     * @param usuario Usuario que juega la partida.
+     */
     public Juego(boolean modoDificil, Ecuacion ecuacion, Usuario usuario) {
         this.modoDificil = modoDificil;
         this.ecuacion = ecuacion;
         this.usuario = usuario;
         reiniciarMatriz();
     }
-
+    /**
+     * Obtiene el usuario asociado a la partida.
+     * @return Objeto Usuario de la partida actual.
+     */
     public Usuario getUsuario() { return usuario; }
-
-    /** 
-     * @return boolean
+    /**
+     * Rellena todas las celdas del tablero con -1, indicando que están vacías.
+     * @return true si todas las celdas quedaron correctamente en -1; false si alguna falló.
      */
     private boolean reiniciarMatriz() {
         for (int i = 0; i < 6; i++) {
@@ -85,9 +102,11 @@ public class Juego {
         }
         return true;
     }
-
-    /** 
-     * @return int
+    /**
+     * Reinicia la partida y genera un nuevo target con su solución correspondiente.
+     * Intenta hasta 100 veces encontrar una ecuación válida; si no lo logra,
+     * usa un valor de respaldo predefinido.
+     * @return El valor objetivo (target) generado para la nueva partida.
      */
     public int generarNuevoJuego() {
         int maxIntentos = 100;
@@ -106,14 +125,12 @@ public class Juego {
         }
         return target;
     }
-
-    /** 
-     * @param columna
-     * @param valor
-     * @return boolean
+    /**
+     * Asigna un valor en una celda específica de la fila actual.
+     * @param columna Índice de la columna (0 a 3).
+     * @param valor Número a colocar en la celda.
+     * @return true si el valor fue asignado correctamente; false si las coordenadas son inválidas.
      */
-    // LÓGICA DE EDICIÓN: El modelo recibe coordenadas y valores
-    
     public boolean setNumeroEnCelda(int columna, int valor) {
         if (intentoActual < 6 && columna >= 0 && columna < 4) {
             tableroDatos[intentoActual][columna] = valor;
@@ -121,10 +138,10 @@ public class Juego {
         }
         return false;
     }
-
-    /** 
-     * @param columna
-     * @return boolean
+    /**
+     * Limpia una celda de la fila actual, dejándola en -1.
+     * @param columna Índice de la columna a borrar (0 a 3).
+     * @return true si la celda fue borrada correctamente; false si las coordenadas son inválidas.
      */
     public boolean borrarCelda(int columna) {
         if (intentoActual < 6 && columna >= 0 && columna < 4) {
@@ -163,10 +180,10 @@ public class Juego {
         intentoActual++; // Avanzamos de fila solo si la validación fue exitosa
         return resultadoColores;
     }
-
-    /** 
-     * @param fila
-     * @return boolean
+    /**
+     * Verifica si una fila contiene valores duplicados.
+     * @param fila Arreglo de cuatro enteros a evaluar.
+     * @return true si hay al menos un valor repetido; false si todos son distintos.
      */
     private boolean tieneRepetidos(int[] fila) {
         for (int i = 0; i < fila.length; i++) {
@@ -176,25 +193,28 @@ public class Juego {
         }
         return false;
     }
-
-    /** 
-     * @param n
-     * @return boolean
+    /**
+     * Comprueba si un número está presente en la solución de la partida.
+     * @param n Número a buscar.
+     * @return true si el número existe en la solución; false en caso contrario.
      */
     private boolean estaEnSolucion(int n) {
         for (int s : solucion) if (s == n) return true;
         return false;
     }
-
-    /** 
-     * @param esGanador(
-     * @return int
+    /**
+     * Obtiene el valor objetivo de la partida actual.
+     * @return Entero que representa el target.
      */
-    // GETTERS PARA EL CONTROLADOR
     public int getTarget() { return target; }
+    /**
+     * Obtiene el índice de la fila en la que se encuentra el jugador.
+     * @return Número de intento actual (0 a 5).
+     */
     public int getIntentoActual() { return intentoActual; }
-    /** 
-     * @return boolean
+    /**
+     * Determina si el jugador ganó la partida.
+     * @return true si el último intento coincide exactamente con la solución; false en caso contrario.
      */
     public boolean esGanador() {
         if (intentoActual == 0) return false;
