@@ -14,17 +14,26 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Controlador para la interfaz del modo de Práctica en dificultad Fácil.
+ * <p>
+ * Esta clase gestiona la lógica de un tablero de 6 intentos por 4 columnas. 
+ * Permite al usuario practicar la resolución de ecuaciones matemáticas 
+ * sin restricciones de tiempo diarias ni impacto en el ranking global.
+ * </p>
+ */
 public class CJuegoPracticaFacil {
 
     @FXML private TextField a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3, a4, b4, c4, d4, a5, b5, c5, d5, a6, b6, c6, d6;
     @FXML private Label res_1, res_2, res_3, res_4, res_5, res_6, cronometro;
 
-    // Estilos originales para recuperar al reiniciar
+    /** Estilos CSS para los colores base de las columnas. */
     private static final String COLOR_COL_A = "-fx-background-color: #344E41; -fx-text-fill: white;"; 
     private static final String COLOR_COL_B = "-fx-background-color: #DAD7CD; -fx-text-fill: black;"; 
     private static final String COLOR_COL_C = "-fx-background-color: #A3B18A; -fx-text-fill: black;"; 
     private static final String COLOR_COL_D = "-fx-background-color: #588157; -fx-text-fill: white;"; 
 
+    /** Estilos CSS para el feedback de validación (Wordle-style). */
     private static final String VERDE = "-fx-background-color: #00e676; -fx-text-fill: black; -fx-font-weight: bold;";
     private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: black; -fx-font-weight: bold;";
     private static final String GRIS = "-fx-background-color: #616161; -fx-text-fill: white; -fx-font-weight: bold;";
@@ -36,6 +45,10 @@ public class CJuegoPracticaFacil {
     private Label[] listaResultados;
     private int columnaSeleccionada = 0;
 
+    /**
+     * Inicializa los componentes de la interfaz, organiza el tablero en una matriz
+     * y arranca los sistemas de juego y cronometraje.
+     */
     @FXML
     public void initialize() {  
         matrizTablero = new TextField[][]{
@@ -50,6 +63,10 @@ public class CJuegoPracticaFacil {
         configurarTecladoFisico();
     }
 
+    /**
+     * Configura un filtro de eventos a nivel de Scene para capturar entradas de teclado.
+     * Soporta números del 1-9, Backspace para borrar y Enter para validar.
+     */
     private void configurarTecladoFisico() {
         javafx.application.Platform.runLater(() -> {
             Scene scene = cronometro.getScene();
@@ -57,12 +74,11 @@ public class CJuegoPracticaFacil {
                 scene.addEventFilter(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
                     javafx.scene.input.KeyCode code = event.getCode();
 
-                    // Números 1-9
                     if (code.isDigitKey() && code != javafx.scene.input.KeyCode.DIGIT0 && code != javafx.scene.input.KeyCode.NUMPAD0) {
                         String tecla = code.toString();
                         String digit = tecla.substring(tecla.length() - 1);
                         procesarEntrada(Integer.parseInt(digit));
-                        event.consume(); // <--- CRITICO: Evita el 11, 22, etc.
+                        event.consume(); 
                     } 
                     else if (code == javafx.scene.input.KeyCode.BACK_SPACE) {
                         ClickDel(null);
@@ -78,31 +94,30 @@ public class CJuegoPracticaFacil {
     }
 
     /** 
-     * @param numero
+     * Procesa la entrada de un número, actualizando el modelo y la vista.
+     * Avanza automáticamente a la siguiente columna tras la inserción.
+     * @param numero El valor numérico (1-9) ingresado.
      */
     private void procesarEntrada(int numero) {
         if (juego.getIntentoActual() >= 6) return;
         
         int fila = juego.getIntentoActual();
-        
-        // Seteamos el número: setText reemplaza lo que haya, evitando duplicados visuales
         juego.setNumeroEnCelda(columnaSeleccionada, numero);
         matrizTablero[fila][columnaSeleccionada].setText(String.valueOf(numero));
         
-        // Avance automático de columna
         if (columnaSeleccionada < 3) {
             columnaSeleccionada++;
         }
     }
 
     /** 
-     * @param e
+     * Gestiona el borrado de la celda actual o anterior.
+     * @param e Evento de acción (puede ser null si se llama desde teclado físico).
      */
     @FXML 
     void ClickDel(ActionEvent e) {
         int fila = juego.getIntentoActual();
         
-        // Si la celda actual está vacía, retrocedemos para borrar la anterior
         if (matrizTablero[fila][columnaSeleccionada].getText().isEmpty() && columnaSeleccionada > 0) {
             columnaSeleccionada--;
         }
@@ -112,7 +127,9 @@ public class CJuegoPracticaFacil {
     }
 
     /** 
-     * @param e
+     * Valida el intento de la fila actual contra la solución del juego.
+     * Cambia los estilos de las celdas y gestiona el flujo hacia la victoria o derrota.
+     * @param e Evento que dispara la validación.
      */
     @FXML
     void ClickCheck(ActionEvent e) {
@@ -139,17 +156,23 @@ public class CJuegoPracticaFacil {
         }
     }
 
+    /**
+     * Habilita visualmente solo la fila actual de juego y resetea el puntero de columna.
+     */
     private void actualizarEstadoFilas() {
         int filaActiva = juego.getIntentoActual();
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 4; j++) {
-                // Solo la fila activa es "editable" visualmente
                 matrizTablero[i][j].setDisable(i != filaActiva);
             }
         }
-        columnaSeleccionada = 0; // Al pasar de fila, volvemos a la primera columna
+        columnaSeleccionada = 0; 
     }
 
+    /**
+     * Configura los TextFields para que no sean editables manualmente y
+     * reaccionen al clic para cambiar la columna seleccionada.
+     */
     private void configurarEventosTablero() {
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < 4; j++) {
@@ -160,14 +183,15 @@ public class CJuegoPracticaFacil {
                     if (f == juego.getIntentoActual()) columnaSeleccionada = c;
                 });
 
-                tf.setEditable(false);         // <--- EVITA ESCRITURA DIRECTA
-                tf.setFocusTraversable(false); // EVITA CURSOR PARPADEANDO
+                tf.setEditable(false); 
+                tf.setFocusTraversable(false); 
             }
         }
     }
 
     /** 
-     * @param e
+     * Reinicia el tablero a su estado inicial y genera una nueva partida.
+     * @param e Evento de reinicio.
      */
     @FXML 
     void ClickRestart(ActionEvent e) {
@@ -175,7 +199,6 @@ public class CJuegoPracticaFacil {
             for (int j = 0; j < 4; j++) {
                 TextField tf = matrizTablero[i][j];
                 tf.clear();
-                // Restaurar colores de las columnas
                 if (j == 0) tf.setStyle(COLOR_COL_A);
                 else if (j == 1) tf.setStyle(COLOR_COL_B);
                 else if (j == 2) tf.setStyle(COLOR_COL_C);
@@ -183,10 +206,9 @@ public class CJuegoPracticaFacil {
             }
         }
         iniciarNuevoJuego();
-        // Reiniciar cronómetro si es necesario aquí
     }
 
-    // Métodos de botones UI (Click1 a Click9) llaman a procesarEntrada...
+    // Handlers para el teclado numérico en pantalla
     @FXML void Click1(ActionEvent e) { procesarEntrada(1); }
     @FXML void Click2(ActionEvent e) { procesarEntrada(2); }
     @FXML void Click3(ActionEvent e) { procesarEntrada(3); }
@@ -197,13 +219,20 @@ public class CJuegoPracticaFacil {
     @FXML void Click8(ActionEvent e) { procesarEntrada(8); }
     @FXML void Click9(ActionEvent e) { procesarEntrada(9); }
 
+    /**
+     * Crea una nueva instancia de Juego y actualiza las etiquetas de resultado objetivo.
+     */
     private void iniciarNuevoJuego() {
         Ecuacion ecuacion = new Ecuacion();
-        juego = new Juego(false, ecuacion, SesionUsuario.getInstancia().getUsuarioActual());        juego.generarNuevoJuego();
+        juego = new Juego(false, ecuacion, SesionUsuario.getInstancia().getUsuarioActual());
+        juego.generarNuevoJuego();
         for (Label l : listaResultados) l.setText(String.valueOf(juego.getTarget()));
         actualizarEstadoFilas();
     }
 
+    /**
+     * Inicializa el hilo de tiempo para el cronómetro visual.
+     */
     private void configurarCronometro() {
         modeloCronometro = new CronometroJuego();
         timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
@@ -213,11 +242,13 @@ public class CJuegoPracticaFacil {
         timeline.play();
     }
 
+    /** Detiene el cronómetro antes de cambiar de pantalla. */
     private void detenerSistemas() { if (timeline != null) timeline.stop(); }
 
     /** 
-     * @param titulo
-     * @param msg
+     * Lanza un cuadro de diálogo informativo.
+     * @param titulo Título de la alerta.
+     * @param msg Cuerpo del mensaje.
      */
     private void mostrarAlerta(String titulo, String msg) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -228,9 +259,10 @@ public class CJuegoPracticaFacil {
     }
 
     /** 
-     * @param evento
-     * @param fxml
-     * @param modoDificil
+     * Gestiona la carga de nuevas vistas FXML.
+     * @param evento Evento origen.
+     * @param fxml Nombre del archivo .fxml.
+     * @param modoDificil Flag de dificultad para las pantallas de fin de juego.
      */
     private void cambiarEscena(ActionEvent evento, String fxml, boolean modoDificil) {
         try {
@@ -242,8 +274,10 @@ public class CJuegoPracticaFacil {
             stage.show();
         } catch (Exception ex) { mostrarAlerta("Error de navegación", "No se pudo cambiar de pantalla: " + ex.getMessage()); }
     }
+
     /** 
-     * @param event
+     * Regresa al menú principal (Lobby).
+     * @param event Evento de clic.
      */
     @FXML
     private void volverAlLobby(ActionEvent event) {

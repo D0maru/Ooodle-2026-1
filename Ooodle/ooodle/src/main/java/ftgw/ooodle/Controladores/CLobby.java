@@ -1,7 +1,6 @@
 package ftgw.ooodle.Controladores;
 
 import java.io.IOException;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
@@ -22,6 +21,14 @@ import ftgw.ooodle.Modelo.SesionUsuario;
 import ftgw.ooodle.Modelo.Usuario;
 import ftgw.ooodle.Modelo.RelojDiario;
 
+/**
+ * Controlador del Lobby principal de la aplicación Ooodle.
+ * <p>
+ * Se encarga de la gestión del perfil del usuario activo, visualización de estadísticas 
+ * (rachas, porcentaje de victorias), control del cronómetro para el desafío diario 
+ * y la navegación hacia los modos de práctica y juego real.
+ * </p>
+ */
 public class CLobby {
 
     @FXML private Label Label_Nickname;
@@ -37,7 +44,9 @@ public class CLobby {
     @FXML private Button btnPractica;
     @FXML private Button BotonSJugador;
 
+    /** Panel contenedor para cargar vistas secundarias como las reglas. */
     @FXML private AnchorPane PanelInterfaz;
+    /** Indicador visual (switch) para el cambio de dificultad. */
     @FXML private Circle circuloDificultad;
 
     private boolean modoDificil = false;
@@ -46,12 +55,17 @@ public class CLobby {
     private RelojDiario relojDiario;
     private Timeline timelineReloj;
 
+    // Rutas constantes de recursos FXML
     private static final String RUTA_REGLAS = "/ftgw/ooodle/interfaces/Reglas.fxml";
     private static final String PRACTICA_FACIL = "/ftgw/ooodle/interfaces/JuegoPracticaFacil.fxml";
     private static final String PRACTICA_DIFICIL = "/ftgw/ooodle/interfaces/JuegoPracticaDificil.fxml";
     private static final String DIARIO_FACIL = "/ftgw/ooodle/interfaces/JuegoDiarioFacil.fxml";
     private static final String DIARIO_DIFICIL = "/ftgw/ooodle/interfaces/JuegoDiarioDificil.fxml";
 
+    /**
+     * Inicializa la vista del Lobby. Verifica si existe una sesión activa para 
+     * cargar los datos del usuario o redirigir en caso de error.
+     */
     @FXML
     public void initialize() {
         if (SesionUsuario.haySesionActiva()) {
@@ -62,6 +76,10 @@ public class CLobby {
         }
     }
 
+    /**
+     * Recupera las estadísticas del usuario desde la base de datos y actualiza las etiquetas de la UI.
+     * Calcula el porcentaje de victorias y bloquea el botón diario si el usuario ya jugó hoy.
+     */
     private void cargarEstadisticas() {
         Usuario usuarioActual = SesionUsuario.getInstancia().getUsuarioActual();
         ResultadoPartida stats;
@@ -88,6 +106,9 @@ public class CLobby {
         btnDiario.setDisable(!puedeJugar);
     }
 
+    /**
+     * Configura el Timeline para actualizar el tiempo restante hasta el próximo juego diario.
+     */
     private void iniciarReloj() {
         boolean puedeJugar = SesionUsuario.getInstancia().getUsuarioActual().isPuedeJugar();
         relojDiario = new RelojDiario(puedeJugar);
@@ -100,16 +121,18 @@ public class CLobby {
         timelineReloj.play();
     }
 
-    /** 
-     * @param event
+    /**
+     * Carga la vista de reglas dentro del panel de interfaz del Lobby.
+     * @param event Evento de acción del botón.
      */
     @FXML
     void traerReglas(ActionEvent event) {
         cargarVistaEnPanel(RUTA_REGLAS);
     }
 
-    /** 
-     * @param event
+    /**
+     * Alterna entre el modo fácil (1-9) y difícil (1-12) disparando una animación visual.
+     * @param event Evento de clic en el switch de dificultad.
      */
     @FXML
     void cambiarDificultad(MouseEvent event) {
@@ -118,26 +141,26 @@ public class CLobby {
         actualizarTextoDificultad();
     }
 
-    /** 
-     * @param event
+    /**
+     * Dirige al usuario al modo de práctica según la dificultad seleccionada.
+     * @param event Evento de acción.
      */
     @FXML
     void abrirJPrac(ActionEvent event) {
         abrirJuego(event, PRACTICA_FACIL, PRACTICA_DIFICIL);
     }
 
-    /** 
-     * @param event
+    /**
+     * Dirige al usuario al modo de juego diario según la dificultad seleccionada.
+     * @param event Evento de acción.
      */
     @FXML
     void abrirJdiario(ActionEvent event) {
         abrirJuego(event, DIARIO_FACIL, DIARIO_DIFICIL);
     }
 
-    /** 
-     * @param event
-     * @param rutaFacil
-     * @param rutaDificil
+    /**
+     * Lógica compartida para detener procesos del Lobby y cambiar a la escena de juego.
      */
     private void abrirJuego(ActionEvent event, String rutaFacil, String rutaDificil) {
         if (timelineReloj != null) timelineReloj.stop();
@@ -145,8 +168,9 @@ public class CLobby {
         cambiarEscenaCompleta(event, ruta);
     }
 
-    /** 
-     * @param ruta
+    /**
+     * Carga un FXML dentro del AnchorPane principal sin cambiar de ventana.
+     * @param ruta Dirección del recurso FXML.
      */
     private void cargarVistaEnPanel(String ruta) {
         try {
@@ -158,9 +182,10 @@ public class CLobby {
         }
     }
 
-    /** 
-     * @param event
-     * @param ruta
+    /**
+     * Reemplaza la escena completa de la ventana actual por una nueva.
+     * @param event Evento origen para obtener el Stage.
+     * @param ruta Dirección del recurso FXML.
      */
     private void cambiarEscenaCompleta(ActionEvent event, String ruta) {
         try {
@@ -177,18 +202,25 @@ public class CLobby {
         }
     }
 
+    /**
+     * Ejecuta una transición de desplazamiento horizontal sobre el switch de dificultad.
+     */
     private void animarDificultad() {
         TranslateTransition animation = new TranslateTransition(Duration.millis(200), circuloDificultad);
         animation.setToX(modoDificil ? 22 : 0);
         animation.play();
     }
 
+    /**
+     * Actualiza la etiqueta de descripción del rango numérico según la dificultad.
+     */
     private void actualizarTextoDificultad() {
         lblRango.setText(modoDificil ? "Numeros del 1-12" : "Numeros del 1-9");
     }
 
-    /** 
-     * @param root
+    /**
+     * Asegura que el nodo cargado se expanda para llenar todo el panel contenedor.
+     * @param root El nodo raíz a ajustar.
      */
     private void ajustarAnchors(Parent root) {
         AnchorPane.setTopAnchor(root, 0.0);
@@ -197,16 +229,18 @@ public class CLobby {
         AnchorPane.setRightAnchor(root, 0.0);
     }
 
-    /** 
-     * @param event
-     * @return Stage
+    /**
+     * Helper para obtener la ventana (Stage) desde un evento de UI.
+     * @param event El evento disparado.
+     * @return El Stage actual.
      */
     private Stage obtenerStage(ActionEvent event) {
         return (Stage) ((Node) event.getSource()).getScene().getWindow();
     }
 
-    /** 
-     * @param mensaje
+    /**
+     * Despliega una alerta de error al usuario.
+     * @param mensaje Detalle del error.
      */
     private void mostrarError(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -216,8 +250,9 @@ public class CLobby {
         alert.showAndWait();
     }
 
-    /** 
-     * @param event
+    /**
+     * Cierra el Lobby actual y regresa a la pantalla de selección de jugador.
+     * @param event Evento de acción.
      */
     @FXML
     void volverUsuario(ActionEvent event) {
