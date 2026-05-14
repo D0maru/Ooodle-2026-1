@@ -1,236 +1,223 @@
 package ftgw.ooodle.Modelo;
- 
+import java.util.Arrays;
 /**
- * Modelo puro del juego Ooodle.
- * No tiene ninguna dependencia de JavaFX: trabaja exclusivamente con
- * tipos primitivos y String. Toda la logica de UI (TextField, Label,
- * Alert, estilos CSS) es responsabilidad de los controladores.
+ * Clase principal que representa una partida del juego.
+ * Gestiona el tablero, la solución, los intentos del usuario
+ * y la lógica de validación de cada fila ingresada.
  */
 public class Juego {
- 
-    // ── Claves semánticas de color devueltas al controlador ───────────────
-    // Los estilos CSS concretos son responsabilidad de cada controlador.
-    public static final String COLOR_VERDE    = "VERDE";
-    public static final String COLOR_AMARILLO = "AMARILLO";
-    public static final String COLOR_GRIS     = "GRIS";
- 
-    // ── Estado interno ────────────────────────────────────────────────────
+    /** Indica si la partida se juega en modo difícil. */
     private final boolean modoDificil;
- 
-    private int    target;
-    private int    intentoActual = 1;
-    private int    columnaActual = 0;
-    private int[]  solucion;
- 
-    /** Valores escritos por el jugador en cada celda (6 filas x 4 columnas). */
-    private final String[][]  celdas   = new String[6][4];
- 
-    /** true = la celda esta habilitada para edicion. */
-    private final boolean[][] editable = new boolean[6][4];
- 
-    private final Usuario  usuario;
-    private final Ecuacion ecuacion;
- 
-    // ── Constructor ───────────────────────────────────────────────────────
+    /** Valor objetivo que la ecuación debe producir. */
+    private int target;
+    /** Índice de la fila actual en el tablero (0 a 5). */
+    private int intentoActual = 0; 
+    /** Arreglo con los cuatro valores que resuelven la ecuación objetivo. */
+    private int[] solucion;
+    /** Instancia encargada de generar y evaluar ecuaciones matemáticas. */
+    private Ecuacion ecuacion;
+    /** Usuario asociado a la partida actual. */
+    private Usuario usuario;
+
+    /** Matriz 6x4 con los valores ingresados por el usuario. -1 representa una celda vacía. */
+    private int[][] tableroDatos = new int[6][4];
 
     /**
-     * @param modoDificil true = modo dificil (numeros 1-12), false = facil (1-9).
-     * @param usuario     jugador activo.
-     * @param ecuacion    instancia de Ecuacion ya creada por el controlador,
-     *                    acorde a la dificultad que se este jugando.
+     * Obtiene la solución actual de la partida.
+     * @return Arreglo con los cuatro valores de la solución.
      */
-    public Juego(boolean modoDificil, Usuario usuario, Ecuacion ecuacion) {
+    public int[] getSolucion() {
+        return solucion;
+    }
+    /**
+     * Establece la solución de la partida.
+     * @param solucion Arreglo con los cuatro valores solución.
+     * @return true si la asignación fue exitosa.
+     */
+    public boolean setSolucion(int[] solucion) {
+        this.solucion = solucion;
+        return this.solucion == solucion;
+    }
+    /**
+     * Obtiene la instancia de Ecuacion asociada al juego.
+     * @return Objeto Ecuacion actual.
+     */
+    public Ecuacion getEcuacion() {
+        return ecuacion;
+    }
+    /**
+     * Establece la instancia de Ecuacion a usar en la partida.
+     * @param ecuacion Objeto Ecuacion a asignar.
+     * @return true si la asignación fue exitosa.
+     */
+    public boolean setEcuacion(Ecuacion ecuacion) {
+        this.ecuacion = ecuacion;
+        return this.ecuacion == ecuacion;
+    }
+    /**
+     * Obtiene la matriz de datos del tablero.
+     * @return Matriz 6x4 con los valores ingresados; -1 indica celda vacía.
+     */
+    public int[][] getTableroDatos() {
+        return tableroDatos;
+    }
+    /**
+     * Reemplaza la matriz del tablero con una nueva.
+     * @param tableroDatos Nueva matriz 6x4 a asignar.
+     * @return true si la asignación fue exitosa.
+     */
+    public boolean setTableroDatos(int[][] tableroDatos) {
+        this.tableroDatos = tableroDatos;
+        return this.tableroDatos == tableroDatos;
+    }
+    /**
+     * Crea una nueva partida inicializando el tablero y los componentes necesarios.
+     * @param modoDificil true para activar el modo difícil.
+     * @param ecuacion Instancia de Ecuacion para generar la solución.
+     * @param usuario Usuario que juega la partida.
+     */
+    public Juego(boolean modoDificil, Ecuacion ecuacion, Usuario usuario) {
         this.modoDificil = modoDificil;
-        this.usuario     = usuario;
-        this.ecuacion    = ecuacion;
-
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++) {
-                celdas[i][j]   = "";
-                editable[i][j] = false;
-            }
+        this.ecuacion = ecuacion;
+        this.usuario = usuario;
+        reiniciarMatriz();
     }
- 
-    // ── API publica ───────────────────────────────────────────────────────
- 
-    public Usuario getUsuario() {
-        return usuario;
-    }
- 
     /**
-     * Genera una nueva ecuacion y devuelve el target para que el controlador
-     * lo muestre en los Labels de resultado.
+     * Obtiene el usuario asociado a la partida.
+     * @return Objeto Usuario de la partida actual.
      */
-    public int GenerarNuevoJuego() {
+    public Usuario getUsuario() { return usuario; }
+    /**
+     * Rellena todas las celdas del tablero con -1, indicando que están vacías.
+     * @return true si todas las celdas quedaron correctamente en -1; false si alguna falló.
+     */
+    private boolean reiniciarMatriz() {
+        for (int i = 0; i < 6; i++) {
+            Arrays.fill(tableroDatos[i], -1);
+        }
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < tableroDatos[i].length; j++) {
+                if (tableroDatos[i][j] != -1) return false;
+            }
+        }
+        return true;
+    }
+    /**
+     * Reinicia la partida y genera un nuevo target con su solución correspondiente.
+     * Intenta hasta 100 veces encontrar una ecuación válida; si no lo logra,
+     * usa un valor de respaldo predefinido.
+     * @return El valor objetivo (target) generado para la nueva partida.
+     */
+    public int generarNuevoJuego() {
         int maxIntentos = 100;
         solucion = null;
- 
+        intentoActual = 0;
+        reiniciarMatriz();
+
         for (int i = 0; i < maxIntentos && solucion == null; i++) {
-            target = modoDificil
-                ? (int)(Math.random() * 149) - 7
-                : (int)(Math.random() * 83)  - 4;
+            target = modoDificil ? (int)(Math.random() * 149) - 7 : (int)(Math.random() * 83) - 4;
             solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
- 
+
         if (solucion == null) {
-            target   = modoDificil ? 100 : 14;
+            target = modoDificil ? 100 : 14;
             solucion = ecuacion.GenerarEcuacion(target, modoDificil);
         }
- 
         return target;
     }
- 
     /**
-     * Escribe un numero en la primera celda vacia y editable de la fila actual.
-     * Devuelve int[]{fila, columna} de la celda modificada, o null si no se pudo escribir.
+     * Asigna un valor en una celda específica de la fila actual.
+     * @param columna Índice de la columna (0 a 3).
+     * @param valor Número a colocar en la celda.
+     * @return true si el valor fue asignado correctamente; false si las coordenadas son inválidas.
      */
-    public int[] EscribirNumero(String num) {
-        if (intentoActual > 6) return null;
- 
-        for (int i = 0; i < 4; i++) {
-            if (celdas[intentoActual - 1][i].isEmpty() && editable[intentoActual - 1][i]) {
-                celdas[intentoActual - 1][i] = num;
-                columnaActual = Math.min(i + 1, 3);
-                return new int[]{intentoActual - 1, i};
-            }
+    public boolean setNumeroEnCelda(int columna, int valor) {
+        if (intentoActual < 6 && columna >= 0 && columna < 4) {
+            tableroDatos[intentoActual][columna] = valor;
+            return tableroDatos[intentoActual][columna] == valor;
         }
-        return null;
+        return false;
     }
- 
     /**
-     * Borra el digito en la columna actual de la fila activa.
-     * Devuelve int[]{fila, columna} de la celda borrada, o null si no aplico.
+     * Limpia una celda de la fila actual, dejándola en -1.
+     * @param columna Índice de la columna a borrar (0 a 3).
+     * @return true si la celda fue borrada correctamente; false si las coordenadas son inválidas.
      */
-    public int[] BorrarDigito() {
-        if (intentoActual > 6) return null;
-        if (!editable[intentoActual - 1][0]) return null;
- 
-        if (columnaActual > 0 && celdas[intentoActual - 1][columnaActual].isEmpty()) {
-            columnaActual--;
+    public boolean borrarCelda(int columna) {
+        if (intentoActual < 6 && columna >= 0 && columna < 4) {
+            tableroDatos[intentoActual][columna] = -1;
+            return tableroDatos[intentoActual][columna] == -1;
         }
-        celdas[intentoActual - 1][columnaActual] = "";
-        return new int[]{intentoActual - 1, columnaActual};
+        return false;
     }
- 
-    /**
-     * Valida la fila actual y avanza el estado del juego.
-     * Devuelve un ResultadoFila con el estado y los estilos a aplicar.
-     */
-    public ResultadoFila ValidarFila() {
-        try {
-            String regex        = modoDificil ? "([1-9]|1[0-2])" : "[1-9]";
-            String mensajeRango = modoDificil
-                ? "Solo se permiten numeros del 1 al 12."
-                : "Solo se permiten numeros del 1 al 9.";
- 
-            String[] valores = celdas[intentoActual - 1].clone();
- 
-            for (int i = 0; i < 4; i++) {
-                if (valores[i] == null || valores[i].trim().isEmpty()) {
-                    return new ResultadoFila("Debes completar todos los espacios.");
-                }
-                if (!valores[i].matches(regex)) {
-                    return new ResultadoFila(mensajeRango);
-                }
-            }
- 
-            int a = Integer.parseInt(valores[0]);
-            int b = Integer.parseInt(valores[1]);
-            int c = Integer.parseInt(valores[2]);
-            int d = Integer.parseInt(valores[3]);
- 
-            if (a == b || a == c || a == d || b == c || b == d || c == d) {
-                return new ResultadoFila("No puedes usar numeros repetidos.");
-            }
- 
-            int filaValidada = intentoActual - 1;
-            String[] estilos = calcularEstilos(new int[]{a, b, c, d});
- 
-            if (solucion != null &&
-                a == solucion[0] && b == solucion[1] &&
-                c == solucion[2] && d == solucion[3]) {
-                return new ResultadoFila("GANASTE", estilos, filaValidada);
-            }
- 
-            DeshabilitarFila(intentoActual - 1);
-            intentoActual++;
-            columnaActual = 0;
- 
-            if (intentoActual > 6) {
-                return new ResultadoFila("PERDISTE", estilos, filaValidada);
-            }
- 
-            HabilitarFila(intentoActual - 1);
-            return new ResultadoFila("CONTINUA", estilos, filaValidada);
- 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResultadoFila("Ocurrio un error inesperado.");
-        }
-    }
- 
-    /**
-     * Reinicia el estado interno y genera una nueva ecuacion.
-     * Devuelve el nuevo target para que el controlador actualice los Labels.
-     */
-    public int ReiniciarJuego() {
-        intentoActual = 1;
-        columnaActual = 0;
- 
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++) {
-                celdas[i][j]   = "";
-                editable[i][j] = false;
-            }
- 
-        HabilitarFila(0);
-        return GenerarNuevoJuego();
-    }
- 
-    public int GetIntentoActual() {
-        return intentoActual;
-    }
- 
-    public void BloquearTodo() {
-        for (int i = 0; i < 6; i++) DeshabilitarFila(i);
-    }
- 
-    public void HabilitarFila(int fila) {
-        for (int j = 0; j < 4; j++) editable[fila][j] = true;
-    }
- 
-    public void DeshabilitarFila(int fila) {
-        for (int j = 0; j < 4; j++) editable[fila][j] = false;
-    }
- 
-    /** Devuelve el valor actual de la celda [fila][col]. */
-    public String getValorCelda(int fila, int col) {
-        return celdas[fila][col];
-    }
- 
-    /** Indica si la celda [fila][col] esta habilitada para edicion. */
-    public boolean isEditable(int fila, int col) {
-        return editable[fila][col];
-    }
- 
-    // ── Logica interna ────────────────────────────────────────────────────
 
-    private String[] calcularEstilos(int[] intento) {
-        String[] estilos = new String[4];
-        for (int j = 0; j < 4; j++) {
-            if (intento[j] == solucion[j]) {
-                estilos[j] = COLOR_VERDE;
+    /**
+     * Valida la fila actual y devuelve un array de estados.
+     * @return Array de 4 enteros: 2 (Verde), 1 (Amarillo), 0 (Gris). 
+     *         Null si la fila está incompleta o tiene errores de regla.
+     */
+    public int[] validarIntento() {
+        int[] fila = tableroDatos[intentoActual];
+
+        // 1. Validar que no haya vacíos
+        for (int num : fila) if (num == -1) return null;
+
+        // 2. Validar que no haya repetidos
+        if (tieneRepetidos(fila)) return null;
+
+        // 3. Comparar con la solución
+        int[] resultadoColores = new int[4]; 
+        for (int i = 0; i < 4; i++) {
+            if (fila[i] == solucion[i]) {
+                resultadoColores[i] = 2; // Representa VERDE
+            } else if (estaEnSolucion(fila[i])) {
+                resultadoColores[i] = 1; // Representa AMARILLO
             } else {
-                boolean estaEnSolucion = false;
-                for (int s = 0; s < 4; s++) {
-                    if (intento[j] == solucion[s]) {
-                        estaEnSolucion = true;
-                        break;
-                    }
-                }
-                estilos[j] = estaEnSolucion ? COLOR_AMARILLO : COLOR_GRIS;
+                resultadoColores[i] = 0; // Representa GRIS
             }
         }
-        return estilos;
+
+        intentoActual++; // Avanzamos de fila solo si la validación fue exitosa
+        return resultadoColores;
+    }
+    /**
+     * Verifica si una fila contiene valores duplicados.
+     * @param fila Arreglo de cuatro enteros a evaluar.
+     * @return true si hay al menos un valor repetido; false si todos son distintos.
+     */
+    private boolean tieneRepetidos(int[] fila) {
+        for (int i = 0; i < fila.length; i++) {
+            for (int j = i + 1; j < fila.length; j++) {
+                if (fila[i] == fila[j]) return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Comprueba si un número está presente en la solución de la partida.
+     * @param n Número a buscar.
+     * @return true si el número existe en la solución; false en caso contrario.
+     */
+    private boolean estaEnSolucion(int n) {
+        for (int s : solucion) if (s == n) return true;
+        return false;
+    }
+    /**
+     * Obtiene el valor objetivo de la partida actual.
+     * @return Entero que representa el target.
+     */
+    public int getTarget() { return target; }
+    /**
+     * Obtiene el índice de la fila en la que se encuentra el jugador.
+     * @return Número de intento actual (0 a 5).
+     */
+    public int getIntentoActual() { return intentoActual; }
+    /**
+     * Determina si el jugador ganó la partida.
+     * @return true si el último intento coincide exactamente con la solución; false en caso contrario.
+     */
+    public boolean esGanador() {
+        if (intentoActual == 0) return false;
+        return Arrays.equals(tableroDatos[intentoActual - 1], solucion);
     }
 }

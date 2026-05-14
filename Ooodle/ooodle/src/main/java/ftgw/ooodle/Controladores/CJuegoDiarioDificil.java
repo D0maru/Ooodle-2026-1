@@ -1,236 +1,352 @@
 package ftgw.ooodle.Controladores;
 
-import java.io.IOException;
+import ftgw.ooodle.Modelo.*;
 import ftgw.ooodle.Servicios.DAOEstadisticas;
-import ftgw.ooodle.Modelo.CronometroJuego;
-import ftgw.ooodle.Modelo.Ecuacion;
-import ftgw.ooodle.Modelo.Juego;
-import ftgw.ooodle.Modelo.ResultadoFila;
-import ftgw.ooodle.Modelo.ResultadoPartida;
-import ftgw.ooodle.Modelo.Usuario;
-import ftgw.ooodle.Modelo.SesionUsuario;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+/**
+ * Controlador principal del modo Diario Difícil del juego Ooodle.
+ * <p>
+ * Esta clase administra la lógica de interacción entre la interfaz gráfica
+ * y el modelo del juego durante una partida diaria en dificultad difícil.
+ * </p>
+ *
+ * <p>
+ * El controlador trabaja junto a las clases {@link Juego},
+ * {@link Usuario}, {@link CronometroJuego},
+ * {@link DAOEstadisticas}, {@link ResultadoPartida}
+ * y {@link SesionUsuario} para gestionar la lógica de juego,
+ * estadísticas del usuario y navegación entre escenas.
+ * </p>
+ */
 public class CJuegoDiarioDificil {
 
-    // ── Estilos CSS de color (responsabilidad del controlador) ────────────
-    private static final String ESTILO_VERDE    = "-fx-background-color: #00e676; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
-    private static final String ESTILO_AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: #000000; -fx-font-weight: bold; -fx-font-size: 16px;";
-    private static final String ESTILO_GRIS     = "-fx-background-color: #616161; -fx-text-fill: #ffffff; -fx-font-weight: bold; -fx-font-size: 16px;";
-
-    @FXML private Button B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12;
-    @FXML private Button Bcheck, Bdel, Blooby, Brestart;
-
-    @FXML private TextField a1, b1, c1, d1;
-    @FXML private TextField a2, b2, c2, d2;
-    @FXML private TextField a3, b3, c3, d3;
-    @FXML private TextField a4, b4, c4, d4;
-    @FXML private TextField a5, b5, c5, d5;
-    @FXML private TextField a6, b6, c6, d6;
-
+    /** Campos de texto que representan las celdas del tablero (6 filas x 4 columnas). */
+    @FXML private TextField a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3, a4, b4, c4, d4, a5, b5, c5, d5, a6, b6, c6, d6;
+    
+    /** Etiquetas para mostrar el resultado objetivo (target) en cada fila. */
     @FXML private Label res1, res2, res3, res4, res5, res6;
+    
+    /** Etiqueta visual para el tiempo transcurrido. */
     @FXML private Label cronometro;
 
+    // Constantes de estilo para el diseño del tablero y retroalimentación
+    private static final String COLOR_COL_A = "-fx-background-color: #344E41; -fx-text-fill: white;"; 
+    private static final String COLOR_COL_B = "-fx-background-color: #DAD7CD; -fx-text-fill: black;"; 
+    private static final String COLOR_COL_C = "-fx-background-color: #A3B18A; -fx-text-fill: black;"; 
+    private static final String COLOR_COL_D = "-fx-background-color: #588157; -fx-text-fill: white;"; 
+    private static final String VERDE = "-fx-background-color: #00e676; -fx-text-fill: black; -fx-font-weight: bold;";
+    private static final String AMARILLO = "-fx-background-color: #ffd600; -fx-text-fill: black; -fx-font-weight: bold;";
+    private static final String GRIS = "-fx-background-color: #616161; -fx-text-fill: white; -fx-font-weight: bold;";
+
     private Juego juego;
+    private Usuario usuarioActual;
     private CronometroJuego modeloCronometro;
     private Timeline timeline;
     private DAOEstadisticas daoEstadisticas = new DAOEstadisticas();
+    private TextField[][] matrizTablero;
+    private Label[] listaResultados;
+    private int columnaSeleccionada = 0;
+    
+    /** Almacena temporalmente los dígitos ingresados para permitir números de dos cifras (hasta 12). */
+    private String bufferTeclado = "";
+    private Timeline timerBuffer;
 
-    private TextField[][] tablero;
-    private Label[]       resultados;
-    private String[][]    estilosOriginales;
-
+    /**
+     * Inicializa los componentes de la interfaz, configura el estado inicial del juego,
+     * los eventos del tablero y el cronómetro.
+     */
     @FXML
     public void initialize() {
-        tablero = new TextField[][]{
-            {a1, b1, c1, d1}, {a2, b2, c2, d2},
-            {a3, b3, c3, d3}, {a4, b4, c4, d4},
-            {a5, b5, c5, d5}, {a6, b6, c6, d6}
+        matrizTablero = new TextField[][]{
+            {a1, b1, c1, d1}, {a2, b2, c2, d2}, {a3, b3, c3, d3},
+            {a4, b4, c4, d4}, {a5, b5, c5, d5}, {a6, b6, c6, d6}
         };
-        resultados = new Label[]{res1, res2, res3, res4, res5, res6};
+        listaResultados = new Label[]{res1, res2, res3, res4, res5, res6};
+        this.usuarioActual = SesionUsuario.getInstancia().getUsuarioActual();
 
-        estilosOriginales = new String[6][4];
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++)
-                estilosOriginales[i][j] = tablero[i][j].getStyle();
+        configurarEventosTablero();
+        iniciarNuevoJuego();
+        configurarCronometro();
+        configurarTecladoFisico();
+        
+        timerBuffer = new Timeline(new KeyFrame(Duration.millis(300), e -> procesarBuffer()));
+    }
 
-        modeloCronometro = new CronometroJuego();
-        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            String tiempoTexto = modeloCronometro.incrementoSegundos();
-            cronometro.setText(tiempoTexto);
-            if (modeloCronometro.esTiempoMaximo()) {
-                detenerSistemas();
+    /**
+     * Configura el filtro de eventos para capturar la entrada del teclado físico
+     * y redirigirla a la lógica del juego.
+     */
+    private void configurarTecladoFisico() {
+        javafx.application.Platform.runLater(() -> {
+            Scene scene = cronometro.getScene();
+            if (scene != null) {
+                scene.addEventFilter(javafx.scene.input.KeyEvent.KEY_PRESSED, event -> {
+                    javafx.scene.input.KeyCode code = event.getCode();
+                    if (code.isDigitKey() || (code.ordinal() >= 25 && code.ordinal() <= 34)) {
+                        String tecla = code.toString();
+                        String digit = tecla.substring(tecla.length() - 1);
+                        manejarEntradaTeclado(digit);
+                        event.consume();
+                    } 
+                    else if (code == javafx.scene.input.KeyCode.BACK_SPACE) {
+                        ClickDel();
+                        event.consume();
+                    }
+                    else if (code == javafx.scene.input.KeyCode.ENTER) {
+                        ClickCheck(new ActionEvent(event.getSource(), null));
+                        event.consume();
+                    }
+                });
             }
-        }));
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        timeline.play();
-
-        Usuario usuario = SesionUsuario.getInstancia().getUsuarioActual();
-        juego = new Juego(true, usuario, new Ecuacion());
-
-        int target = juego.GenerarNuevoJuego();
-        actualizarResultados(target);
-
-        juego.BloquearTodo();
-        sincronizarBloqueoPorFila();
-        juego.HabilitarFila(0);
-        sincronizarHabilitacionFila(0);
+        });
     }
 
-    private String detenerSistemas() {
-        if (timeline != null) timeline.stop();
-        return "Cronómetro detenido";
+    /** 
+     * Gestiona la acumulación de dígitos en el buffer para permitir números compuestos.
+     * @param digito El dígito presionado en el teclado.
+     */
+    private void manejarEntradaTeclado(String digito) {
+        timerBuffer.stop();
+        bufferTeclado += digito;
+        if (bufferTeclado.length() == 2) {
+            procesarBuffer();
+        } else {
+            timerBuffer.playFromStart();
+        }
     }
 
-    // --- Controles numéricos ---
-    @FXML void Click1(ActionEvent e)  { juego.EscribirNumero("1");  sincronizarCeldas(); }
-    @FXML void Click2(ActionEvent e)  { juego.EscribirNumero("2");  sincronizarCeldas(); }
-    @FXML void Click3(ActionEvent e)  { juego.EscribirNumero("3");  sincronizarCeldas(); }
-    @FXML void Click4(ActionEvent e)  { juego.EscribirNumero("4");  sincronizarCeldas(); }
-    @FXML void Click5(ActionEvent e)  { juego.EscribirNumero("5");  sincronizarCeldas(); }
-    @FXML void Click6(ActionEvent e)  { juego.EscribirNumero("6");  sincronizarCeldas(); }
-    @FXML void Click7(ActionEvent e)  { juego.EscribirNumero("7");  sincronizarCeldas(); }
-    @FXML void Click8(ActionEvent e)  { juego.EscribirNumero("8");  sincronizarCeldas(); }
-    @FXML void Click9(ActionEvent e)  { juego.EscribirNumero("9");  sincronizarCeldas(); }
-    @FXML void Click10(ActionEvent e) { juego.EscribirNumero("10"); sincronizarCeldas(); }
-    @FXML void Click11(ActionEvent e) { juego.EscribirNumero("11"); sincronizarCeldas(); }
-    @FXML void Click12(ActionEvent e) { juego.EscribirNumero("12"); sincronizarCeldas(); }
+    /**
+     * Procesa el contenido del buffer de teclado para determinar si se ingresó
+     * un número válido (1-12) o si deben procesarse como dígitos individuales.
+     */
+    private void procesarBuffer() {
+        if (bufferTeclado.isEmpty()) return;
+        try {
+            int valor = Integer.parseInt(bufferTeclado);
+            if (valor > 12) {
+                int primerDigito = Character.getNumericValue(bufferTeclado.charAt(0));
+                procesarEntrada(primerDigito);
+                bufferTeclado = bufferTeclado.substring(1);
+                procesarBuffer(); 
+            } else {
+                procesarEntrada(valor);
+                bufferTeclado = "";
+            }
+        } catch (NumberFormatException e) { bufferTeclado = ""; }
+    }
 
-    @FXML void ClickDel(ActionEvent e) { juego.BorrarDigito(); sincronizarCeldas(); }
+    /** 
+     * Inserta un número en la celda actualmente seleccionada del tablero.
+     * @param numero El valor numérico a colocar en la celda.
+     */
+    private void procesarEntrada(int numero) {
+        if (juego.getIntentoActual() >= 6) return;
+        int fila = juego.getIntentoActual();
+        juego.setNumeroEnCelda(columnaSeleccionada, numero);
+        matrizTablero[fila][columnaSeleccionada].setText(String.valueOf(numero));
+        if (columnaSeleccionada < 3) columnaSeleccionada++;
+    }
 
+    /**
+     * Elimina el contenido de la celda actual o retrocede a la anterior si la actual está vacía.
+     */
+    @FXML void ClickDel() {
+        bufferTeclado = "";
+        int fila = juego.getIntentoActual();
+        if (matrizTablero[fila][columnaSeleccionada].getText().isEmpty() && columnaSeleccionada > 0) {
+            columnaSeleccionada--;
+        }
+        juego.borrarCelda(columnaSeleccionada);
+        matrizTablero[fila][columnaSeleccionada].clear();
+    }
+
+    /**
+     * Reinicia el estado visual y lógico del juego para comenzar una nueva partida.
+     * @param e Evento de acción del botón.
+     */
     @FXML void ClickRestart(ActionEvent e) {
         detenerSistemas();
-        cronometro.setText(modeloCronometro.reiniciar());
-        timeline.playFromStart();
-
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++)
-                tablero[i][j].setStyle(estilosOriginales[i][j]);
-
-        int target = juego.ReiniciarJuego();
-        actualizarResultados(target);
-        sincronizarCeldas();
-        sincronizarBloqueoPorFila();
-        sincronizarHabilitacionFila(0);
+        bufferTeclado = "";
+        if (modeloCronometro != null) cronometro.setText(modeloCronometro.reiniciar());
+        if (timeline != null) timeline.playFromStart();
+        
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                TextField tf = matrizTablero[i][j];
+                tf.clear();
+                if (j == 0) tf.setStyle(COLOR_COL_A);
+                else if (j == 1) tf.setStyle(COLOR_COL_B);
+                else if (j == 2) tf.setStyle(COLOR_COL_C);
+                else tf.setStyle(COLOR_COL_D);
+            }
+        }
+        iniciarNuevoJuego();
     }
 
-    @FXML
-    void ClickCheck(ActionEvent e) {
-        ResultadoFila resultado = juego.ValidarFila();
+    /**
+     * Configura los estilos iniciales y los eventos de clic para cada celda del tablero.
+     */
+    private void configurarEventosTablero() {
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                TextField tf = matrizTablero[i][j];
+                final int f = i; final int c = j;
+                tf.setOnMouseClicked(e -> {
+                    if (f == juego.getIntentoActual()) columnaSeleccionada = c;
+                });
+                tf.setEditable(false);
+                tf.setFocusTraversable(false);
+                
+                if (j == 0) tf.setStyle(COLOR_COL_A);
+                else if (j == 1) tf.setStyle(COLOR_COL_B);
+                else if (j == 2) tf.setStyle(COLOR_COL_C);
+                else tf.setStyle(COLOR_COL_D);
+            }
+        }
+    }
 
-        if (resultado.estado.equals("ERROR")) {
-            mostrarError(resultado.mensajeError);
+    /**
+     * Valida el intento actual del usuario, cambia los colores de las celdas
+     * según el acierto y verifica las condiciones de victoria o derrota.
+     * @param e Evento de acción del botón de verificación.
+     */
+    @FXML void ClickCheck(ActionEvent e) {
+        int[] colores = juego.validarIntento();
+        if (colores == null) {
+            mostrarAlerta("Error", "Fila incompleta o números repetidos.");
             return;
         }
-
-        aplicarEstilosFila(resultado.filaValidada, resultado.estilosFila);
-        sincronizarBloqueoPorFila();
-        if (resultado.estado.equals("CONTINUA")) {
-            sincronizarHabilitacionFila(juego.GetIntentoActual() - 1);
+        int filaFinalizada = juego.getIntentoActual() - 1;
+        for (int j = 0; j < 4; j++) {
+            if (colores[j] == 2) matrizTablero[filaFinalizada][j].setStyle(VERDE);
+            else if (colores[j] == 1) matrizTablero[filaFinalizada][j].setStyle(AMARILLO);
+            else matrizTablero[filaFinalizada][j].setStyle(GRIS);
         }
-
-        Usuario usuario = juego.getUsuario();
-        int id = usuario.getId();
-
-        if (resultado.estado.equals("GANASTE")) {
-            ResultadoPartida datos = new ResultadoPartida(id, 1, 1, 1);
-            Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
-            SesionUsuario.getInstancia().setUsuarioActual(actualizado);
-            cambiarEscena(e, "VictoriaDiario.fxml");
-
-        } else if (resultado.estado.equals("PERDISTE")) {
-            detenerSistemas();
-            ResultadoPartida datos = new ResultadoPartida(id, -1, 0, 1);
-            Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
-            SesionUsuario.getInstancia().setUsuarioActual(actualizado);
-            cambiarEscena(e, "DerrotaDiario.fxml");
-        }
+        if (juego.esGanador()) finalizarPartida(true);
+        else if (juego.getIntentoActual() >= 6) finalizarPartida(false);
+        else actualizarEstadoFilas();
     }
 
-    private void cambiarEscena(ActionEvent evento, String fxml) {
+    /** 
+     * Finaliza la partida, actualiza las estadísticas del usuario en la base de datos
+     * y redirige a la escena correspondiente (Victoria/Derrota).
+     * @param gano Indica si el usuario ganó la partida.
+     */
+    private void finalizarPartida(boolean gano) {
+        detenerSistemas();
+        if (usuarioActual != null) {
+            int id = usuarioActual.getId();
+            ResultadoPartida datos = gano ? new ResultadoPartida(id, 1, 1, 1) : new ResultadoPartida(id, -1, 0, 1);
+            try {
+                Usuario actualizado = daoEstadisticas.actualizarDatos(datos);
+                SesionUsuario.getInstancia().setUsuarioActual(actualizado);
+            } catch (RuntimeException ex) {
+                mostrarAlerta("Error al guardar partida", ex.getMessage());
+            }
+        }
+        cambiarEscena(gano ? "VictoriaDiario.fxml" : "DerrotaDiario.fxml");
+    }
+
+    /**
+     * Crea una nueva instancia de juego con una ecuación aleatoria y actualiza la UI.
+     */
+    private void iniciarNuevoJuego() {
+        Ecuacion ecuacion = new Ecuacion();
+        juego = new Juego(true, ecuacion, usuarioActual);
+        juego.generarNuevoJuego();
+        for (Label l : listaResultados) l.setText(String.valueOf(juego.getTarget()));
+        actualizarEstadoFilas();
+    }
+
+    /**
+     * Habilita visualmente solo la fila actual en juego y deshabilita las demás.
+     */
+    private void actualizarEstadoFilas() {
+        int filaActiva = juego.getIntentoActual();
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 4; j++) {
+                matrizTablero[i][j].setDisable(i != filaActiva);
+            }
+        }
+        columnaSeleccionada = 0; 
+    }
+
+    /** 
+     * Realiza la transición entre diferentes archivos FXML.
+     * @param fxml Nombre del archivo FXML (con extensión) a cargar.
+     */
+    private void cambiarEscena(String fxml) {
         try {
             detenerSistemas();
             Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/interfaces/" + fxml));
-            Stage stage = (Stage) ((Node) evento.getSource()).getScene().getWindow();
+            Stage stage = (Stage) cronometro.getScene().getWindow(); 
             stage.setScene(new Scene(root));
             stage.show();
         } catch (Exception ex) {
-            ex.printStackTrace();
+            mostrarAlerta("Error de navegación", "No se pudo cambiar de pantalla: " + ex.getMessage());
         }
     }
 
-    @FXML
-    void volverAlLobby(ActionEvent e) {
-        try {
-            detenerSistemas();
-            Parent root = FXMLLoader.load(getClass().getResource("/ftgw/ooodle/interfaces/Lobby.fxml"));
-            Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    /** Redirige al usuario a la pantalla principal del lobby. */
+    @FXML void volverAlLobby(ActionEvent event) { cambiarEscena("Lobby.fxml"); }
+
+    /**
+     * Inicializa y comienza el hilo del cronómetro que actualiza la UI cada segundo.
+     */
+    private void configurarCronometro() {
+        modeloCronometro = new CronometroJuego();
+        timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            cronometro.setText(modeloCronometro.incrementoSegundos());
+            if (modeloCronometro.esTiempoMaximo()) detenerSistemas();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
     }
 
-    // ── Helpers privados de sincronización UI ↔ Modelo ───────────────────
-
-    private void sincronizarCeldas() {
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++)
-                tablero[i][j].setText(juego.getValorCelda(i, j));
+    /**
+     * Detiene los procesos en segundo plano como el cronómetro y los timers de entrada.
+     */
+    private void detenerSistemas() { 
+        if (timeline != null) timeline.stop(); 
+        if (timerBuffer != null) timerBuffer.stop();
     }
 
-    private void sincronizarBloqueoPorFila() {
-        for (int i = 0; i < 6; i++)
-            for (int j = 0; j < 4; j++) {
-                boolean ed = juego.isEditable(i, j);
-                tablero[i][j].setEditable(ed);
-                tablero[i][j].setDisable(!ed);
-            }
-    }
-
-    private void sincronizarHabilitacionFila(int fila) {
-        for (int j = 0; j < 4; j++) {
-            tablero[fila][j].setEditable(true);
-            tablero[fila][j].setDisable(false);
-        }
-    }
-
-    private void aplicarEstilosFila(int fila, String[] claves) {
-        for (int j = 0; j < 4; j++) {
-            String css;
-            switch (claves[j]) {
-                case Juego.COLOR_VERDE:    css = ESTILO_VERDE;    break;
-                case Juego.COLOR_AMARILLO: css = ESTILO_AMARILLO; break;
-                default:                   css = ESTILO_GRIS;     break;
-            }
-            tablero[fila][j].setStyle(css);
-        }
-    }
-
-    private void actualizarResultados(int target) {
-        String texto = String.valueOf(target);
-        for (Label l : resultados) l.setText(texto);
-    }
-
-    private void mostrarError(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
+    /** 
+     * Despliega una ventana emergente de advertencia para informar al usuario.
+     * @param titulo Encabezado de la alerta.
+     * @param msg Cuerpo del mensaje informativo.
+     */
+    private void mostrarAlerta(String titulo, String msg) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(titulo);
         alert.setHeaderText(null);
-        alert.setContentText(mensaje);
+        alert.setContentText(msg);
         alert.showAndWait();
     }
+
+    // Métodos de eventos para los botones del teclado numérico en la interfaz (1-12)
+    @FXML void Click1() { procesarEntrada(1); }
+    @FXML void Click2() { procesarEntrada(2); }
+    @FXML void Click3() { procesarEntrada(3); }
+    @FXML void Click4() { procesarEntrada(4); }
+    @FXML void Click5() { procesarEntrada(5); }
+    @FXML void Click6() { procesarEntrada(6); }
+    @FXML void Click7() { procesarEntrada(7); }
+    @FXML void Click8() { procesarEntrada(8); }
+    @FXML void Click9() { procesarEntrada(9); }
+    @FXML void Click10() { procesarEntrada(10); }
+    @FXML void Click11() { procesarEntrada(11); }
+    @FXML void Click12() { procesarEntrada(12); }
 }
