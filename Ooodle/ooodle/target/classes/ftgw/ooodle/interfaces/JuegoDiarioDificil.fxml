@@ -17,7 +17,7 @@
             <Image url="@../../../imagenes/title.jpeg" />
          </image>
       </ImageView>
-      <Button fx:id="Brestart" layoutX="494.0" layoutY="50.0" mnemonicParsing="false" onAction="#ClickRestart" prefHeight="37.0" prefWidth="83.0" style="-fx-background-color: #DAD7CD; -fx-background-radius: 10;" text="Restart" textFill="#222121">
+      <Button fx:id="Brestart" layoutX="494.0" layoutY="50.0" mnemonicParsing="false" onAction="#ClickRestart" prefHeight="37.0" prefWidth="83.0" style="-fx-background-color: #57A5CC; -fx-background-radius: 10;" text="Restart" textFill="#222121">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>
@@ -178,12 +178,12 @@
                      </input>
                   </Glow>
                </effect></TextField>
-            <Label layoutX="125.0" text="+">
+            <Label layoutX="125.0" text="+" textFill="#588157">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="61.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
                   <Font size="40.0" />
                </font>
@@ -193,7 +193,7 @@
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="262.0" text="=">
+            <Label layoutX="262.0" text="=" textFill="#9da68d">
                <font>
                   <Font size="40.0" />
                </font>
@@ -228,27 +228,27 @@
                   <Font name="System Bold Italic" size="25.0" />
                </font>
             </Label>
-            <Label layoutX="262.0" layoutY="51.0" text="=">
+            <Label layoutX="262.0" layoutY="51.0" text="=" textFill="#9da68d">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="262.0" layoutY="93.0" text="=">
+            <Label layoutX="262.0" layoutY="93.0" text="=" textFill="#9da68d">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="262.0" layoutY="135.0" text="=">
+            <Label layoutX="262.0" layoutY="135.0" text="=" textFill="#9da68d">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="262.0" layoutY="176.0" text="=">
+            <Label layoutX="262.0" layoutY="176.0" text="=" textFill="#9da68d">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="262.0" layoutY="220.0" text="=">
+            <Label layoutX="262.0" layoutY="220.0" text="=" textFill="#9da68d">
                <font>
                   <Font size="40.0" />
                </font>
@@ -278,52 +278,52 @@
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="125.0" layoutY="51.0" text="+">
+            <Label layoutX="125.0" layoutY="51.0" text="+" textFill="#588157">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="125.0" layoutY="93.0" text="+">
+            <Label layoutX="125.0" layoutY="93.0" text="+" textFill="#588157">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="125.0" layoutY="135.0" text="+">
+            <Label layoutX="125.0" layoutY="135.0" text="+" textFill="#588157">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="125.0" layoutY="176.0" text="+">
+            <Label layoutX="125.0" layoutY="176.0" text="+" textFill="#588157">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="125.0" layoutY="220.0" text="+">
+            <Label layoutX="125.0" layoutY="220.0" text="+" textFill="#588157">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="61.0" layoutY="48.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" layoutY="48.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="61.0" layoutY="90.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" layoutY="90.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="61.0" layoutY="135.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" layoutY="135.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="61.0" layoutY="179.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" layoutY="179.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="61.0" layoutY="220.0" prefHeight="30.0" prefWidth="14.0" text="x">
+            <Label layoutX="61.0" layoutY="220.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
                <font>
                   <Font size="40.0" />
                </font>
@@ -332,18 +332,15 @@
       </AnchorPane>
       <AnchorPane layoutX="378.0" layoutY="86.0" prefHeight="273.0" prefWidth="207.0">
          <children>
-            <Button fx:id="Bcheck" layoutX="16.0" layoutY="25.0" mnemonicParsing="false" onAction="#ClickCheck" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: #588157; -fx-background-radius: 10;" text="Check" textFill="#141414">
+            <Button fx:id="Bcheck" layoutX="16.0" layoutY="25.0" mnemonicParsing="false" onAction="#ClickCheck" prefHeight="46.0" prefWidth="90.0" style="-fx-background-color: GREEN; -fx-background-radius: 10;" text="Check" textFill="#141414">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Glow />
-                     </input></InnerShadow>
+                  <InnerShadow />
                </effect>
             </Button>
-            <Button fx:id="Bdel" layoutX="124.0" layoutY="25.0" mnemonicParsing="false" onAction="#ClickDel" prefHeight="46.0" prefWidth="74.0" style="-fx-background-color: #A3B18A; -fx-background-radius: 10;" text="Del" textFill="#222020">
+            <Button fx:id="Bdel" layoutX="124.0" layoutY="25.0" mnemonicParsing="false" onAction="#ClickDel" prefHeight="46.0" prefWidth="74.0" style="-fx-background-color: RED; -fx-background-radius: 10;" text="Del" textFill="#222020">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

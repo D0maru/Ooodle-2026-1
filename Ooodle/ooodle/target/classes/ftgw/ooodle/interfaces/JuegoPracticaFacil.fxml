@@ -15,17 +15,14 @@
    <children>
       <Pane layoutX="380.0" layoutY="94.0" prefHeight="254.0" prefWidth="206.0">
          <children>
-            <Button fx:id="BCheck" layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#ClickCheck" prefHeight="47.0" prefWidth="97.0" style="-fx-background-color: #588157; -fx-background-radius: 10;" text="Check" textFill="#1e1c1c">
+            <Button fx:id="BCheck" layoutX="14.0" layoutY="27.0" mnemonicParsing="false" onAction="#ClickCheck" prefHeight="47.0" prefWidth="97.0" style="-fx-background-color: GREEN; -fx-background-radius: 10;" text="Check" textFill="#1e1c1c">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
                <effect>
-                  <InnerShadow>
-                     <input>
-                        <Glow />
-                     </input></InnerShadow>
+                  <InnerShadow />
                </effect></Button>
-            <Button fx:id="BDel" layoutX="126.0" layoutY="27.0" mnemonicParsing="false" onAction="#ClickDel" prefHeight="47.0" prefWidth="77.0" style="-fx-background-color: #A3B18A; -fx-background-radius: 10;" text="Del" textFill="#141313">
+            <Button fx:id="BDel" layoutX="126.0" layoutY="27.0" mnemonicParsing="false" onAction="#ClickDel" prefHeight="47.0" prefWidth="77.0" style="-fx-background-color: RED; -fx-background-radius: 10;" text="Del" textFill="#141313">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -97,7 +94,7 @@
                </effect></Button>
          </children>
       </Pane>
-      <Button fx:id="BTRestart" layoutX="489.0" layoutY="40.0" mnemonicParsing="false" onAction="#ClickRestart" prefHeight="47.0" prefWidth="90.0" style="-fx-background-color: #DAD7CD; -fx-background-radius: 10;" text="Restart" textFill="#1b1a1a">
+      <Button fx:id="BTRestart" layoutX="489.0" layoutY="40.0" mnemonicParsing="false" onAction="#ClickRestart" prefHeight="47.0" prefWidth="90.0" style="-fx-background-color: #57A5CC; -fx-background-radius: 10;" text="Restart" textFill="#1b1a1a">
          <font>
             <Font name="System Bold Italic" size="16.0" />
          </font>
@@ -135,7 +132,7 @@
                </Glow>
             </effect>
          </TextField>
-         <Label fx:id="res_1" layoutX="299.0" layoutY="13.0" text="20" textFill="#344e41">
+         <Label fx:id="res_1" layoutX="308.0" layoutY="16.0" text="20" textFill="#344e41">
             <font>
                <Font name="System Bold Italic" size="25.0" />
             </font>
@@ -166,7 +163,7 @@
                <Glow><input><InnerShadow /></input></Glow>
             </effect>
          </TextField>
-         <Label fx:id="res_2" layoutX="299.0" layoutY="62.0" text="20" textFill="#344e41">
+         <Label fx:id="res_2" layoutX="308.0" layoutY="62.0" text="20" textFill="#344e41">
             <font><Font name="System Bold Italic" size="25.0" /></font>
          </Label>
 
@@ -187,7 +184,7 @@
                <Glow><input><InnerShadow /></input></Glow>
             </effect>
          </TextField>
-         <Label fx:id="res_3" layoutX="299.0" layoutY="104.0" text="20" textFill="#344e41">
+         <Label fx:id="res_3" layoutX="308.0" layoutY="104.0" text="20" textFill="#344e41">
             <font><Font name="System Bold Italic" size="25.0" /></font>
          </Label>
 
@@ -208,7 +205,7 @@
                <InnerShadow><input><Glow /></input></InnerShadow>
             </effect>
          </TextField>
-         <Label fx:id="res_4" layoutX="299.0" layoutY="146.0" text="20" textFill="#344e41">
+         <Label fx:id="res_4" layoutX="307.0" layoutY="146.0" text="20" textFill="#344e41">
             <font><Font name="System Bold Italic" size="25.0" /></font>
          </Label>
 
@@ -229,7 +226,7 @@
                <Glow><input><InnerShadow /></input></Glow>
             </effect>
          </TextField>
-         <Label fx:id="res_5" layoutX="299.0" layoutY="190.0" text="20" textFill="#344e41">
+         <Label fx:id="res_5" layoutX="308.0" layoutY="190.0" text="20" textFill="#344e41">
             <font><Font name="System Bold Italic" size="25.0" /></font>
          </Label>
 
@@ -250,42 +247,42 @@
                <Glow><input><InnerShadow /></input></Glow>
             </effect>
          </TextField>
-         <Label fx:id="res_6" layoutX="299.0" layoutY="231.0" text="20" textFill="#344e41">
+         <Label fx:id="res_6" layoutX="308.0" layoutY="234.0" text="20" textFill="#344e41">
             <font><Font name="System Bold Italic" size="25.0" /></font>
          </Label>
 
          <!-- OPERADORES Y SIGNOS -->
          <!-- Multiplicación (x) -->
-         <Label layoutX="60.0" layoutY="0.0" text="x"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="60.0" layoutY="51.0" text="x"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="60.0" layoutY="93.0" text="x" textFill="#1d1d1d"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="60.0" layoutY="135.0" text="x"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="60.0" layoutY="179.0" text="x"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="60.0" layoutY="223.0" text="x" textFill="#262826"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="60.0" layoutY="0.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="60.0" layoutY="51.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="60.0" layoutY="93.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="60.0" layoutY="135.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="60.0" layoutY="179.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="60.0" layoutY="223.0" text="x" textFill="#67b565"><font><Font size="40.0" /></font></Label>
 
          <!-- Suma (+) -->
-         <Label layoutX="125.0" layoutY="2.0" text="+"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="125.0" layoutY="51.0" text="+"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="125.0" layoutY="93.0" text="+"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="125.0" layoutY="135.0" text="+"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="125.0" layoutY="179.0" text="+"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="125.0" layoutY="223.0" text="+"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="125.0" layoutY="2.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="125.0" layoutY="51.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="125.0" layoutY="93.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="125.0" layoutY="135.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="125.0" layoutY="179.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="125.0" layoutY="223.0" text="+" textFill="#588157"><font><Font size="40.0" /></font></Label>
 
          <!-- Resta (-) -->
-         <Label layoutX="198.0" layoutY="0.0" prefHeight="58.0" prefWidth="19.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="198.0" layoutY="51.0" prefHeight="58.0" prefWidth="19.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="198.0" layoutY="93.0" prefHeight="58.0" prefWidth="19.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="198.0" layoutY="135.0" prefHeight="58.0" prefWidth="19.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="198.0" layoutY="179.0" prefHeight="58.0" prefWidth="19.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
-         <Label layoutX="198.0" layoutY="220.0" prefHeight="58.0" prefWidth="19.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="201.0" layoutY="0.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="201.0" layoutY="51.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="201.0" layoutY="93.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="201.0" layoutY="135.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="201.0" layoutY="179.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="201.0" layoutY="220.0" text="-" textFill="#344e41"><font><Font size="40.0" /></font></Label>
 
          <!-- Igual (=) -->
-         <Label layoutX="271.0" layoutY="0.0" text="="><font><Font size="40.0" /></font></Label>
-         <Label layoutX="271.0" layoutY="51.0" text="="><font><Font size="40.0" /></font></Label>
-         <Label layoutX="271.0" layoutY="93.0" text="="><font><Font size="40.0" /></font></Label>
-         <Label layoutX="271.0" layoutY="135.0" text="="><font><Font size="40.0" /></font></Label>
-         <Label layoutX="271.0" layoutY="179.0" text="="><font><Font size="40.0" /></font></Label>
-         <Label layoutX="271.0" layoutY="220.0" text="="><font><Font size="40.0" /></font></Label>
+         <Label layoutX="271.0" layoutY="0.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="271.0" layoutY="51.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="271.0" layoutY="93.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="271.0" layoutY="135.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="271.0" layoutY="179.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
+         <Label layoutX="271.0" layoutY="220.0" text="=" textFill="#9da68d"><font><Font size="40.0" /></font></Label>
       </children>
    </AnchorPane>
       <Button fx:id="BotonLobby" layoutX="45.0" layoutY="39.0" mnemonicParsing="false" onAction="#volverAlLobby">
