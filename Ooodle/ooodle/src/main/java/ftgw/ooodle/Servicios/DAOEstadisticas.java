@@ -11,22 +11,34 @@ import ftgw.ooodle.Modelo.ResultadoPartida;
 import ftgw.ooodle.Modelo.SesionUsuario;
 import ftgw.ooodle.Modelo.Usuario;
 import io.github.cdimascio.dotenv.Dotenv;
-
+/**
+ * Objeto de acceso a datos para las estadísticas de los usuarios.
+ * Gestiona la lectura y actualización de rachas, partidas jugadas
+ * y partidas ganadas en la base de datos.
+ */
 public class DAOEstadisticas {
+    /** URL de conexión a la base de datos. */
     private final String url;
+    /** Nombre de usuario para autenticarse en la base de datos. */
     private final String user;
+    /** Contraseña para autenticarse en la base de datos. */
     private final String pass;
-
+    /**
+     * Crea una instancia del DAO cargando las credenciales
+     * de conexión desde el archivo .env.
+     */
     public DAOEstadisticas() {
         Dotenv dotenv = Dotenv.load();
         this.url = dotenv.get("DB_URL");
         this.user = dotenv.get("DB_USER");
         this.pass = dotenv.get("DB_PASSWORD");
     }
-
     /**
-     * Actualiza la base de datos tras terminar una partida y devuelve el usuario actualizado.
-     * Lanza RuntimeException si falla la BD, para que el controlador la muestre al jugador.
+     * Actualiza las estadísticas del usuario en la base de datos tras finalizar una partida.
+     * Recalcula racha, racha máxima, partidas jugadas y ganadas, y actualiza la fecha de último juego.
+     * @param resultado Objeto con los cambios generados por la partida.
+     * @return Usuario actualizado con el id y nickname del jugador.
+     * @throws RuntimeException si ocurre un error al acceder a la base de datos.
      */
     public Usuario actualizarDatos(ResultadoPartida resultado) {
         String sqlSelect = "SELECT u.Nickname, u.UltimoJuego, e.Racha_Actual, e.Racha_Max, e.P_Jugadas, e.P_Ganadas " +
@@ -85,10 +97,12 @@ public class DAOEstadisticas {
             throw new RuntimeException("Error al guardar los resultados de la partida: " + e.getMessage(), e);
         }
     }
-
     /**
-     * Carga los datos necesarios para mostrar en el Lobby.
-     * Lanza RuntimeException si falla la BD, para que el controlador la muestre al jugador.
+     * Carga las estadísticas del usuario desde la base de datos para mostrarlas en el Lobby.
+     * También evalúa y actualiza en sesión si el usuario puede jugar hoy.
+     * @param idUsuario Identificador del usuario a consultar.
+     * @return ResultadoPartida con las estadísticas actuales del usuario.
+     * @throws RuntimeException si ocurre un error al acceder a la base de datos.
      */
     public ResultadoPartida cargarEstadisticasAlLobby(int idUsuario) {
         String sql = "SELECT u.UltimoJuego, e.Racha_Actual, e.Racha_Max, e.P_Jugadas, e.P_Ganadas " +
@@ -122,10 +136,10 @@ public class DAOEstadisticas {
         }
         return resultado;
     }
-
-    /** 
-     * @param fechaDB
-     * @return boolean
+    /**
+     * Determina si el usuario puede jugar hoy comparando la fecha de su último juego con la fecha actual.
+     * @param fechaDB Fecha del último juego almacenada en la base de datos; null si nunca ha jugado.
+     * @return true si nunca ha jugado o si su último juego fue antes de hoy; false si ya jugó hoy.
      */
     private boolean evaluarPermisoJuego(java.sql.Date fechaDB) {
         if (fechaDB == null) return true;
