@@ -15,15 +15,18 @@
    <children>
       <Pane layoutX="366.0" layoutY="117.0" prefHeight="249.0" prefWidth="222.0">
          <children>
-            <Button fx:id="Bcheck" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" onAction="#ClickCheck" prefHeight="43.0" prefWidth="92.0" style="-fx-background-color: GREEN; -fx-background-radius: 10;" text="Check" textFill="#171717">
+            <Button fx:id="Bcheck" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" onAction="#ClickCheck" prefHeight="43.0" prefWidth="92.0" style="-fx-background-color: #588157; -fx-background-radius: 10;" text="Check" textFill="#171717">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
                <effect>
-                  <InnerShadow />
+                  <InnerShadow>
+                     <input>
+                        <Glow />
+                     </input></InnerShadow>
                </effect>
             </Button>
-            <Button fx:id="Bdel" layoutX="139.0" layoutY="30.0" mnemonicParsing="false" onAction="#ClickDel" prefHeight="43.0" prefWidth="77.0" style="-fx-background-color: RED; -fx-background-radius: 10;" text="Del" textFill="#222121">
+            <Button fx:id="Bdel" layoutX="139.0" layoutY="30.0" mnemonicParsing="false" onAction="#ClickDel" prefHeight="43.0" prefWidth="77.0" style="-fx-background-color: #A3B18A; -fx-background-radius: 10;" text="Del" textFill="#222121">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -105,7 +108,7 @@
             </Button>
          </children>
       </Pane>
-      <Button fx:id="Brestart" layoutX="485.0" layoutY="63.0" mnemonicParsing="false" onAction="#ClickRestart" prefHeight="43.0" prefWidth="100.0" style="-fx-background-color: #57A5CC; -fx-background-radius: 10;" text="Restart" textFill="#171717">
+      <Button fx:id="Brestart" layoutX="485.0" layoutY="63.0" mnemonicParsing="false" onAction="#ClickRestart" prefHeight="43.0" prefWidth="100.0" style="-fx-background-color: #DAD7CD; -fx-background-radius: 10;" text="Restart" textFill="#171717">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
@@ -259,22 +262,22 @@
                      </input>
                   </Glow>
                </effect></TextField>
-            <Label layoutX="124.0" layoutY="5.0" text="+" textFill="#588157">
+            <Label layoutX="124.0" layoutY="5.0" text="+">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
+            <Label layoutX="63.0" prefHeight="30.0" prefWidth="14.0" text="x">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="2.0" text="-" textFill="#344e41">
+            <Label layoutX="201.0" layoutY="2.0" text="-">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="266.0" layoutY="5.0" text="=" textFill="#9da68d">
+            <Label layoutX="266.0" layoutY="5.0" text="=">
                <font>
                   <Font size="40.0" />
                </font>
@@ -309,102 +312,102 @@
                   <Font name="System Bold Italic" size="25.0" />
                </font>
             </Label>
-            <Label layoutX="266.0" layoutY="51.0" text="=" textFill="#9da68d">
+            <Label layoutX="266.0" layoutY="51.0" text="=">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="266.0" layoutY="93.0" text="=" textFill="#9da68d">
+            <Label layoutX="266.0" layoutY="93.0" text="=">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="266.0" layoutY="132.0" text="=" textFill="#9da68d">
+            <Label layoutX="266.0" layoutY="132.0" text="=">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="266.0" layoutY="176.0" text="=" textFill="#9da68d">
+            <Label layoutX="266.0" layoutY="176.0" text="=">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="266.0" layoutY="220.0" text="=" textFill="#9da68d">
+            <Label layoutX="266.0" layoutY="220.0" text="=">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="48.0" text="-" textFill="#344e41">
+            <Label layoutX="201.0" layoutY="48.0" text="-">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="90.0" text="-" textFill="#344e41">
+            <Label layoutX="201.0" layoutY="90.0" text="-">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="135.0" text="-" textFill="#344e41">
+            <Label layoutX="201.0" layoutY="135.0" text="-">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="176.0" text="-" textFill="#344e41">
+            <Label layoutX="201.0" layoutY="176.0" text="-">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="201.0" layoutY="226.0" text="-" textFill="#344e41">
+            <Label layoutX="201.0" layoutY="226.0" text="-">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="51.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
+            <Label layoutX="63.0" layoutY="51.0" prefHeight="30.0" prefWidth="14.0" text="x">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="93.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
+            <Label layoutX="63.0" layoutY="93.0" prefHeight="30.0" prefWidth="14.0" text="x">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="135.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
+            <Label layoutX="63.0" layoutY="135.0" prefHeight="30.0" prefWidth="14.0" text="x">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="179.0" prefHeight="30.0" prefWidth="28.0" text="x" textFill="#67b565">
+            <Label layoutX="63.0" layoutY="179.0" prefHeight="30.0" prefWidth="28.0" text="x">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="63.0" layoutY="223.0" prefHeight="30.0" prefWidth="14.0" text="x" textFill="#67b565">
+            <Label layoutX="63.0" layoutY="223.0" prefHeight="30.0" prefWidth="14.0" text="x">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="124.0" layoutY="51.0" text="+" textFill="#588157">
+            <Label layoutX="124.0" layoutY="51.0" text="+">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="124.0" layoutY="90.0" text="+" textFill="#588157">
+            <Label layoutX="124.0" layoutY="90.0" text="+">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="124.0" layoutY="135.0" text="+" textFill="#588157">
+            <Label layoutX="124.0" layoutY="135.0" text="+">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="124.0" layoutY="179.0" text="+" textFill="#588157">
+            <Label layoutX="124.0" layoutY="179.0" text="+">
                <font>
                   <Font size="40.0" />
                </font>
             </Label>
-            <Label layoutX="124.0" layoutY="223.0" text="+" textFill="#588157">
+            <Label layoutX="124.0" layoutY="223.0" text="+">
                <font>
                   <Font size="40.0" />
                </font>
